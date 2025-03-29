@@ -1,0 +1,7 @@
+target
+.git
+.env
+.env.*
+node_modules
+data
+*.osm.pbf

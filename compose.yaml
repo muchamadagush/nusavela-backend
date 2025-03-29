@@ -1,0 +1,51 @@
+services:
+  db:
+    image: postgis/postgis:16-3.4
+    environment:
+      POSTGRES_DB: nusavela
+      POSTGRES_USER: nusavela
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-local-dev-only}
+    ports:
+      - '127.0.0.1:5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U nusavela -d nusavela']
+      interval: 5s
+      timeout: 5s
+      retries: 20
+  api:
+    build: .
+    environment:
+      DATABASE_URL: postgres://nusavela:${POSTGRES_PASSWORD:-local-dev-only}@db:5432/nusavela
+      BIND_ADDR: 0.0.0.0:8080
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:3000}
+      ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:-}
+      OPENWEATHER_API_KEY: ${OPENWEATHER_API_KEY:-}
+      RSS_ENABLED: ${RSS_ENABLED:-false}
+    ports:
+      - '127.0.0.1:8080:8080'
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ['CMD', 'curl', '--fail', '--silent', 'http://localhost:8080/readyz']
+      interval: 5s
+      timeout: 3s
+      retries: 20
+  martin:
+    image: ghcr.io/maplibre/martin:v0.15.0
+    profiles: [maps]
+    command: ['--config', '/config/martin.yaml']
+    volumes:
+      - ./martin.yaml:/config/martin.yaml:ro
+    environment:
+      DATABASE_URL: postgres://nusavela:${POSTGRES_PASSWORD:-local-dev-only}@db:5432/nusavela
+    ports:
+      - '127.0.0.1:3001:3000'
+    depends_on:
+      api:
+        condition: service_healthy
+volumes:
+  postgres_data:

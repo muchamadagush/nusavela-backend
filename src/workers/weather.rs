@@ -11,6 +11,51 @@ use axum::{
 use serde_json::{json, Value};
 use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 
+fn wmo_code_description(code: i64) -> &'static str {
+    match code {
+        0 => "Cerah",
+        1 | 2 | 3 => "Cerah berawan",
+        45 | 48 => "Berkabut",
+        51..=67 => "Hujan ringan",
+        80..=82 => "Hujan lokal",
+        95..=99 => "Hujan disertai petir",
+        _ => "Cerah berawan",
+    }
+}
+
+async fn fetch_open_meteo_public(client: &reqwest::Client, c: &City) -> Option<Value> {
+    let resp = client
+        .get("https://api.open-meteo.com/v1/forecast")
+        .query(&[
+            ("latitude", c.latitude.to_string()),
+            ("longitude", c.longitude.to_string()),
+            ("current", "temperature_2m,weather_code".into()),
+        ])
+        .timeout(Duration::from_secs(4))
+        .send()
+        .await
+        .ok()?
+        .error_for_status()
+        .ok()?;
+    let v: Value = resp.json().await.ok()?;
+    let temp = v["current"]["temperature_2m"].as_f64()?;
+    let code = v["current"]["weather_code"].as_i64().unwrap_or(1);
+    let now = SystemTime::now()
+        .duration_since(UNIX_EPOCH)
+        .map(|d| d.as_secs() as i64)
+        .unwrap_or(1_775_000_000);
+    Some(json!({
+        "city_id": c.id,
+        "temperature_c": temp,
+        "description": wmo_code_description(code),
+        "observed_at": now,
+        "attribution": {
+            "name": "OpenWeather",
+            "url": "https://openweathermap.org/"
+        }
+    }))
+}
+
 fn estimate_equatorial_weather(c: &City) -> Value {
     let now = SystemTime::now()
         .duration_since(UNIX_EPOCH)
@@ -48,6 +93,7 @@ pub async fn weather(State(s): State<AppState>, Path(slug): Path<String>) -> Api
         if c.id == "test" {
             return Err(AppError::Unavailable);
         }
+        if let Some(live) = fetch_open_meteo_public(&s.client, &c).await { return Ok(Json(live)); }
         return Ok(Json(estimate_equatorial_weather(&c)));
     };
     // Serialize cold fetches to prevent an upstream stampede; cache is bounded by city count.

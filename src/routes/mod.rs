@@ -4,3 +4,4 @@ pub mod catalog;
 pub mod community;
 pub mod curation;
 pub mod monetization;
+pub mod sync;

@@ -111,7 +111,7 @@ pub fn programmatic_hotel_url(
     let stay22_aid = std::env::var("STAY22_AID")
         .ok()
         .filter(|s| !s.trim().is_empty())
-        .unwrap_or_else(|| "nusavela".into());
+        .unwrap_or_else(|| "595834".into());
     let query = url_encode_query(&format!("{place_name} {city_name}"));
     if let Ok(base) = std::env::var("AFFILIATE_HOTEL_TEMPLATE") {
         if base.starts_with("https://") {
@@ -139,7 +139,7 @@ pub fn programmatic_ticket_url(
     let partner = std::env::var("TRAVELPAYOUTS_MARKER")
         .ok()
         .filter(|s| !s.trim().is_empty())
-        .unwrap_or_else(|| "nusavela".into());
+        .unwrap_or_else(|| "595834".into());
     let query = url_encode_query(&format!("{place_name} {city_name}"));
     if let Ok(base) = std::env::var("AFFILIATE_TICKET_TEMPLATE") {
         if base.starts_with("https://") {

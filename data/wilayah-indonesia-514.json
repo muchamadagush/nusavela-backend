@@ -1,0 +1,5300 @@
+{
+  "source": "Kemendagri & BPS Master Wilayah Administratif Indonesia (38 Provinsi, 514 Kabupaten/Kota)",
+  "version": "2026.11",
+  "provinces": [
+    {
+      "id": "11",
+      "name": "Aceh"
+    },
+    {
+      "id": "12",
+      "name": "Sumatera Utara"
+    },
+    {
+      "id": "13",
+      "name": "Sumatera Barat"
+    },
+    {
+      "id": "14",
+      "name": "Riau"
+    },
+    {
+      "id": "15",
+      "name": "Jambi"
+    },
+    {
+      "id": "16",
+      "name": "Sumatera Selatan"
+    },
+    {
+      "id": "17",
+      "name": "Bengkulu"
+    },
+    {
+      "id": "18",
+      "name": "Lampung"
+    },
+    {
+      "id": "19",
+      "name": "Kepulauan Bangka Belitung"
+    },
+    {
+      "id": "21",
+      "name": "Kepulauan Riau"
+    },
+    {
+      "id": "31",
+      "name": "DKI Jakarta"
+    },
+    {
+      "id": "32",
+      "name": "Jawa Barat"
+    },
+    {
+      "id": "33",
+      "name": "Jawa Tengah"
+    },
+    {
+      "id": "34",
+      "name": "DI Yogyakarta"
+    },
+    {
+      "id": "35",
+      "name": "Jawa Timur"
+    },
+    {
+      "id": "36",
+      "name": "Banten"
+    },
+    {
+      "id": "51",
+      "name": "Bali"
+    },
+    {
+      "id": "52",
+      "name": "Nusa Tenggara Barat"
+    },
+    {
+      "id": "53",
+      "name": "Nusa Tenggara Timur"
+    },
+    {
+      "id": "61",
+      "name": "Kalimantan Barat"
+    },
+    {
+      "id": "62",
+      "name": "Kalimantan Tengah"
+    },
+    {
+      "id": "63",
+      "name": "Kalimantan Selatan"
+    },
+    {
+      "id": "64",
+      "name": "Kalimantan Timur"
+    },
+    {
+      "id": "65",
+      "name": "Kalimantan Utara"
+    },
+    {
+      "id": "71",
+      "name": "Sulawesi Utara"
+    },
+    {
+      "id": "72",
+      "name": "Sulawesi Tengah"
+    },
+    {
+      "id": "73",
+      "name": "Sulawesi Selatan"
+    },
+    {
+      "id": "74",
+      "name": "Sulawesi Tenggara"
+    },
+    {
+      "id": "75",
+      "name": "Gorontalo"
+    },
+    {
+      "id": "76",
+      "name": "Sulawesi Barat"
+    },
+    {
+      "id": "81",
+      "name": "Maluku"
+    },
+    {
+      "id": "82",
+      "name": "Maluku Utara"
+    },
+    {
+      "id": "91",
+      "name": "Papua"
+    },
+    {
+      "id": "92",
+      "name": "Papua Barat"
+    },
+    {
+      "id": "93",
+      "name": "Papua Selatan"
+    },
+    {
+      "id": "94",
+      "name": "Papua Tengah"
+    },
+    {
+      "id": "95",
+      "name": "Papua Pegunungan"
+    },
+    {
+      "id": "96",
+      "name": "Papua Barat Daya"
+    }
+  ],
+  "cities": [
+    {
+      "id": "1101",
+      "province_id": "11",
+      "name": "Kabupaten Aceh Selatan",
+      "short_name": "Aceh Selatan",
+      "latitude": 4.3731,
+      "longitude": 96.4694,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1102",
+      "province_id": "11",
+      "name": "Kabupaten Aceh Tenggara",
+      "short_name": "Aceh Tenggara",
+      "latitude": 4.3731,
+      "longitude": 96.6094,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1103",
+      "province_id": "11",
+      "name": "Kabupaten Aceh Timur",
+      "short_name": "Aceh Timur",
+      "latitude": 4.3731,
+      "longitude": 96.7494,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1104",
+      "province_id": "11",
+      "name": "Kabupaten Aceh Tengah",
+      "short_name": "Aceh Tengah",
+      "latitude": 4.3731,
+      "longitude": 96.8894,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1105",
+      "province_id": "11",
+      "name": "Kabupaten Aceh Barat",
+      "short_name": "Aceh Barat",
+      "latitude": 4.3731,
+      "longitude": 97.0294,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1106",
+      "province_id": "11",
+      "name": "Kabupaten Aceh Besar",
+      "short_name": "Aceh Besar",
+      "latitude": 4.5131,
+      "longitude": 96.4694,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1107",
+      "province_id": "11",
+      "name": "Kabupaten Pidie",
+      "short_name": "Pidie",
+      "latitude": 4.5131,
+      "longitude": 96.6094,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1108",
+      "province_id": "11",
+      "name": "Kabupaten Aceh Utara",
+      "short_name": "Aceh Utara",
+      "latitude": 4.5131,
+      "longitude": 96.7494,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1109",
+      "province_id": "11",
+      "name": "Kabupaten Simeulue",
+      "short_name": "Simeulue",
+      "latitude": 4.5131,
+      "longitude": 96.8894,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1110",
+      "province_id": "11",
+      "name": "Kabupaten Aceh Singkil",
+      "short_name": "Aceh Singkil",
+      "latitude": 4.5131,
+      "longitude": 97.0294,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1111",
+      "province_id": "11",
+      "name": "Kabupaten Bireuen",
+      "short_name": "Bireuen",
+      "latitude": 4.6531,
+      "longitude": 96.4694,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1112",
+      "province_id": "11",
+      "name": "Kabupaten Aceh Barat Daya",
+      "short_name": "Aceh Barat Daya",
+      "latitude": 4.6531,
+      "longitude": 96.6094,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1113",
+      "province_id": "11",
+      "name": "Kabupaten Gayo Lues",
+      "short_name": "Gayo Lues",
+      "latitude": 4.6531,
+      "longitude": 96.7494,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1114",
+      "province_id": "11",
+      "name": "Kabupaten Aceh Jaya",
+      "short_name": "Aceh Jaya",
+      "latitude": 4.6531,
+      "longitude": 96.8894,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1115",
+      "province_id": "11",
+      "name": "Kabupaten Nagan Raya",
+      "short_name": "Nagan Raya",
+      "latitude": 4.6531,
+      "longitude": 97.0294,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1116",
+      "province_id": "11",
+      "name": "Kabupaten Aceh Tamiang",
+      "short_name": "Aceh Tamiang",
+      "latitude": 4.7931,
+      "longitude": 96.4694,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1117",
+      "province_id": "11",
+      "name": "Kabupaten Bener Meriah",
+      "short_name": "Bener Meriah",
+      "latitude": 4.7931,
+      "longitude": 96.6094,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1118",
+      "province_id": "11",
+      "name": "Kabupaten Pidie Jaya",
+      "short_name": "Pidie Jaya",
+      "latitude": 4.7931,
+      "longitude": 96.7494,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1189",
+      "province_id": "11",
+      "name": "Kota Banda Aceh",
+      "short_name": "Banda Aceh",
+      "latitude": 4.7931,
+      "longitude": 96.8894,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1190",
+      "province_id": "11",
+      "name": "Kota Sabang",
+      "short_name": "Sabang",
+      "latitude": 4.7931,
+      "longitude": 97.0294,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1191",
+      "province_id": "11",
+      "name": "Kota Lhokseumawe",
+      "short_name": "Lhokseumawe",
+      "latitude": 4.9331,
+      "longitude": 96.4694,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1192",
+      "province_id": "11",
+      "name": "Kota Langsa",
+      "short_name": "Langsa",
+      "latitude": 4.9331,
+      "longitude": 96.6094,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1193",
+      "province_id": "11",
+      "name": "Kota Subulussalam",
+      "short_name": "Subulussalam",
+      "latitude": 4.9331,
+      "longitude": 96.7494,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1201",
+      "province_id": "12",
+      "name": "Kabupaten Tapanuli Tengah",
+      "short_name": "Tapanuli Tengah",
+      "latitude": 1.6534,
+      "longitude": 99.2651,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1202",
+      "province_id": "12",
+      "name": "Kabupaten Tapanuli Utara",
+      "short_name": "Tapanuli Utara",
+      "latitude": 1.6534,
+      "longitude": 99.4051,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1203",
+      "province_id": "12",
+      "name": "Kabupaten Tapanuli Selatan",
+      "short_name": "Tapanuli Selatan",
+      "latitude": 1.6534,
+      "longitude": 99.5451,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1204",
+      "province_id": "12",
+      "name": "Kabupaten Nias",
+      "short_name": "Nias",
+      "latitude": 1.6534,
+      "longitude": 99.6851,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1205",
+      "province_id": "12",
+      "name": "Kabupaten Langkat",
+      "short_name": "Langkat",
+      "latitude": 1.6534,
+      "longitude": 99.8251,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1206",
+      "province_id": "12",
+      "name": "Kabupaten Karo",
+      "short_name": "Karo",
+      "latitude": 1.7934,
+      "longitude": 99.2651,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1207",
+      "province_id": "12",
+      "name": "Kabupaten Deli Serdang",
+      "short_name": "Deli Serdang",
+      "latitude": 1.7934,
+      "longitude": 99.4051,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1208",
+      "province_id": "12",
+      "name": "Kabupaten Simalungun",
+      "short_name": "Simalungun",
+      "latitude": 1.7934,
+      "longitude": 99.5451,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1209",
+      "province_id": "12",
+      "name": "Kabupaten Asahan",
+      "short_name": "Asahan",
+      "latitude": 1.7934,
+      "longitude": 99.6851,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1210",
+      "province_id": "12",
+      "name": "Kabupaten Labuhanbatu",
+      "short_name": "Labuhanbatu",
+      "latitude": 1.7934,
+      "longitude": 99.8251,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1211",
+      "province_id": "12",
+      "name": "Kabupaten Dairi",
+      "short_name": "Dairi",
+      "latitude": 1.9334,
+      "longitude": 99.2651,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1212",
+      "province_id": "12",
+      "name": "Kabupaten Toba",
+      "short_name": "Toba",
+      "latitude": 1.9334,
+      "longitude": 99.4051,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1213",
+      "province_id": "12",
+      "name": "Kabupaten Mandailing Natal",
+      "short_name": "Mandailing Natal",
+      "latitude": 1.9334,
+      "longitude": 99.5451,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1214",
+      "province_id": "12",
+      "name": "Kabupaten Nias Selatan",
+      "short_name": "Nias Selatan",
+      "latitude": 1.9334,
+      "longitude": 99.6851,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1215",
+      "province_id": "12",
+      "name": "Kabupaten Pakpak Bharat",
+      "short_name": "Pakpak Bharat",
+      "latitude": 1.9334,
+      "longitude": 99.8251,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1216",
+      "province_id": "12",
+      "name": "Kabupaten Humbang Hasundutan",
+      "short_name": "Humbang Hasundutan",
+      "latitude": 2.0734,
+      "longitude": 99.2651,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1217",
+      "province_id": "12",
+      "name": "Kabupaten Samosir",
+      "short_name": "Samosir",
+      "latitude": 2.0734,
+      "longitude": 99.4051,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1218",
+      "province_id": "12",
+      "name": "Kabupaten Serdang Bedagai",
+      "short_name": "Serdang Bedagai",
+      "latitude": 2.0734,
+      "longitude": 99.5451,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1219",
+      "province_id": "12",
+      "name": "Kabupaten Batu Bara",
+      "short_name": "Batu Bara",
+      "latitude": 2.0734,
+      "longitude": 99.6851,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1220",
+      "province_id": "12",
+      "name": "Kabupaten Padang Lawas Utara",
+      "short_name": "Padang Lawas Utara",
+      "latitude": 2.0734,
+      "longitude": 99.8251,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1221",
+      "province_id": "12",
+      "name": "Kabupaten Padang Lawas",
+      "short_name": "Padang Lawas",
+      "latitude": 2.2134,
+      "longitude": 99.2651,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1222",
+      "province_id": "12",
+      "name": "Kabupaten Labuhanbatu Selatan",
+      "short_name": "Labuhanbatu Selatan",
+      "latitude": 2.2134,
+      "longitude": 99.4051,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1223",
+      "province_id": "12",
+      "name": "Kabupaten Labuhanbatu Utara",
+      "short_name": "Labuhanbatu Utara",
+      "latitude": 2.2134,
+      "longitude": 99.5451,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1224",
+      "province_id": "12",
+      "name": "Kabupaten Nias Utara",
+      "short_name": "Nias Utara",
+      "latitude": 2.2134,
+      "longitude": 99.6851,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1225",
+      "province_id": "12",
+      "name": "Kabupaten Nias Barat",
+      "short_name": "Nias Barat",
+      "latitude": 2.2134,
+      "longitude": 99.8251,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1296",
+      "province_id": "12",
+      "name": "Kota Medan",
+      "short_name": "Medan",
+      "latitude": 3.5952,
+      "longitude": 98.6722,
+      "timezone": "Asia/Jakarta",
+      "tier": 1
+    },
+    {
+      "id": "1297",
+      "province_id": "12",
+      "name": "Kota Pematangsiantar",
+      "short_name": "Pematangsiantar",
+      "latitude": 2.3534,
+      "longitude": 99.4051,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1298",
+      "province_id": "12",
+      "name": "Kota Sibolga",
+      "short_name": "Sibolga",
+      "latitude": 2.3534,
+      "longitude": 99.5451,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1299",
+      "province_id": "12",
+      "name": "Kota Tanjungbalai",
+      "short_name": "Tanjungbalai",
+      "latitude": 2.3534,
+      "longitude": 99.6851,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "12100",
+      "province_id": "12",
+      "name": "Kota Binjai",
+      "short_name": "Binjai",
+      "latitude": 2.3534,
+      "longitude": 99.8251,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "12101",
+      "province_id": "12",
+      "name": "Kota Tebing Tinggi",
+      "short_name": "Tebing Tinggi",
+      "latitude": 2.4934,
+      "longitude": 99.2651,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "12102",
+      "province_id": "12",
+      "name": "Kota Padangsidimpuan",
+      "short_name": "Padangsidimpuan",
+      "latitude": 2.4934,
+      "longitude": 99.4051,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "12103",
+      "province_id": "12",
+      "name": "Kota Gunungsitoli",
+      "short_name": "Gunungsitoli",
+      "latitude": 2.4934,
+      "longitude": 99.5451,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1301",
+      "province_id": "13",
+      "name": "Kabupaten Pesisir Selatan",
+      "short_name": "Pesisir Selatan",
+      "latitude": -1.0059,
+      "longitude": 100.52,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1302",
+      "province_id": "13",
+      "name": "Kabupaten Solok",
+      "short_name": "Solok",
+      "latitude": -1.0059,
+      "longitude": 100.66,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1303",
+      "province_id": "13",
+      "name": "Kabupaten Sijunjung",
+      "short_name": "Sijunjung",
+      "latitude": -1.0059,
+      "longitude": 100.8,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1304",
+      "province_id": "13",
+      "name": "Kabupaten Tanah Datar",
+      "short_name": "Tanah Datar",
+      "latitude": -1.0059,
+      "longitude": 100.94,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1305",
+      "province_id": "13",
+      "name": "Kabupaten Padang Pariaman",
+      "short_name": "Padang Pariaman",
+      "latitude": -1.0059,
+      "longitude": 101.08,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1306",
+      "province_id": "13",
+      "name": "Kabupaten Agam",
+      "short_name": "Agam",
+      "latitude": -0.8659,
+      "longitude": 100.52,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1307",
+      "province_id": "13",
+      "name": "Kabupaten Lima Puluh Kota",
+      "short_name": "Lima Puluh Kota",
+      "latitude": -0.8659,
+      "longitude": 100.66,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1308",
+      "province_id": "13",
+      "name": "Kabupaten Pasaman",
+      "short_name": "Pasaman",
+      "latitude": -0.8659,
+      "longitude": 100.8,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1309",
+      "province_id": "13",
+      "name": "Kabupaten Kepulauan Mentawai",
+      "short_name": "Kepulauan Mentawai",
+      "latitude": -0.8659,
+      "longitude": 100.94,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1310",
+      "province_id": "13",
+      "name": "Kabupaten Dharmasraya",
+      "short_name": "Dharmasraya",
+      "latitude": -0.8659,
+      "longitude": 101.08,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1311",
+      "province_id": "13",
+      "name": "Kabupaten Solok Selatan",
+      "short_name": "Solok Selatan",
+      "latitude": -0.7259,
+      "longitude": 100.52,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1312",
+      "province_id": "13",
+      "name": "Kabupaten Pasaman Barat",
+      "short_name": "Pasaman Barat",
+      "latitude": -0.7259,
+      "longitude": 100.66,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1383",
+      "province_id": "13",
+      "name": "Kota Padang",
+      "short_name": "Padang",
+      "latitude": -0.7259,
+      "longitude": 100.8,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1384",
+      "province_id": "13",
+      "name": "Kota Solok",
+      "short_name": "Solok",
+      "latitude": -0.7259,
+      "longitude": 100.94,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1385",
+      "province_id": "13",
+      "name": "Kota Sawahlunto",
+      "short_name": "Sawahlunto",
+      "latitude": -0.7259,
+      "longitude": 101.08,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1386",
+      "province_id": "13",
+      "name": "Kota Padang Panjang",
+      "short_name": "Padang Panjang",
+      "latitude": -0.5859,
+      "longitude": 100.52,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1387",
+      "province_id": "13",
+      "name": "Kota Bukittinggi",
+      "short_name": "Bukittinggi",
+      "latitude": -0.5859,
+      "longitude": 100.66,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1388",
+      "province_id": "13",
+      "name": "Kota Payakumbuh",
+      "short_name": "Payakumbuh",
+      "latitude": -0.5859,
+      "longitude": 100.8,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1389",
+      "province_id": "13",
+      "name": "Kota Pariaman",
+      "short_name": "Pariaman",
+      "latitude": -0.5859,
+      "longitude": 100.94,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1401",
+      "province_id": "14",
+      "name": "Kabupaten Kampar",
+      "short_name": "Kampar",
+      "latitude": 0.1253,
+      "longitude": 101.4268,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1402",
+      "province_id": "14",
+      "name": "Kabupaten Indragiri Hulu",
+      "short_name": "Indragiri Hulu",
+      "latitude": 0.1253,
+      "longitude": 101.5668,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1403",
+      "province_id": "14",
+      "name": "Kabupaten Bengkalis",
+      "short_name": "Bengkalis",
+      "latitude": 0.1253,
+      "longitude": 101.7068,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1404",
+      "province_id": "14",
+      "name": "Kabupaten Indragiri Hilir",
+      "short_name": "Indragiri Hilir",
+      "latitude": 0.1253,
+      "longitude": 101.8468,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1405",
+      "province_id": "14",
+      "name": "Kabupaten Pelalawan",
+      "short_name": "Pelalawan",
+      "latitude": 0.1253,
+      "longitude": 101.9868,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1406",
+      "province_id": "14",
+      "name": "Kabupaten Rokan Hulu",
+      "short_name": "Rokan Hulu",
+      "latitude": 0.2653,
+      "longitude": 101.4268,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1407",
+      "province_id": "14",
+      "name": "Kabupaten Rokan Hilir",
+      "short_name": "Rokan Hilir",
+      "latitude": 0.2653,
+      "longitude": 101.5668,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1408",
+      "province_id": "14",
+      "name": "Kabupaten Siak",
+      "short_name": "Siak",
+      "latitude": 0.2653,
+      "longitude": 101.7068,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1409",
+      "province_id": "14",
+      "name": "Kabupaten Kuantan Singingi",
+      "short_name": "Kuantan Singingi",
+      "latitude": 0.2653,
+      "longitude": 101.8468,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1410",
+      "province_id": "14",
+      "name": "Kabupaten Kepulauan Meranti",
+      "short_name": "Kepulauan Meranti",
+      "latitude": 0.2653,
+      "longitude": 101.9868,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1481",
+      "province_id": "14",
+      "name": "Kota Pekanbaru",
+      "short_name": "Pekanbaru",
+      "latitude": 0.4053,
+      "longitude": 101.4268,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1482",
+      "province_id": "14",
+      "name": "Kota Dumai",
+      "short_name": "Dumai",
+      "latitude": 0.4053,
+      "longitude": 101.5668,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1501",
+      "province_id": "15",
+      "name": "Kabupaten Kerinci",
+      "short_name": "Kerinci",
+      "latitude": -1.7641,
+      "longitude": 103.3331,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1502",
+      "province_id": "15",
+      "name": "Kabupaten Merangin",
+      "short_name": "Merangin",
+      "latitude": -1.7641,
+      "longitude": 103.4731,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1503",
+      "province_id": "15",
+      "name": "Kabupaten Sarolangun",
+      "short_name": "Sarolangun",
+      "latitude": -1.7641,
+      "longitude": 103.6131,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1504",
+      "province_id": "15",
+      "name": "Kabupaten Batanghari",
+      "short_name": "Batanghari",
+      "latitude": -1.7641,
+      "longitude": 103.7531,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1505",
+      "province_id": "15",
+      "name": "Kabupaten Muaro Jambi",
+      "short_name": "Muaro Jambi",
+      "latitude": -1.7641,
+      "longitude": 103.8931,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1506",
+      "province_id": "15",
+      "name": "Kabupaten Tanjung Jabung Barat",
+      "short_name": "Tanjung Jabung Barat",
+      "latitude": -1.6241,
+      "longitude": 103.3331,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1507",
+      "province_id": "15",
+      "name": "Kabupaten Tanjung Jabung Timur",
+      "short_name": "Tanjung Jabung Timur",
+      "latitude": -1.6241,
+      "longitude": 103.4731,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1508",
+      "province_id": "15",
+      "name": "Kabupaten Bungo",
+      "short_name": "Bungo",
+      "latitude": -1.6241,
+      "longitude": 103.6131,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1509",
+      "province_id": "15",
+      "name": "Kabupaten Tebo",
+      "short_name": "Tebo",
+      "latitude": -1.6241,
+      "longitude": 103.7531,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1580",
+      "province_id": "15",
+      "name": "Kota Jambi",
+      "short_name": "Jambi",
+      "latitude": -1.6241,
+      "longitude": 103.8931,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1581",
+      "province_id": "15",
+      "name": "Kota Sungai Penuh",
+      "short_name": "Sungai Penuh",
+      "latitude": -1.4841,
+      "longitude": 103.3331,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1601",
+      "province_id": "16",
+      "name": "Kabupaten Ogan Komering Ulu",
+      "short_name": "Ogan Komering Ulu",
+      "latitude": -3.5574,
+      "longitude": 104.6344,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1602",
+      "province_id": "16",
+      "name": "Kabupaten Ogan Komering Ilir",
+      "short_name": "Ogan Komering Ilir",
+      "latitude": -3.5574,
+      "longitude": 104.7744,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1603",
+      "province_id": "16",
+      "name": "Kabupaten Muara Enim",
+      "short_name": "Muara Enim",
+      "latitude": -3.5574,
+      "longitude": 104.9144,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1604",
+      "province_id": "16",
+      "name": "Kabupaten Lahat",
+      "short_name": "Lahat",
+      "latitude": -3.5574,
+      "longitude": 105.0544,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1605",
+      "province_id": "16",
+      "name": "Kabupaten Musi Rawas",
+      "short_name": "Musi Rawas",
+      "latitude": -3.5574,
+      "longitude": 105.1944,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1606",
+      "province_id": "16",
+      "name": "Kabupaten Musi Banyuasin",
+      "short_name": "Musi Banyuasin",
+      "latitude": -3.4174,
+      "longitude": 104.6344,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1607",
+      "province_id": "16",
+      "name": "Kabupaten Banyuasin",
+      "short_name": "Banyuasin",
+      "latitude": -3.4174,
+      "longitude": 104.7744,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1608",
+      "province_id": "16",
+      "name": "Kabupaten Ogan Komering Ulu Timur",
+      "short_name": "Ogan Komering Ulu Timur",
+      "latitude": -3.4174,
+      "longitude": 104.9144,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1609",
+      "province_id": "16",
+      "name": "Kabupaten Ogan Komering Ulu Selatan",
+      "short_name": "Ogan Komering Ulu Selatan",
+      "latitude": -3.4174,
+      "longitude": 105.0544,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1610",
+      "province_id": "16",
+      "name": "Kabupaten Ogan Ilir",
+      "short_name": "Ogan Ilir",
+      "latitude": -3.4174,
+      "longitude": 105.1944,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1611",
+      "province_id": "16",
+      "name": "Kabupaten Empat Lawang",
+      "short_name": "Empat Lawang",
+      "latitude": -3.2774,
+      "longitude": 104.6344,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1612",
+      "province_id": "16",
+      "name": "Kabupaten Penukal Abab Lematang Ilir",
+      "short_name": "Penukal Abab Lematang Ilir",
+      "latitude": -3.2774,
+      "longitude": 104.7744,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1613",
+      "province_id": "16",
+      "name": "Kabupaten Musi Rawas Utara",
+      "short_name": "Musi Rawas Utara",
+      "latitude": -3.2774,
+      "longitude": 104.9144,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1684",
+      "province_id": "16",
+      "name": "Kota Palembang",
+      "short_name": "Palembang",
+      "latitude": -3.2774,
+      "longitude": 105.0544,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1685",
+      "province_id": "16",
+      "name": "Kota Pagar Alam",
+      "short_name": "Pagar Alam",
+      "latitude": -3.2774,
+      "longitude": 105.1944,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1686",
+      "province_id": "16",
+      "name": "Kota Lubuklinggau",
+      "short_name": "Lubuklinggau",
+      "latitude": -3.1374,
+      "longitude": 104.6344,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1687",
+      "province_id": "16",
+      "name": "Kota Prabumulih",
+      "short_name": "Prabumulih",
+      "latitude": -3.1374,
+      "longitude": 104.7744,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1701",
+      "province_id": "17",
+      "name": "Kabupaten Bengkulu Selatan",
+      "short_name": "Bengkulu Selatan",
+      "latitude": -3.9328,
+      "longitude": 101.9808,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1702",
+      "province_id": "17",
+      "name": "Kabupaten Rejang Lebong",
+      "short_name": "Rejang Lebong",
+      "latitude": -3.9328,
+      "longitude": 102.1208,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1703",
+      "province_id": "17",
+      "name": "Kabupaten Bengkulu Utara",
+      "short_name": "Bengkulu Utara",
+      "latitude": -3.9328,
+      "longitude": 102.2608,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1704",
+      "province_id": "17",
+      "name": "Kabupaten Kaur",
+      "short_name": "Kaur",
+      "latitude": -3.9328,
+      "longitude": 102.4008,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1705",
+      "province_id": "17",
+      "name": "Kabupaten Seluma",
+      "short_name": "Seluma",
+      "latitude": -3.9328,
+      "longitude": 102.5408,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1706",
+      "province_id": "17",
+      "name": "Kabupaten Mukomuko",
+      "short_name": "Mukomuko",
+      "latitude": -3.7928,
+      "longitude": 101.9808,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1707",
+      "province_id": "17",
+      "name": "Kabupaten Lebong",
+      "short_name": "Lebong",
+      "latitude": -3.7928,
+      "longitude": 102.1208,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1708",
+      "province_id": "17",
+      "name": "Kabupaten Kepahiang",
+      "short_name": "Kepahiang",
+      "latitude": -3.7928,
+      "longitude": 102.2608,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1709",
+      "province_id": "17",
+      "name": "Kabupaten Bengkulu Tengah",
+      "short_name": "Bengkulu Tengah",
+      "latitude": -3.7928,
+      "longitude": 102.4008,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1780",
+      "province_id": "17",
+      "name": "Kota Bengkulu",
+      "short_name": "Bengkulu",
+      "latitude": -3.7928,
+      "longitude": 102.5408,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1801",
+      "province_id": "18",
+      "name": "Kabupaten Lampung Selatan",
+      "short_name": "Lampung Selatan",
+      "latitude": -4.7686,
+      "longitude": 105.1268,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1802",
+      "province_id": "18",
+      "name": "Kabupaten Lampung Tengah",
+      "short_name": "Lampung Tengah",
+      "latitude": -4.7686,
+      "longitude": 105.2668,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1803",
+      "province_id": "18",
+      "name": "Kabupaten Lampung Utara",
+      "short_name": "Lampung Utara",
+      "latitude": -4.7686,
+      "longitude": 105.4068,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1804",
+      "province_id": "18",
+      "name": "Kabupaten Lampung Barat",
+      "short_name": "Lampung Barat",
+      "latitude": -4.7686,
+      "longitude": 105.5468,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1805",
+      "province_id": "18",
+      "name": "Kabupaten Tulang Bawang",
+      "short_name": "Tulang Bawang",
+      "latitude": -4.7686,
+      "longitude": 105.6868,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1806",
+      "province_id": "18",
+      "name": "Kabupaten Tanggamus",
+      "short_name": "Tanggamus",
+      "latitude": -4.6286,
+      "longitude": 105.1268,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1807",
+      "province_id": "18",
+      "name": "Kabupaten Lampung Timur",
+      "short_name": "Lampung Timur",
+      "latitude": -4.6286,
+      "longitude": 105.2668,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1808",
+      "province_id": "18",
+      "name": "Kabupaten Way Kanan",
+      "short_name": "Way Kanan",
+      "latitude": -4.6286,
+      "longitude": 105.4068,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1809",
+      "province_id": "18",
+      "name": "Kabupaten Pesawaran",
+      "short_name": "Pesawaran",
+      "latitude": -4.6286,
+      "longitude": 105.5468,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1810",
+      "province_id": "18",
+      "name": "Kabupaten Pringsewu",
+      "short_name": "Pringsewu",
+      "latitude": -4.6286,
+      "longitude": 105.6868,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1811",
+      "province_id": "18",
+      "name": "Kabupaten Mesuji",
+      "short_name": "Mesuji",
+      "latitude": -4.4886,
+      "longitude": 105.1268,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1812",
+      "province_id": "18",
+      "name": "Kabupaten Tulang Bawang Barat",
+      "short_name": "Tulang Bawang Barat",
+      "latitude": -4.4886,
+      "longitude": 105.2668,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1813",
+      "province_id": "18",
+      "name": "Kabupaten Pesisir Barat",
+      "short_name": "Pesisir Barat",
+      "latitude": -4.4886,
+      "longitude": 105.4068,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1884",
+      "province_id": "18",
+      "name": "Kota Bandar Lampung",
+      "short_name": "Bandar Lampung",
+      "latitude": -4.4886,
+      "longitude": 105.5468,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1885",
+      "province_id": "18",
+      "name": "Kota Metro",
+      "short_name": "Metro",
+      "latitude": -4.4886,
+      "longitude": 105.6868,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1901",
+      "province_id": "19",
+      "name": "Kabupaten Bangka",
+      "short_name": "Bangka",
+      "latitude": -2.8391,
+      "longitude": 106.1606,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1902",
+      "province_id": "19",
+      "name": "Kabupaten Belitung",
+      "short_name": "Belitung",
+      "latitude": -2.8391,
+      "longitude": 106.3006,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1903",
+      "province_id": "19",
+      "name": "Kabupaten Bangka Selatan",
+      "short_name": "Bangka Selatan",
+      "latitude": -2.8391,
+      "longitude": 106.4406,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1904",
+      "province_id": "19",
+      "name": "Kabupaten Bangka Tengah",
+      "short_name": "Bangka Tengah",
+      "latitude": -2.8391,
+      "longitude": 106.5806,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1905",
+      "province_id": "19",
+      "name": "Kabupaten Bangka Barat",
+      "short_name": "Bangka Barat",
+      "latitude": -2.8391,
+      "longitude": 106.7206,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1906",
+      "province_id": "19",
+      "name": "Kabupaten Belitung Timur",
+      "short_name": "Belitung Timur",
+      "latitude": -2.6991,
+      "longitude": 106.1606,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "1977",
+      "province_id": "19",
+      "name": "Kota Pangkalpinang",
+      "short_name": "Pangkalpinang",
+      "latitude": -2.6991,
+      "longitude": 106.3006,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "2101",
+      "province_id": "21",
+      "name": "Kabupaten Bintan",
+      "short_name": "Bintan",
+      "latitude": 3.8477,
+      "longitude": 107.8629,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "2102",
+      "province_id": "21",
+      "name": "Kabupaten Karimun",
+      "short_name": "Karimun",
+      "latitude": 3.8477,
+      "longitude": 108.0029,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "2103",
+      "province_id": "21",
+      "name": "Kabupaten Natuna",
+      "short_name": "Natuna",
+      "latitude": 3.8477,
+      "longitude": 108.1429,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "2104",
+      "province_id": "21",
+      "name": "Kabupaten Lingga",
+      "short_name": "Lingga",
+      "latitude": 3.8477,
+      "longitude": 108.2829,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "2105",
+      "province_id": "21",
+      "name": "Kabupaten Kepulauan Anambas",
+      "short_name": "Kepulauan Anambas",
+      "latitude": 3.8477,
+      "longitude": 108.4229,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "2176",
+      "province_id": "21",
+      "name": "Kota Batam",
+      "short_name": "Batam",
+      "latitude": 3.9877,
+      "longitude": 107.8629,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "2177",
+      "province_id": "21",
+      "name": "Kota Tanjungpinang",
+      "short_name": "Tanjungpinang",
+      "latitude": 3.9877,
+      "longitude": 108.0029,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3101",
+      "province_id": "31",
+      "name": "Kabupaten Administrasi Kepulauan Seribu",
+      "short_name": "Kepulauan Seribu",
+      "latitude": -6.2928,
+      "longitude": 106.5656,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3172",
+      "province_id": "31",
+      "name": "Kota Administrasi Jakarta Pusat",
+      "short_name": "Jakarta Pusat",
+      "latitude": -6.1805,
+      "longitude": 106.8284,
+      "timezone": "Asia/Jakarta",
+      "tier": 1
+    },
+    {
+      "id": "3173",
+      "province_id": "31",
+      "name": "Kota Administrasi Jakarta Utara",
+      "short_name": "Jakarta Utara",
+      "latitude": -6.2928,
+      "longitude": 106.8456,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3174",
+      "province_id": "31",
+      "name": "Kota Administrasi Jakarta Barat",
+      "short_name": "Jakarta Barat",
+      "latitude": -6.2928,
+      "longitude": 106.9856,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3175",
+      "province_id": "31",
+      "name": "Kota Administrasi Jakarta Selatan",
+      "short_name": "Jakarta Selatan",
+      "latitude": -6.2928,
+      "longitude": 107.1256,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3176",
+      "province_id": "31",
+      "name": "Kota Administrasi Jakarta Timur",
+      "short_name": "Jakarta Timur",
+      "latitude": -6.1528,
+      "longitude": 106.5656,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3201",
+      "province_id": "32",
+      "name": "Kabupaten Bogor",
+      "short_name": "Bogor",
+      "latitude": -7.2927,
+      "longitude": 107.3298,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3202",
+      "province_id": "32",
+      "name": "Kabupaten Sukabumi",
+      "short_name": "Sukabumi",
+      "latitude": -7.2927,
+      "longitude": 107.4698,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3203",
+      "province_id": "32",
+      "name": "Kabupaten Cianjur",
+      "short_name": "Cianjur",
+      "latitude": -7.2927,
+      "longitude": 107.6098,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3204",
+      "province_id": "32",
+      "name": "Kabupaten Bandung",
+      "short_name": "Bandung",
+      "latitude": -7.2927,
+      "longitude": 107.7498,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3205",
+      "province_id": "32",
+      "name": "Kabupaten Garut",
+      "short_name": "Garut",
+      "latitude": -7.2927,
+      "longitude": 107.8898,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3206",
+      "province_id": "32",
+      "name": "Kabupaten Tasikmalaya",
+      "short_name": "Tasikmalaya",
+      "latitude": -7.1527,
+      "longitude": 107.3298,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3207",
+      "province_id": "32",
+      "name": "Kabupaten Ciamis",
+      "short_name": "Ciamis",
+      "latitude": -7.1527,
+      "longitude": 107.4698,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3208",
+      "province_id": "32",
+      "name": "Kabupaten Kuningan",
+      "short_name": "Kuningan",
+      "latitude": -7.1527,
+      "longitude": 107.6098,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3209",
+      "province_id": "32",
+      "name": "Kabupaten Cirebon",
+      "short_name": "Cirebon",
+      "latitude": -7.1527,
+      "longitude": 107.7498,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3210",
+      "province_id": "32",
+      "name": "Kabupaten Majalengka",
+      "short_name": "Majalengka",
+      "latitude": -7.1527,
+      "longitude": 107.8898,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3211",
+      "province_id": "32",
+      "name": "Kabupaten Sumedang",
+      "short_name": "Sumedang",
+      "latitude": -7.0127,
+      "longitude": 107.3298,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3212",
+      "province_id": "32",
+      "name": "Kabupaten Indramayu",
+      "short_name": "Indramayu",
+      "latitude": -7.0127,
+      "longitude": 107.4698,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3213",
+      "province_id": "32",
+      "name": "Kabupaten Subang",
+      "short_name": "Subang",
+      "latitude": -7.0127,
+      "longitude": 107.6098,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3214",
+      "province_id": "32",
+      "name": "Kabupaten Purwakarta",
+      "short_name": "Purwakarta",
+      "latitude": -7.0127,
+      "longitude": 107.7498,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3215",
+      "province_id": "32",
+      "name": "Kabupaten Karawang",
+      "short_name": "Karawang",
+      "latitude": -7.0127,
+      "longitude": 107.8898,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3216",
+      "province_id": "32",
+      "name": "Kabupaten Bekasi",
+      "short_name": "Bekasi",
+      "latitude": -6.8727,
+      "longitude": 107.3298,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3217",
+      "province_id": "32",
+      "name": "Kabupaten Bandung Barat",
+      "short_name": "Bandung Barat",
+      "latitude": -6.8727,
+      "longitude": 107.4698,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3218",
+      "province_id": "32",
+      "name": "Kabupaten Pangandaran",
+      "short_name": "Pangandaran",
+      "latitude": -6.8727,
+      "longitude": 107.6098,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3289",
+      "province_id": "32",
+      "name": "Kota Bogor",
+      "short_name": "Bogor",
+      "latitude": -6.8727,
+      "longitude": 107.7498,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3290",
+      "province_id": "32",
+      "name": "Kota Sukabumi",
+      "short_name": "Sukabumi",
+      "latitude": -6.8727,
+      "longitude": 107.8898,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3291",
+      "province_id": "32",
+      "name": "Kota Bandung",
+      "short_name": "Bandung",
+      "latitude": -6.9147,
+      "longitude": 107.6098,
+      "timezone": "Asia/Jakarta",
+      "tier": 1
+    },
+    {
+      "id": "3292",
+      "province_id": "32",
+      "name": "Kota Cirebon",
+      "short_name": "Cirebon",
+      "latitude": -6.7327,
+      "longitude": 107.4698,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3293",
+      "province_id": "32",
+      "name": "Kota Bekasi",
+      "short_name": "Bekasi",
+      "latitude": -6.7327,
+      "longitude": 107.6098,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3294",
+      "province_id": "32",
+      "name": "Kota Depok",
+      "short_name": "Depok",
+      "latitude": -6.7327,
+      "longitude": 107.7498,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3295",
+      "province_id": "32",
+      "name": "Kota Cimahi",
+      "short_name": "Cimahi",
+      "latitude": -6.7327,
+      "longitude": 107.8898,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3296",
+      "province_id": "32",
+      "name": "Kota Tasikmalaya",
+      "short_name": "Tasikmalaya",
+      "latitude": -6.5927,
+      "longitude": 107.3298,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3297",
+      "province_id": "32",
+      "name": "Kota Banjar",
+      "short_name": "Banjar",
+      "latitude": -6.5927,
+      "longitude": 107.4698,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3301",
+      "province_id": "33",
+      "name": "Kabupaten Cilacap",
+      "short_name": "Cilacap",
+      "latitude": -7.641,
+      "longitude": 109.8603,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3302",
+      "province_id": "33",
+      "name": "Kabupaten Banyumas",
+      "short_name": "Banyumas",
+      "latitude": -7.641,
+      "longitude": 110.0003,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3303",
+      "province_id": "33",
+      "name": "Kabupaten Purbalingga",
+      "short_name": "Purbalingga",
+      "latitude": -7.641,
+      "longitude": 110.1403,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3304",
+      "province_id": "33",
+      "name": "Kabupaten Banjarnegara",
+      "short_name": "Banjarnegara",
+      "latitude": -7.641,
+      "longitude": 110.2803,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3305",
+      "province_id": "33",
+      "name": "Kabupaten Kebumen",
+      "short_name": "Kebumen",
+      "latitude": -7.641,
+      "longitude": 110.4203,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3306",
+      "province_id": "33",
+      "name": "Kabupaten Purworejo",
+      "short_name": "Purworejo",
+      "latitude": -7.501,
+      "longitude": 109.8603,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3307",
+      "province_id": "33",
+      "name": "Kabupaten Wonosobo",
+      "short_name": "Wonosobo",
+      "latitude": -7.501,
+      "longitude": 110.0003,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3308",
+      "province_id": "33",
+      "name": "Kabupaten Magelang",
+      "short_name": "Magelang",
+      "latitude": -7.501,
+      "longitude": 110.1403,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3309",
+      "province_id": "33",
+      "name": "Kabupaten Boyolali",
+      "short_name": "Boyolali",
+      "latitude": -7.501,
+      "longitude": 110.2803,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3310",
+      "province_id": "33",
+      "name": "Kabupaten Klaten",
+      "short_name": "Klaten",
+      "latitude": -7.501,
+      "longitude": 110.4203,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3311",
+      "province_id": "33",
+      "name": "Kabupaten Sukoharjo",
+      "short_name": "Sukoharjo",
+      "latitude": -7.361,
+      "longitude": 109.8603,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3312",
+      "province_id": "33",
+      "name": "Kabupaten Wonogiri",
+      "short_name": "Wonogiri",
+      "latitude": -7.361,
+      "longitude": 110.0003,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3313",
+      "province_id": "33",
+      "name": "Kabupaten Karanganyar",
+      "short_name": "Karanganyar",
+      "latitude": -7.361,
+      "longitude": 110.1403,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3314",
+      "province_id": "33",
+      "name": "Kabupaten Sragen",
+      "short_name": "Sragen",
+      "latitude": -7.4265,
+      "longitude": 111.0221,
+      "timezone": "Asia/Jakarta",
+      "tier": 1
+    },
+    {
+      "id": "3315",
+      "province_id": "33",
+      "name": "Kabupaten Grobogan",
+      "short_name": "Grobogan",
+      "latitude": -7.361,
+      "longitude": 110.4203,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3316",
+      "province_id": "33",
+      "name": "Kabupaten Blora",
+      "short_name": "Blora",
+      "latitude": -7.221,
+      "longitude": 109.8603,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3317",
+      "province_id": "33",
+      "name": "Kabupaten Rembang",
+      "short_name": "Rembang",
+      "latitude": -7.221,
+      "longitude": 110.0003,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3318",
+      "province_id": "33",
+      "name": "Kabupaten Pati",
+      "short_name": "Pati",
+      "latitude": -7.221,
+      "longitude": 110.1403,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3319",
+      "province_id": "33",
+      "name": "Kabupaten Kudus",
+      "short_name": "Kudus",
+      "latitude": -7.221,
+      "longitude": 110.2803,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3320",
+      "province_id": "33",
+      "name": "Kabupaten Jepara",
+      "short_name": "Jepara",
+      "latitude": -7.221,
+      "longitude": 110.4203,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3321",
+      "province_id": "33",
+      "name": "Kabupaten Demak",
+      "short_name": "Demak",
+      "latitude": -7.081,
+      "longitude": 109.8603,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3322",
+      "province_id": "33",
+      "name": "Kabupaten Semarang",
+      "short_name": "Semarang",
+      "latitude": -7.081,
+      "longitude": 110.0003,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3323",
+      "province_id": "33",
+      "name": "Kabupaten Temanggung",
+      "short_name": "Temanggung",
+      "latitude": -7.081,
+      "longitude": 110.1403,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3324",
+      "province_id": "33",
+      "name": "Kabupaten Kendal",
+      "short_name": "Kendal",
+      "latitude": -7.081,
+      "longitude": 110.2803,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3325",
+      "province_id": "33",
+      "name": "Kabupaten Batang",
+      "short_name": "Batang",
+      "latitude": -7.081,
+      "longitude": 110.4203,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3326",
+      "province_id": "33",
+      "name": "Kabupaten Pekalongan",
+      "short_name": "Pekalongan",
+      "latitude": -6.941,
+      "longitude": 109.8603,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3327",
+      "province_id": "33",
+      "name": "Kabupaten Pemalang",
+      "short_name": "Pemalang",
+      "latitude": -6.941,
+      "longitude": 110.0003,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3328",
+      "province_id": "33",
+      "name": "Kabupaten Tegal",
+      "short_name": "Tegal",
+      "latitude": -6.941,
+      "longitude": 110.1403,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3329",
+      "province_id": "33",
+      "name": "Kabupaten Brebes",
+      "short_name": "Brebes",
+      "latitude": -6.941,
+      "longitude": 110.2803,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "33100",
+      "province_id": "33",
+      "name": "Kota Magelang",
+      "short_name": "Magelang",
+      "latitude": -6.941,
+      "longitude": 110.4203,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "33101",
+      "province_id": "33",
+      "name": "Kota Surakarta",
+      "short_name": "Surakarta",
+      "latitude": -7.5755,
+      "longitude": 110.8243,
+      "timezone": "Asia/Jakarta",
+      "tier": 1
+    },
+    {
+      "id": "33102",
+      "province_id": "33",
+      "name": "Kota Salatiga",
+      "short_name": "Salatiga",
+      "latitude": -6.801,
+      "longitude": 110.0003,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "33103",
+      "province_id": "33",
+      "name": "Kota Semarang",
+      "short_name": "Semarang",
+      "latitude": -6.9667,
+      "longitude": 110.4167,
+      "timezone": "Asia/Jakarta",
+      "tier": 1
+    },
+    {
+      "id": "33104",
+      "province_id": "33",
+      "name": "Kota Pekalongan",
+      "short_name": "Pekalongan",
+      "latitude": -6.801,
+      "longitude": 110.2803,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "33105",
+      "province_id": "33",
+      "name": "Kota Tegal",
+      "short_name": "Tegal",
+      "latitude": -6.801,
+      "longitude": 110.4203,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3401",
+      "province_id": "34",
+      "name": "Kabupaten Kulon Progo",
+      "short_name": "Kulon Progo",
+      "latitude": -7.8656,
+      "longitude": 110.0895,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3402",
+      "province_id": "34",
+      "name": "Kabupaten Bantul",
+      "short_name": "Bantul",
+      "latitude": -7.8656,
+      "longitude": 110.2295,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3403",
+      "province_id": "34",
+      "name": "Kabupaten Gunungkidul",
+      "short_name": "Gunungkidul",
+      "latitude": -7.8656,
+      "longitude": 110.3695,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3404",
+      "province_id": "34",
+      "name": "Kabupaten Sleman",
+      "short_name": "Sleman",
+      "latitude": -7.7156,
+      "longitude": 110.3556,
+      "timezone": "Asia/Jakarta",
+      "tier": 1
+    },
+    {
+      "id": "3475",
+      "province_id": "34",
+      "name": "Kota Yogyakarta",
+      "short_name": "Yogyakarta",
+      "latitude": -7.7956,
+      "longitude": 110.3695,
+      "timezone": "Asia/Jakarta",
+      "tier": 1
+    },
+    {
+      "id": "3501",
+      "province_id": "35",
+      "name": "Kabupaten Pacitan",
+      "short_name": "Pacitan",
+      "latitude": -8.0681,
+      "longitude": 111.9584,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3502",
+      "province_id": "35",
+      "name": "Kabupaten Ponorogo",
+      "short_name": "Ponorogo",
+      "latitude": -8.0681,
+      "longitude": 112.0984,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3503",
+      "province_id": "35",
+      "name": "Kabupaten Trenggalek",
+      "short_name": "Trenggalek",
+      "latitude": -8.0681,
+      "longitude": 112.2384,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3504",
+      "province_id": "35",
+      "name": "Kabupaten Tulungagung",
+      "short_name": "Tulungagung",
+      "latitude": -8.0681,
+      "longitude": 112.3784,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3505",
+      "province_id": "35",
+      "name": "Kabupaten Blitar",
+      "short_name": "Blitar",
+      "latitude": -8.0681,
+      "longitude": 112.5184,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3506",
+      "province_id": "35",
+      "name": "Kabupaten Kediri",
+      "short_name": "Kediri",
+      "latitude": -7.9281,
+      "longitude": 111.9584,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3507",
+      "province_id": "35",
+      "name": "Kabupaten Malang",
+      "short_name": "Malang",
+      "latitude": -7.9281,
+      "longitude": 112.0984,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3508",
+      "province_id": "35",
+      "name": "Kabupaten Lumajang",
+      "short_name": "Lumajang",
+      "latitude": -7.9281,
+      "longitude": 112.2384,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3509",
+      "province_id": "35",
+      "name": "Kabupaten Jember",
+      "short_name": "Jember",
+      "latitude": -7.9281,
+      "longitude": 112.3784,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3510",
+      "province_id": "35",
+      "name": "Kabupaten Banyuwangi",
+      "short_name": "Banyuwangi",
+      "latitude": -8.2192,
+      "longitude": 114.3691,
+      "timezone": "Asia/Jakarta",
+      "tier": 1
+    },
+    {
+      "id": "3511",
+      "province_id": "35",
+      "name": "Kabupaten Bondowoso",
+      "short_name": "Bondowoso",
+      "latitude": -7.7881,
+      "longitude": 111.9584,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3512",
+      "province_id": "35",
+      "name": "Kabupaten Situbondo",
+      "short_name": "Situbondo",
+      "latitude": -7.7881,
+      "longitude": 112.0984,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3513",
+      "province_id": "35",
+      "name": "Kabupaten Probolinggo",
+      "short_name": "Probolinggo",
+      "latitude": -7.7881,
+      "longitude": 112.2384,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3514",
+      "province_id": "35",
+      "name": "Kabupaten Pasuruan",
+      "short_name": "Pasuruan",
+      "latitude": -7.7881,
+      "longitude": 112.3784,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3515",
+      "province_id": "35",
+      "name": "Kabupaten Sidoarjo",
+      "short_name": "Sidoarjo",
+      "latitude": -7.7881,
+      "longitude": 112.5184,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3516",
+      "province_id": "35",
+      "name": "Kabupaten Mojokerto",
+      "short_name": "Mojokerto",
+      "latitude": -7.6481,
+      "longitude": 111.9584,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3517",
+      "province_id": "35",
+      "name": "Kabupaten Jombang",
+      "short_name": "Jombang",
+      "latitude": -7.6481,
+      "longitude": 112.0984,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3518",
+      "province_id": "35",
+      "name": "Kabupaten Nganjuk",
+      "short_name": "Nganjuk",
+      "latitude": -7.6481,
+      "longitude": 112.2384,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3519",
+      "province_id": "35",
+      "name": "Kabupaten Madiun",
+      "short_name": "Madiun",
+      "latitude": -7.6481,
+      "longitude": 112.3784,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3520",
+      "province_id": "35",
+      "name": "Kabupaten Magetan",
+      "short_name": "Magetan",
+      "latitude": -7.6481,
+      "longitude": 112.5184,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3521",
+      "province_id": "35",
+      "name": "Kabupaten Ngawi",
+      "short_name": "Ngawi",
+      "latitude": -7.5081,
+      "longitude": 111.9584,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3522",
+      "province_id": "35",
+      "name": "Kabupaten Bojonegoro",
+      "short_name": "Bojonegoro",
+      "latitude": -7.5081,
+      "longitude": 112.0984,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3523",
+      "province_id": "35",
+      "name": "Kabupaten Tuban",
+      "short_name": "Tuban",
+      "latitude": -7.5081,
+      "longitude": 112.2384,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3524",
+      "province_id": "35",
+      "name": "Kabupaten Lamongan",
+      "short_name": "Lamongan",
+      "latitude": -7.5081,
+      "longitude": 112.3784,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3525",
+      "province_id": "35",
+      "name": "Kabupaten Gresik",
+      "short_name": "Gresik",
+      "latitude": -7.5081,
+      "longitude": 112.5184,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3526",
+      "province_id": "35",
+      "name": "Kabupaten Bangkalan",
+      "short_name": "Bangkalan",
+      "latitude": -7.3681,
+      "longitude": 111.9584,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3527",
+      "province_id": "35",
+      "name": "Kabupaten Sampang",
+      "short_name": "Sampang",
+      "latitude": -7.3681,
+      "longitude": 112.0984,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3528",
+      "province_id": "35",
+      "name": "Kabupaten Pamekasan",
+      "short_name": "Pamekasan",
+      "latitude": -7.3681,
+      "longitude": 112.2384,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3529",
+      "province_id": "35",
+      "name": "Kabupaten Sumenep",
+      "short_name": "Sumenep",
+      "latitude": -7.3681,
+      "longitude": 112.3784,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "35100",
+      "province_id": "35",
+      "name": "Kota Kediri",
+      "short_name": "Kediri",
+      "latitude": -7.3681,
+      "longitude": 112.5184,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "35101",
+      "province_id": "35",
+      "name": "Kota Blitar",
+      "short_name": "Blitar",
+      "latitude": -7.2281,
+      "longitude": 111.9584,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "35102",
+      "province_id": "35",
+      "name": "Kota Malang",
+      "short_name": "Malang",
+      "latitude": -7.9666,
+      "longitude": 112.6326,
+      "timezone": "Asia/Jakarta",
+      "tier": 1
+    },
+    {
+      "id": "35103",
+      "province_id": "35",
+      "name": "Kota Probolinggo",
+      "short_name": "Probolinggo",
+      "latitude": -7.2281,
+      "longitude": 112.2384,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "35104",
+      "province_id": "35",
+      "name": "Kota Pasuruan",
+      "short_name": "Pasuruan",
+      "latitude": -7.2281,
+      "longitude": 112.3784,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "35105",
+      "province_id": "35",
+      "name": "Kota Mojokerto",
+      "short_name": "Mojokerto",
+      "latitude": -7.2281,
+      "longitude": 112.5184,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "35106",
+      "province_id": "35",
+      "name": "Kota Madiun",
+      "short_name": "Madiun",
+      "latitude": -7.0881,
+      "longitude": 111.9584,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "35107",
+      "province_id": "35",
+      "name": "Kota Surabaya",
+      "short_name": "Surabaya",
+      "latitude": -7.2575,
+      "longitude": 112.7521,
+      "timezone": "Asia/Jakarta",
+      "tier": 1
+    },
+    {
+      "id": "35108",
+      "province_id": "35",
+      "name": "Kota Batu",
+      "short_name": "Batu",
+      "latitude": -7.0881,
+      "longitude": 112.2384,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3601",
+      "province_id": "36",
+      "name": "Kabupaten Pandeglang",
+      "short_name": "Pandeglang",
+      "latitude": -6.5178,
+      "longitude": 105.784,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3602",
+      "province_id": "36",
+      "name": "Kabupaten Lebak",
+      "short_name": "Lebak",
+      "latitude": -6.5178,
+      "longitude": 105.924,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3603",
+      "province_id": "36",
+      "name": "Kabupaten Tangerang",
+      "short_name": "Tangerang",
+      "latitude": -6.5178,
+      "longitude": 106.064,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3604",
+      "province_id": "36",
+      "name": "Kabupaten Serang",
+      "short_name": "Serang",
+      "latitude": -6.5178,
+      "longitude": 106.204,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3675",
+      "province_id": "36",
+      "name": "Kota Tangerang",
+      "short_name": "Tangerang",
+      "latitude": -6.5178,
+      "longitude": 106.344,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3676",
+      "province_id": "36",
+      "name": "Kota Cilegon",
+      "short_name": "Cilegon",
+      "latitude": -6.3778,
+      "longitude": 105.784,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3677",
+      "province_id": "36",
+      "name": "Kota Serang",
+      "short_name": "Serang",
+      "latitude": -6.3778,
+      "longitude": 105.924,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "3678",
+      "province_id": "36",
+      "name": "Kota Tangerang Selatan",
+      "short_name": "Tangerang Selatan",
+      "latitude": -6.3778,
+      "longitude": 106.064,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "5101",
+      "province_id": "51",
+      "name": "Kabupaten Jembrana",
+      "short_name": "Jembrana",
+      "latitude": -8.5355,
+      "longitude": 114.9089,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5102",
+      "province_id": "51",
+      "name": "Kabupaten Tabanan",
+      "short_name": "Tabanan",
+      "latitude": -8.5355,
+      "longitude": 115.0489,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5103",
+      "province_id": "51",
+      "name": "Kabupaten Badung",
+      "short_name": "Badung",
+      "latitude": -8.5819,
+      "longitude": 115.1771,
+      "timezone": "Asia/Makassar",
+      "tier": 1
+    },
+    {
+      "id": "5104",
+      "province_id": "51",
+      "name": "Kabupaten Gianyar",
+      "short_name": "Gianyar",
+      "latitude": -8.5449,
+      "longitude": 115.3255,
+      "timezone": "Asia/Makassar",
+      "tier": 1
+    },
+    {
+      "id": "5105",
+      "province_id": "51",
+      "name": "Kabupaten Klungkung",
+      "short_name": "Klungkung",
+      "latitude": -8.5355,
+      "longitude": 115.4689,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5106",
+      "province_id": "51",
+      "name": "Kabupaten Bangli",
+      "short_name": "Bangli",
+      "latitude": -8.3955,
+      "longitude": 114.9089,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5107",
+      "province_id": "51",
+      "name": "Kabupaten Karangasem",
+      "short_name": "Karangasem",
+      "latitude": -8.3955,
+      "longitude": 115.0489,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5108",
+      "province_id": "51",
+      "name": "Kabupaten Buleleng",
+      "short_name": "Buleleng",
+      "latitude": -8.3955,
+      "longitude": 115.1889,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5179",
+      "province_id": "51",
+      "name": "Kota Denpasar",
+      "short_name": "Denpasar",
+      "latitude": -8.6705,
+      "longitude": 115.2126,
+      "timezone": "Asia/Makassar",
+      "tier": 1
+    },
+    {
+      "id": "5201",
+      "province_id": "52",
+      "name": "Kabupaten Lombok Barat",
+      "short_name": "Lombok Barat",
+      "latitude": -8.7929,
+      "longitude": 117.0816,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5202",
+      "province_id": "52",
+      "name": "Kabupaten Lombok Tengah",
+      "short_name": "Lombok Tengah",
+      "latitude": -8.7929,
+      "longitude": 117.2216,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5203",
+      "province_id": "52",
+      "name": "Kabupaten Lombok Timur",
+      "short_name": "Lombok Timur",
+      "latitude": -8.7929,
+      "longitude": 117.3616,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5204",
+      "province_id": "52",
+      "name": "Kabupaten Sumbawa",
+      "short_name": "Sumbawa",
+      "latitude": -8.7929,
+      "longitude": 117.5016,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5205",
+      "province_id": "52",
+      "name": "Kabupaten Dompu",
+      "short_name": "Dompu",
+      "latitude": -8.7929,
+      "longitude": 117.6416,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5206",
+      "province_id": "52",
+      "name": "Kabupaten Bima",
+      "short_name": "Bima",
+      "latitude": -8.6529,
+      "longitude": 117.0816,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5207",
+      "province_id": "52",
+      "name": "Kabupaten Sumbawa Barat",
+      "short_name": "Sumbawa Barat",
+      "latitude": -8.6529,
+      "longitude": 117.2216,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5208",
+      "province_id": "52",
+      "name": "Kabupaten Lombok Utara",
+      "short_name": "Lombok Utara",
+      "latitude": -8.6529,
+      "longitude": 117.3616,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5279",
+      "province_id": "52",
+      "name": "Kota Mataram",
+      "short_name": "Mataram",
+      "latitude": -8.6529,
+      "longitude": 117.5016,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5280",
+      "province_id": "52",
+      "name": "Kota Bima",
+      "short_name": "Bima",
+      "latitude": -8.6529,
+      "longitude": 117.6416,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5301",
+      "province_id": "53",
+      "name": "Kabupaten Kupang",
+      "short_name": "Kupang",
+      "latitude": -8.9654,
+      "longitude": 120.7994,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5302",
+      "province_id": "53",
+      "name": "Kabupaten Timor Tengah Selatan",
+      "short_name": "Timor Tengah Selatan",
+      "latitude": -8.9654,
+      "longitude": 120.9394,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5303",
+      "province_id": "53",
+      "name": "Kabupaten Timor Tengah Utara",
+      "short_name": "Timor Tengah Utara",
+      "latitude": -8.9654,
+      "longitude": 121.0794,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5304",
+      "province_id": "53",
+      "name": "Kabupaten Belu",
+      "short_name": "Belu",
+      "latitude": -8.9654,
+      "longitude": 121.2194,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5305",
+      "province_id": "53",
+      "name": "Kabupaten Alor",
+      "short_name": "Alor",
+      "latitude": -8.9654,
+      "longitude": 121.3594,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5306",
+      "province_id": "53",
+      "name": "Kabupaten Flores Timur",
+      "short_name": "Flores Timur",
+      "latitude": -8.8254,
+      "longitude": 120.7994,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5307",
+      "province_id": "53",
+      "name": "Kabupaten Sikka",
+      "short_name": "Sikka",
+      "latitude": -8.8254,
+      "longitude": 120.9394,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5308",
+      "province_id": "53",
+      "name": "Kabupaten Ende",
+      "short_name": "Ende",
+      "latitude": -8.8254,
+      "longitude": 121.0794,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5309",
+      "province_id": "53",
+      "name": "Kabupaten Ngada",
+      "short_name": "Ngada",
+      "latitude": -8.8254,
+      "longitude": 121.2194,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5310",
+      "province_id": "53",
+      "name": "Kabupaten Manggarai",
+      "short_name": "Manggarai",
+      "latitude": -8.8254,
+      "longitude": 121.3594,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5311",
+      "province_id": "53",
+      "name": "Kabupaten Sumba Timur",
+      "short_name": "Sumba Timur",
+      "latitude": -8.6854,
+      "longitude": 120.7994,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5312",
+      "province_id": "53",
+      "name": "Kabupaten Sumba Barat",
+      "short_name": "Sumba Barat",
+      "latitude": -8.6854,
+      "longitude": 120.9394,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5313",
+      "province_id": "53",
+      "name": "Kabupaten Lembata",
+      "short_name": "Lembata",
+      "latitude": -8.6854,
+      "longitude": 121.0794,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5314",
+      "province_id": "53",
+      "name": "Kabupaten Rote Ndao",
+      "short_name": "Rote Ndao",
+      "latitude": -8.6854,
+      "longitude": 121.2194,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5315",
+      "province_id": "53",
+      "name": "Kabupaten Manggarai Barat",
+      "short_name": "Manggarai Barat",
+      "latitude": -8.4964,
+      "longitude": 119.8877,
+      "timezone": "Asia/Makassar",
+      "tier": 1
+    },
+    {
+      "id": "5316",
+      "province_id": "53",
+      "name": "Kabupaten Nagekeo",
+      "short_name": "Nagekeo",
+      "latitude": -8.5454,
+      "longitude": 120.7994,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5317",
+      "province_id": "53",
+      "name": "Kabupaten Sumba Tengah",
+      "short_name": "Sumba Tengah",
+      "latitude": -8.5454,
+      "longitude": 120.9394,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5318",
+      "province_id": "53",
+      "name": "Kabupaten Sumba Barat Daya",
+      "short_name": "Sumba Barat Daya",
+      "latitude": -8.5454,
+      "longitude": 121.0794,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5319",
+      "province_id": "53",
+      "name": "Kabupaten Manggarai Timur",
+      "short_name": "Manggarai Timur",
+      "latitude": -8.5454,
+      "longitude": 121.2194,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5320",
+      "province_id": "53",
+      "name": "Kabupaten Sabu Raijua",
+      "short_name": "Sabu Raijua",
+      "latitude": -8.5454,
+      "longitude": 121.3594,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5321",
+      "province_id": "53",
+      "name": "Kabupaten Malaka",
+      "short_name": "Malaka",
+      "latitude": -8.4054,
+      "longitude": 120.7994,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "5392",
+      "province_id": "53",
+      "name": "Kota Kupang",
+      "short_name": "Kupang",
+      "latitude": -8.4054,
+      "longitude": 120.9394,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6101",
+      "province_id": "61",
+      "name": "Kabupaten Sambas",
+      "short_name": "Sambas",
+      "latitude": -0.4748,
+      "longitude": 111.1953,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6102",
+      "province_id": "61",
+      "name": "Kabupaten Mempawah",
+      "short_name": "Mempawah",
+      "latitude": -0.4748,
+      "longitude": 111.3353,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6103",
+      "province_id": "61",
+      "name": "Kabupaten Sanggau",
+      "short_name": "Sanggau",
+      "latitude": -0.4748,
+      "longitude": 111.4753,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6104",
+      "province_id": "61",
+      "name": "Kabupaten Ketapang",
+      "short_name": "Ketapang",
+      "latitude": -0.4748,
+      "longitude": 111.6153,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6105",
+      "province_id": "61",
+      "name": "Kabupaten Sintang",
+      "short_name": "Sintang",
+      "latitude": -0.4748,
+      "longitude": 111.7553,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6106",
+      "province_id": "61",
+      "name": "Kabupaten Kapuas Hulu",
+      "short_name": "Kapuas Hulu",
+      "latitude": -0.3348,
+      "longitude": 111.1953,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6107",
+      "province_id": "61",
+      "name": "Kabupaten Bengkayang",
+      "short_name": "Bengkayang",
+      "latitude": -0.3348,
+      "longitude": 111.3353,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6108",
+      "province_id": "61",
+      "name": "Kabupaten Landak",
+      "short_name": "Landak",
+      "latitude": -0.3348,
+      "longitude": 111.4753,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6109",
+      "province_id": "61",
+      "name": "Kabupaten Sekadau",
+      "short_name": "Sekadau",
+      "latitude": -0.3348,
+      "longitude": 111.6153,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6110",
+      "province_id": "61",
+      "name": "Kabupaten Melawi",
+      "short_name": "Melawi",
+      "latitude": -0.3348,
+      "longitude": 111.7553,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6111",
+      "province_id": "61",
+      "name": "Kabupaten Kayong Utara",
+      "short_name": "Kayong Utara",
+      "latitude": -0.1948,
+      "longitude": 111.1953,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6112",
+      "province_id": "61",
+      "name": "Kabupaten Kubu Raya",
+      "short_name": "Kubu Raya",
+      "latitude": -0.1948,
+      "longitude": 111.3353,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6183",
+      "province_id": "61",
+      "name": "Kota Pontianak",
+      "short_name": "Pontianak",
+      "latitude": -0.1948,
+      "longitude": 111.4753,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6184",
+      "province_id": "61",
+      "name": "Kota Singkawang",
+      "short_name": "Singkawang",
+      "latitude": -0.1948,
+      "longitude": 111.6153,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6201",
+      "province_id": "62",
+      "name": "Kabupaten Kotawaringin Barat",
+      "short_name": "Kotawaringin Barat",
+      "latitude": -1.8775,
+      "longitude": 113.1024,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6202",
+      "province_id": "62",
+      "name": "Kabupaten Kotawaringin Timur",
+      "short_name": "Kotawaringin Timur",
+      "latitude": -1.8775,
+      "longitude": 113.2424,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6203",
+      "province_id": "62",
+      "name": "Kabupaten Kapuas",
+      "short_name": "Kapuas",
+      "latitude": -1.8775,
+      "longitude": 113.3824,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6204",
+      "province_id": "62",
+      "name": "Kabupaten Barito Selatan",
+      "short_name": "Barito Selatan",
+      "latitude": -1.8775,
+      "longitude": 113.5224,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6205",
+      "province_id": "62",
+      "name": "Kabupaten Barito Utara",
+      "short_name": "Barito Utara",
+      "latitude": -1.8775,
+      "longitude": 113.6624,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6206",
+      "province_id": "62",
+      "name": "Kabupaten Katingan",
+      "short_name": "Katingan",
+      "latitude": -1.7375,
+      "longitude": 113.1024,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6207",
+      "province_id": "62",
+      "name": "Kabupaten Seruyan",
+      "short_name": "Seruyan",
+      "latitude": -1.7375,
+      "longitude": 113.2424,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6208",
+      "province_id": "62",
+      "name": "Kabupaten Sukamara",
+      "short_name": "Sukamara",
+      "latitude": -1.7375,
+      "longitude": 113.3824,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6209",
+      "province_id": "62",
+      "name": "Kabupaten Lamandau",
+      "short_name": "Lamandau",
+      "latitude": -1.7375,
+      "longitude": 113.5224,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6210",
+      "province_id": "62",
+      "name": "Kabupaten Gunung Mas",
+      "short_name": "Gunung Mas",
+      "latitude": -1.7375,
+      "longitude": 113.6624,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6211",
+      "province_id": "62",
+      "name": "Kabupaten Pulang Pisau",
+      "short_name": "Pulang Pisau",
+      "latitude": -1.5975,
+      "longitude": 113.1024,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6212",
+      "province_id": "62",
+      "name": "Kabupaten Murung Raya",
+      "short_name": "Murung Raya",
+      "latitude": -1.5975,
+      "longitude": 113.2424,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6213",
+      "province_id": "62",
+      "name": "Kabupaten Barito Timur",
+      "short_name": "Barito Timur",
+      "latitude": -1.5975,
+      "longitude": 113.3824,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6284",
+      "province_id": "62",
+      "name": "Kota Palangka Raya",
+      "short_name": "Palangka Raya",
+      "latitude": -1.5975,
+      "longitude": 113.5224,
+      "timezone": "Asia/Jakarta",
+      "tier": 2
+    },
+    {
+      "id": "6301",
+      "province_id": "63",
+      "name": "Kabupaten Tanah Laut",
+      "short_name": "Tanah Laut",
+      "latitude": -3.2746,
+      "longitude": 115.0038,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6302",
+      "province_id": "63",
+      "name": "Kabupaten Kotabaru",
+      "short_name": "Kotabaru",
+      "latitude": -3.2746,
+      "longitude": 115.1438,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6303",
+      "province_id": "63",
+      "name": "Kabupaten Banjar",
+      "short_name": "Banjar",
+      "latitude": -3.2746,
+      "longitude": 115.2838,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6304",
+      "province_id": "63",
+      "name": "Kabupaten Barito Kuala",
+      "short_name": "Barito Kuala",
+      "latitude": -3.2746,
+      "longitude": 115.4238,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6305",
+      "province_id": "63",
+      "name": "Kabupaten Tapin",
+      "short_name": "Tapin",
+      "latitude": -3.2746,
+      "longitude": 115.5638,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6306",
+      "province_id": "63",
+      "name": "Kabupaten Hulu Sungai Selatan",
+      "short_name": "Hulu Sungai Selatan",
+      "latitude": -3.1346,
+      "longitude": 115.0038,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6307",
+      "province_id": "63",
+      "name": "Kabupaten Hulu Sungai Tengah",
+      "short_name": "Hulu Sungai Tengah",
+      "latitude": -3.1346,
+      "longitude": 115.1438,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6308",
+      "province_id": "63",
+      "name": "Kabupaten Hulu Sungai Utara",
+      "short_name": "Hulu Sungai Utara",
+      "latitude": -3.1346,
+      "longitude": 115.2838,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6309",
+      "province_id": "63",
+      "name": "Kabupaten Tabalong",
+      "short_name": "Tabalong",
+      "latitude": -3.1346,
+      "longitude": 115.4238,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6310",
+      "province_id": "63",
+      "name": "Kabupaten Tanah Bumbu",
+      "short_name": "Tanah Bumbu",
+      "latitude": -3.1346,
+      "longitude": 115.5638,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6311",
+      "province_id": "63",
+      "name": "Kabupaten Balangan",
+      "short_name": "Balangan",
+      "latitude": -2.9946,
+      "longitude": 115.0038,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6382",
+      "province_id": "63",
+      "name": "Kota Banjarmasin",
+      "short_name": "Banjarmasin",
+      "latitude": -2.9946,
+      "longitude": 115.1438,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6383",
+      "province_id": "63",
+      "name": "Kota Banjarbaru",
+      "short_name": "Banjarbaru",
+      "latitude": -2.9946,
+      "longitude": 115.2838,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6401",
+      "province_id": "64",
+      "name": "Kabupaten Paser",
+      "short_name": "Paser",
+      "latitude": 0.3987,
+      "longitude": 116.1394,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6402",
+      "province_id": "64",
+      "name": "Kabupaten Kutai Kartanegara",
+      "short_name": "Kutai Kartanegara",
+      "latitude": 0.3987,
+      "longitude": 116.2794,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6403",
+      "province_id": "64",
+      "name": "Kabupaten Berau",
+      "short_name": "Berau",
+      "latitude": 0.3987,
+      "longitude": 116.4194,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6404",
+      "province_id": "64",
+      "name": "Kabupaten Kutai Barat",
+      "short_name": "Kutai Barat",
+      "latitude": 0.3987,
+      "longitude": 116.5594,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6405",
+      "province_id": "64",
+      "name": "Kabupaten Kutai Timur",
+      "short_name": "Kutai Timur",
+      "latitude": 0.3987,
+      "longitude": 116.6994,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6406",
+      "province_id": "64",
+      "name": "Kabupaten Penajam Paser Utara",
+      "short_name": "Penajam Paser Utara",
+      "latitude": 0.5387,
+      "longitude": 116.1394,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6407",
+      "province_id": "64",
+      "name": "Kabupaten Mahakam Ulu",
+      "short_name": "Mahakam Ulu",
+      "latitude": 0.5387,
+      "longitude": 116.2794,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6478",
+      "province_id": "64",
+      "name": "Kota Balikpapan",
+      "short_name": "Balikpapan",
+      "latitude": -1.2379,
+      "longitude": 116.8529,
+      "timezone": "Asia/Makassar",
+      "tier": 1
+    },
+    {
+      "id": "6479",
+      "province_id": "64",
+      "name": "Kota Samarinda",
+      "short_name": "Samarinda",
+      "latitude": 0.5387,
+      "longitude": 116.5594,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6480",
+      "province_id": "64",
+      "name": "Kota Bontang",
+      "short_name": "Bontang",
+      "latitude": 0.5387,
+      "longitude": 116.6994,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6501",
+      "province_id": "65",
+      "name": "Kabupaten Bulungan",
+      "short_name": "Bulungan",
+      "latitude": 3.0031,
+      "longitude": 115.7614,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6502",
+      "province_id": "65",
+      "name": "Kabupaten Malinau",
+      "short_name": "Malinau",
+      "latitude": 3.0031,
+      "longitude": 115.9014,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6503",
+      "province_id": "65",
+      "name": "Kabupaten Nunukan",
+      "short_name": "Nunukan",
+      "latitude": 3.0031,
+      "longitude": 116.0414,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6504",
+      "province_id": "65",
+      "name": "Kabupaten Tana Tidung",
+      "short_name": "Tana Tidung",
+      "latitude": 3.0031,
+      "longitude": 116.1814,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "6575",
+      "province_id": "65",
+      "name": "Kota Tarakan",
+      "short_name": "Tarakan",
+      "latitude": 3.0031,
+      "longitude": 116.3214,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7101",
+      "province_id": "71",
+      "name": "Kabupaten Bolaang Mongondow",
+      "short_name": "Bolaang Mongondow",
+      "latitude": 0.4147,
+      "longitude": 123.695,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7102",
+      "province_id": "71",
+      "name": "Kabupaten Minahasa",
+      "short_name": "Minahasa",
+      "latitude": 0.4147,
+      "longitude": 123.835,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7103",
+      "province_id": "71",
+      "name": "Kabupaten Kepulauan Sangihe",
+      "short_name": "Kepulauan Sangihe",
+      "latitude": 0.4147,
+      "longitude": 123.975,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7104",
+      "province_id": "71",
+      "name": "Kabupaten Kepulauan Talaud",
+      "short_name": "Kepulauan Talaud",
+      "latitude": 0.4147,
+      "longitude": 124.115,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7105",
+      "province_id": "71",
+      "name": "Kabupaten Minahasa Selatan",
+      "short_name": "Minahasa Selatan",
+      "latitude": 0.4147,
+      "longitude": 124.255,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7106",
+      "province_id": "71",
+      "name": "Kabupaten Minahasa Utara",
+      "short_name": "Minahasa Utara",
+      "latitude": 0.5547,
+      "longitude": 123.695,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7107",
+      "province_id": "71",
+      "name": "Kabupaten Minahasa Tenggara",
+      "short_name": "Minahasa Tenggara",
+      "latitude": 0.5547,
+      "longitude": 123.835,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7108",
+      "province_id": "71",
+      "name": "Kabupaten Bolaang Mongondow Utara",
+      "short_name": "Bolaang Mongondow Utara",
+      "latitude": 0.5547,
+      "longitude": 123.975,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7109",
+      "province_id": "71",
+      "name": "Kabupaten Kepulauan Siau Tagulandang Biaro",
+      "short_name": "Kepulauan Siau Tagulandang Biaro",
+      "latitude": 0.5547,
+      "longitude": 124.115,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7110",
+      "province_id": "71",
+      "name": "Kabupaten Bolaang Mongondow Timur",
+      "short_name": "Bolaang Mongondow Timur",
+      "latitude": 0.5547,
+      "longitude": 124.255,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7111",
+      "province_id": "71",
+      "name": "Kabupaten Bolaang Mongondow Selatan",
+      "short_name": "Bolaang Mongondow Selatan",
+      "latitude": 0.6947,
+      "longitude": 123.695,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7182",
+      "province_id": "71",
+      "name": "Kota Manado",
+      "short_name": "Manado",
+      "latitude": 0.6947,
+      "longitude": 123.835,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7183",
+      "province_id": "71",
+      "name": "Kota Bitung",
+      "short_name": "Bitung",
+      "latitude": 0.6947,
+      "longitude": 123.975,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7184",
+      "province_id": "71",
+      "name": "Kota Tomohon",
+      "short_name": "Tomohon",
+      "latitude": 0.6947,
+      "longitude": 124.115,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7185",
+      "province_id": "71",
+      "name": "Kota Kotamobagu",
+      "short_name": "Kotamobagu",
+      "latitude": 0.6947,
+      "longitude": 124.255,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7201",
+      "province_id": "72",
+      "name": "Kabupaten Banggai",
+      "short_name": "Banggai",
+      "latitude": -1.612,
+      "longitude": 121.1656,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7202",
+      "province_id": "72",
+      "name": "Kabupaten Poso",
+      "short_name": "Poso",
+      "latitude": -1.612,
+      "longitude": 121.3056,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7203",
+      "province_id": "72",
+      "name": "Kabupaten Donggala",
+      "short_name": "Donggala",
+      "latitude": -1.612,
+      "longitude": 121.4456,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7204",
+      "province_id": "72",
+      "name": "Kabupaten Tolitoli",
+      "short_name": "Tolitoli",
+      "latitude": -1.612,
+      "longitude": 121.5856,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7205",
+      "province_id": "72",
+      "name": "Kabupaten Buol",
+      "short_name": "Buol",
+      "latitude": -1.612,
+      "longitude": 121.7256,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7206",
+      "province_id": "72",
+      "name": "Kabupaten Morowali",
+      "short_name": "Morowali",
+      "latitude": -1.472,
+      "longitude": 121.1656,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7207",
+      "province_id": "72",
+      "name": "Kabupaten Banggai Kepulauan",
+      "short_name": "Banggai Kepulauan",
+      "latitude": -1.472,
+      "longitude": 121.3056,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7208",
+      "province_id": "72",
+      "name": "Kabupaten Parigi Moutong",
+      "short_name": "Parigi Moutong",
+      "latitude": -1.472,
+      "longitude": 121.4456,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7209",
+      "province_id": "72",
+      "name": "Kabupaten Tojo Una-Una",
+      "short_name": "Tojo Una-Una",
+      "latitude": -1.472,
+      "longitude": 121.5856,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7210",
+      "province_id": "72",
+      "name": "Kabupaten Sigi",
+      "short_name": "Sigi",
+      "latitude": -1.472,
+      "longitude": 121.7256,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7211",
+      "province_id": "72",
+      "name": "Kabupaten Banggai Laut",
+      "short_name": "Banggai Laut",
+      "latitude": -1.332,
+      "longitude": 121.1656,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7212",
+      "province_id": "72",
+      "name": "Kabupaten Morowali Utara",
+      "short_name": "Morowali Utara",
+      "latitude": -1.332,
+      "longitude": 121.3056,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7283",
+      "province_id": "72",
+      "name": "Kota Palu",
+      "short_name": "Palu",
+      "latitude": -1.332,
+      "longitude": 121.4456,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7301",
+      "province_id": "73",
+      "name": "Kabupaten Kepulauan Selayar",
+      "short_name": "Kepulauan Selayar",
+      "latitude": -4.0048,
+      "longitude": 119.6941,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7302",
+      "province_id": "73",
+      "name": "Kabupaten Bulukumba",
+      "short_name": "Bulukumba",
+      "latitude": -4.0048,
+      "longitude": 119.8341,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7303",
+      "province_id": "73",
+      "name": "Kabupaten Bantaeng",
+      "short_name": "Bantaeng",
+      "latitude": -4.0048,
+      "longitude": 119.9741,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7304",
+      "province_id": "73",
+      "name": "Kabupaten Jeneponto",
+      "short_name": "Jeneponto",
+      "latitude": -4.0048,
+      "longitude": 120.1141,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7305",
+      "province_id": "73",
+      "name": "Kabupaten Takalar",
+      "short_name": "Takalar",
+      "latitude": -4.0048,
+      "longitude": 120.2541,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7306",
+      "province_id": "73",
+      "name": "Kabupaten Gowa",
+      "short_name": "Gowa",
+      "latitude": -3.8648,
+      "longitude": 119.6941,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7307",
+      "province_id": "73",
+      "name": "Kabupaten Sinjai",
+      "short_name": "Sinjai",
+      "latitude": -3.8648,
+      "longitude": 119.8341,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7308",
+      "province_id": "73",
+      "name": "Kabupaten Bone",
+      "short_name": "Bone",
+      "latitude": -3.8648,
+      "longitude": 119.9741,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7309",
+      "province_id": "73",
+      "name": "Kabupaten Maros",
+      "short_name": "Maros",
+      "latitude": -3.8648,
+      "longitude": 120.1141,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7310",
+      "province_id": "73",
+      "name": "Kabupaten Pangkajene dan Kepulauan",
+      "short_name": "Pangkajene dan Kepulauan",
+      "latitude": -3.8648,
+      "longitude": 120.2541,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7311",
+      "province_id": "73",
+      "name": "Kabupaten Barru",
+      "short_name": "Barru",
+      "latitude": -3.7248,
+      "longitude": 119.6941,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7312",
+      "province_id": "73",
+      "name": "Kabupaten Soppeng",
+      "short_name": "Soppeng",
+      "latitude": -3.7248,
+      "longitude": 119.8341,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7313",
+      "province_id": "73",
+      "name": "Kabupaten Wajo",
+      "short_name": "Wajo",
+      "latitude": -3.7248,
+      "longitude": 119.9741,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7314",
+      "province_id": "73",
+      "name": "Kabupaten Sidenreng Rappang",
+      "short_name": "Sidenreng Rappang",
+      "latitude": -3.7248,
+      "longitude": 120.1141,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7315",
+      "province_id": "73",
+      "name": "Kabupaten Pinrang",
+      "short_name": "Pinrang",
+      "latitude": -3.7248,
+      "longitude": 120.2541,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7316",
+      "province_id": "73",
+      "name": "Kabupaten Enrekang",
+      "short_name": "Enrekang",
+      "latitude": -3.5848,
+      "longitude": 119.6941,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7317",
+      "province_id": "73",
+      "name": "Kabupaten Luwu",
+      "short_name": "Luwu",
+      "latitude": -3.5848,
+      "longitude": 119.8341,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7318",
+      "province_id": "73",
+      "name": "Kabupaten Tana Toraja",
+      "short_name": "Tana Toraja",
+      "latitude": -3.5848,
+      "longitude": 119.9741,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7319",
+      "province_id": "73",
+      "name": "Kabupaten Luwu Utara",
+      "short_name": "Luwu Utara",
+      "latitude": -3.5848,
+      "longitude": 120.1141,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7320",
+      "province_id": "73",
+      "name": "Kabupaten Luwu Timur",
+      "short_name": "Luwu Timur",
+      "latitude": -3.5848,
+      "longitude": 120.2541,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7321",
+      "province_id": "73",
+      "name": "Kabupaten Toraja Utara",
+      "short_name": "Toraja Utara",
+      "latitude": -3.4448,
+      "longitude": 119.6941,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7392",
+      "province_id": "73",
+      "name": "Kota Makassar",
+      "short_name": "Makassar",
+      "latitude": -5.1477,
+      "longitude": 119.4327,
+      "timezone": "Asia/Makassar",
+      "tier": 1
+    },
+    {
+      "id": "7393",
+      "province_id": "73",
+      "name": "Kota Parepare",
+      "short_name": "Parepare",
+      "latitude": -3.4448,
+      "longitude": 119.9741,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7394",
+      "province_id": "73",
+      "name": "Kota Palopo",
+      "short_name": "Palopo",
+      "latitude": -3.4448,
+      "longitude": 120.1141,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7401",
+      "province_id": "74",
+      "name": "Kabupaten Kolaka",
+      "short_name": "Kolaka",
+      "latitude": -4.3829,
+      "longitude": 121.8946,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7402",
+      "province_id": "74",
+      "name": "Kabupaten Konawe",
+      "short_name": "Konawe",
+      "latitude": -4.3829,
+      "longitude": 122.0346,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7403",
+      "province_id": "74",
+      "name": "Kabupaten Muna",
+      "short_name": "Muna",
+      "latitude": -4.3829,
+      "longitude": 122.1746,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7404",
+      "province_id": "74",
+      "name": "Kabupaten Buton",
+      "short_name": "Buton",
+      "latitude": -4.3829,
+      "longitude": 122.3146,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7405",
+      "province_id": "74",
+      "name": "Kabupaten Konawe Selatan",
+      "short_name": "Konawe Selatan",
+      "latitude": -4.3829,
+      "longitude": 122.4546,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7406",
+      "province_id": "74",
+      "name": "Kabupaten Bombana",
+      "short_name": "Bombana",
+      "latitude": -4.2429,
+      "longitude": 121.8946,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7407",
+      "province_id": "74",
+      "name": "Kabupaten Wakatobi",
+      "short_name": "Wakatobi",
+      "latitude": -4.2429,
+      "longitude": 122.0346,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7408",
+      "province_id": "74",
+      "name": "Kabupaten Kolaka Utara",
+      "short_name": "Kolaka Utara",
+      "latitude": -4.2429,
+      "longitude": 122.1746,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7409",
+      "province_id": "74",
+      "name": "Kabupaten Konawe Utara",
+      "short_name": "Konawe Utara",
+      "latitude": -4.2429,
+      "longitude": 122.3146,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7410",
+      "province_id": "74",
+      "name": "Kabupaten Buton Utara",
+      "short_name": "Buton Utara",
+      "latitude": -4.2429,
+      "longitude": 122.4546,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7411",
+      "province_id": "74",
+      "name": "Kabupaten Kolaka Timur",
+      "short_name": "Kolaka Timur",
+      "latitude": -4.1029,
+      "longitude": 121.8946,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7412",
+      "province_id": "74",
+      "name": "Kabupaten Konawe Kepulauan",
+      "short_name": "Konawe Kepulauan",
+      "latitude": -4.1029,
+      "longitude": 122.0346,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7413",
+      "province_id": "74",
+      "name": "Kabupaten Muna Barat",
+      "short_name": "Muna Barat",
+      "latitude": -4.1029,
+      "longitude": 122.1746,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7414",
+      "province_id": "74",
+      "name": "Kabupaten Buton Tengah",
+      "short_name": "Buton Tengah",
+      "latitude": -4.1029,
+      "longitude": 122.3146,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7415",
+      "province_id": "74",
+      "name": "Kabupaten Buton Selatan",
+      "short_name": "Buton Selatan",
+      "latitude": -4.1029,
+      "longitude": 122.4546,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7486",
+      "province_id": "74",
+      "name": "Kota Kendari",
+      "short_name": "Kendari",
+      "latitude": -3.9629,
+      "longitude": 121.8946,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7487",
+      "province_id": "74",
+      "name": "Kota Baubau",
+      "short_name": "Baubau",
+      "latitude": -3.9629,
+      "longitude": 122.0346,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7501",
+      "province_id": "75",
+      "name": "Kabupaten Gorontalo",
+      "short_name": "Gorontalo",
+      "latitude": 0.6159,
+      "longitude": 122.1667,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7502",
+      "province_id": "75",
+      "name": "Kabupaten Boalemo",
+      "short_name": "Boalemo",
+      "latitude": 0.6159,
+      "longitude": 122.3067,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7503",
+      "province_id": "75",
+      "name": "Kabupaten Bone Bolango",
+      "short_name": "Bone Bolango",
+      "latitude": 0.6159,
+      "longitude": 122.4467,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7504",
+      "province_id": "75",
+      "name": "Kabupaten Pohuwato",
+      "short_name": "Pohuwato",
+      "latitude": 0.6159,
+      "longitude": 122.5867,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7505",
+      "province_id": "75",
+      "name": "Kabupaten Gorontalo Utara",
+      "short_name": "Gorontalo Utara",
+      "latitude": 0.6159,
+      "longitude": 122.7267,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7576",
+      "province_id": "75",
+      "name": "Kota Gorontalo",
+      "short_name": "Gorontalo",
+      "latitude": 0.7559,
+      "longitude": 122.1667,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7601",
+      "province_id": "76",
+      "name": "Kabupaten Pasangkayu",
+      "short_name": "Pasangkayu",
+      "latitude": -2.9281,
+      "longitude": 118.9521,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7602",
+      "province_id": "76",
+      "name": "Kabupaten Mamuju",
+      "short_name": "Mamuju",
+      "latitude": -2.9281,
+      "longitude": 119.0921,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7603",
+      "province_id": "76",
+      "name": "Kabupaten Mamasa",
+      "short_name": "Mamasa",
+      "latitude": -2.9281,
+      "longitude": 119.2321,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7604",
+      "province_id": "76",
+      "name": "Kabupaten Polewali Mandar",
+      "short_name": "Polewali Mandar",
+      "latitude": -2.9281,
+      "longitude": 119.3721,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7605",
+      "province_id": "76",
+      "name": "Kabupaten Majene",
+      "short_name": "Majene",
+      "latitude": -2.9281,
+      "longitude": 119.5121,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "7606",
+      "province_id": "76",
+      "name": "Kabupaten Mamuju Tengah",
+      "short_name": "Mamuju Tengah",
+      "latitude": -2.7881,
+      "longitude": 118.9521,
+      "timezone": "Asia/Makassar",
+      "tier": 2
+    },
+    {
+      "id": "8101",
+      "province_id": "81",
+      "name": "Kabupaten Maluku Tengah",
+      "short_name": "Maluku Tengah",
+      "latitude": -3.3925,
+      "longitude": 129.8653,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8102",
+      "province_id": "81",
+      "name": "Kabupaten Maluku Tenggara",
+      "short_name": "Maluku Tenggara",
+      "latitude": -3.3925,
+      "longitude": 130.0053,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8103",
+      "province_id": "81",
+      "name": "Kabupaten Kepulauan Tanimbar",
+      "short_name": "Kepulauan Tanimbar",
+      "latitude": -3.3925,
+      "longitude": 130.1453,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8104",
+      "province_id": "81",
+      "name": "Kabupaten Buru",
+      "short_name": "Buru",
+      "latitude": -3.3925,
+      "longitude": 130.2853,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8105",
+      "province_id": "81",
+      "name": "Kabupaten Seram Bagian Timur",
+      "short_name": "Seram Bagian Timur",
+      "latitude": -3.3925,
+      "longitude": 130.4253,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8106",
+      "province_id": "81",
+      "name": "Kabupaten Seram Bagian Barat",
+      "short_name": "Seram Bagian Barat",
+      "latitude": -3.2525,
+      "longitude": 129.8653,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8107",
+      "province_id": "81",
+      "name": "Kabupaten Kepulauan Aru",
+      "short_name": "Kepulauan Aru",
+      "latitude": -3.2525,
+      "longitude": 130.0053,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8108",
+      "province_id": "81",
+      "name": "Kabupaten Maluku Barat Daya",
+      "short_name": "Maluku Barat Daya",
+      "latitude": -3.2525,
+      "longitude": 130.1453,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8109",
+      "province_id": "81",
+      "name": "Kabupaten Buru Selatan",
+      "short_name": "Buru Selatan",
+      "latitude": -3.2525,
+      "longitude": 130.2853,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8180",
+      "province_id": "81",
+      "name": "Kota Ambon",
+      "short_name": "Ambon",
+      "latitude": -3.2525,
+      "longitude": 130.4253,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8181",
+      "province_id": "81",
+      "name": "Kota Tual",
+      "short_name": "Tual",
+      "latitude": -3.1125,
+      "longitude": 129.8653,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8201",
+      "province_id": "82",
+      "name": "Kabupaten Halmahera Barat",
+      "short_name": "Halmahera Barat",
+      "latitude": 1.4309,
+      "longitude": 127.5288,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8202",
+      "province_id": "82",
+      "name": "Kabupaten Halmahera Tengah",
+      "short_name": "Halmahera Tengah",
+      "latitude": 1.4309,
+      "longitude": 127.6688,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8203",
+      "province_id": "82",
+      "name": "Kabupaten Halmahera Utara",
+      "short_name": "Halmahera Utara",
+      "latitude": 1.4309,
+      "longitude": 127.8088,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8204",
+      "province_id": "82",
+      "name": "Kabupaten Halmahera Selatan",
+      "short_name": "Halmahera Selatan",
+      "latitude": 1.4309,
+      "longitude": 127.9488,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8205",
+      "province_id": "82",
+      "name": "Kabupaten Kepulauan Sula",
+      "short_name": "Kepulauan Sula",
+      "latitude": 1.4309,
+      "longitude": 128.0888,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8206",
+      "province_id": "82",
+      "name": "Kabupaten Halmahera Timur",
+      "short_name": "Halmahera Timur",
+      "latitude": 1.5709,
+      "longitude": 127.5288,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8207",
+      "province_id": "82",
+      "name": "Kabupaten Pulau Morotai",
+      "short_name": "Pulau Morotai",
+      "latitude": 1.5709,
+      "longitude": 127.6688,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8208",
+      "province_id": "82",
+      "name": "Kabupaten Pulau Taliabu",
+      "short_name": "Pulau Taliabu",
+      "latitude": 1.5709,
+      "longitude": 127.8088,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8279",
+      "province_id": "82",
+      "name": "Kota Ternate",
+      "short_name": "Ternate",
+      "latitude": 1.5709,
+      "longitude": 127.9488,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "8280",
+      "province_id": "82",
+      "name": "Kota Tidore Kepulauan",
+      "short_name": "Tidore Kepulauan",
+      "latitude": 1.5709,
+      "longitude": 128.0888,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9101",
+      "province_id": "91",
+      "name": "Kabupaten Jayapura",
+      "short_name": "Jayapura",
+      "latitude": -2.6597,
+      "longitude": 140.4381,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9102",
+      "province_id": "91",
+      "name": "Kabupaten Kepulauan Yapen",
+      "short_name": "Kepulauan Yapen",
+      "latitude": -2.6597,
+      "longitude": 140.5781,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9103",
+      "province_id": "91",
+      "name": "Kabupaten Biak Numfor",
+      "short_name": "Biak Numfor",
+      "latitude": -2.6597,
+      "longitude": 140.7181,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9104",
+      "province_id": "91",
+      "name": "Kabupaten Sarmi",
+      "short_name": "Sarmi",
+      "latitude": -2.6597,
+      "longitude": 140.8581,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9105",
+      "province_id": "91",
+      "name": "Kabupaten Keerom",
+      "short_name": "Keerom",
+      "latitude": -2.6597,
+      "longitude": 140.9981,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9106",
+      "province_id": "91",
+      "name": "Kabupaten Waropen",
+      "short_name": "Waropen",
+      "latitude": -2.5197,
+      "longitude": 140.4381,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9107",
+      "province_id": "91",
+      "name": "Kabupaten Supiori",
+      "short_name": "Supiori",
+      "latitude": -2.5197,
+      "longitude": 140.5781,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9108",
+      "province_id": "91",
+      "name": "Kabupaten Mamberamo Raya",
+      "short_name": "Mamberamo Raya",
+      "latitude": -2.5197,
+      "longitude": 140.7181,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9179",
+      "province_id": "91",
+      "name": "Kota Jayapura",
+      "short_name": "Jayapura",
+      "latitude": -2.5197,
+      "longitude": 140.8581,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9201",
+      "province_id": "92",
+      "name": "Kabupaten Manokwari",
+      "short_name": "Manokwari",
+      "latitude": -0.9595,
+      "longitude": 133.782,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9202",
+      "province_id": "92",
+      "name": "Kabupaten Fakfak",
+      "short_name": "Fakfak",
+      "latitude": -0.9595,
+      "longitude": 133.922,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9203",
+      "province_id": "92",
+      "name": "Kabupaten Teluk Bintuni",
+      "short_name": "Teluk Bintuni",
+      "latitude": -0.9595,
+      "longitude": 134.062,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9204",
+      "province_id": "92",
+      "name": "Kabupaten Teluk Wondama",
+      "short_name": "Teluk Wondama",
+      "latitude": -0.9595,
+      "longitude": 134.202,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9205",
+      "province_id": "92",
+      "name": "Kabupaten Kaimana",
+      "short_name": "Kaimana",
+      "latitude": -0.9595,
+      "longitude": 134.342,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9206",
+      "province_id": "92",
+      "name": "Kabupaten Manokwari Selatan",
+      "short_name": "Manokwari Selatan",
+      "latitude": -0.8195,
+      "longitude": 133.782,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9207",
+      "province_id": "92",
+      "name": "Kabupaten Pegunungan Arfak",
+      "short_name": "Pegunungan Arfak",
+      "latitude": -0.8195,
+      "longitude": 133.922,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9301",
+      "province_id": "93",
+      "name": "Kabupaten Merauke",
+      "short_name": "Merauke",
+      "latitude": -7.8227,
+      "longitude": 139.32,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9302",
+      "province_id": "93",
+      "name": "Kabupaten Boven Digoel",
+      "short_name": "Boven Digoel",
+      "latitude": -7.8227,
+      "longitude": 139.46,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9303",
+      "province_id": "93",
+      "name": "Kabupaten Mappi",
+      "short_name": "Mappi",
+      "latitude": -7.8227,
+      "longitude": 139.6,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9304",
+      "province_id": "93",
+      "name": "Kabupaten Asmat",
+      "short_name": "Asmat",
+      "latitude": -7.8227,
+      "longitude": 139.74,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9401",
+      "province_id": "94",
+      "name": "Kabupaten Nabire",
+      "short_name": "Nabire",
+      "latitude": -4.0787,
+      "longitude": 136.02,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9402",
+      "province_id": "94",
+      "name": "Kabupaten Puncak Jaya",
+      "short_name": "Puncak Jaya",
+      "latitude": -4.0787,
+      "longitude": 136.16,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9403",
+      "province_id": "94",
+      "name": "Kabupaten Paniai",
+      "short_name": "Paniai",
+      "latitude": -4.0787,
+      "longitude": 136.3,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9404",
+      "province_id": "94",
+      "name": "Kabupaten Mimika",
+      "short_name": "Mimika",
+      "latitude": -4.0787,
+      "longitude": 136.44,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9405",
+      "province_id": "94",
+      "name": "Kabupaten Puncak",
+      "short_name": "Puncak",
+      "latitude": -4.0787,
+      "longitude": 136.58,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9406",
+      "province_id": "94",
+      "name": "Kabupaten Dogiyai",
+      "short_name": "Dogiyai",
+      "latitude": -3.9387,
+      "longitude": 136.02,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9407",
+      "province_id": "94",
+      "name": "Kabupaten Intan Jaya",
+      "short_name": "Intan Jaya",
+      "latitude": -3.9387,
+      "longitude": 136.16,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9408",
+      "province_id": "94",
+      "name": "Kabupaten Deiyai",
+      "short_name": "Deiyai",
+      "latitude": -3.9387,
+      "longitude": 136.3,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9501",
+      "province_id": "95",
+      "name": "Kabupaten Jayawijaya",
+      "short_name": "Jayawijaya",
+      "latitude": -4.1953,
+      "longitude": 138.67,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9502",
+      "province_id": "95",
+      "name": "Kabupaten Pegunungan Bintang",
+      "short_name": "Pegunungan Bintang",
+      "latitude": -4.1953,
+      "longitude": 138.81,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9503",
+      "province_id": "95",
+      "name": "Kabupaten Yahukimo",
+      "short_name": "Yahukimo",
+      "latitude": -4.1953,
+      "longitude": 138.95,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9504",
+      "province_id": "95",
+      "name": "Kabupaten Tolikara",
+      "short_name": "Tolikara",
+      "latitude": -4.1953,
+      "longitude": 139.09,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9505",
+      "province_id": "95",
+      "name": "Kabupaten Mamberamo Tengah",
+      "short_name": "Mamberamo Tengah",
+      "latitude": -4.1953,
+      "longitude": 139.23,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9506",
+      "province_id": "95",
+      "name": "Kabupaten Yalimo",
+      "short_name": "Yalimo",
+      "latitude": -4.0553,
+      "longitude": 138.67,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9507",
+      "province_id": "95",
+      "name": "Kabupaten Lanny Jaya",
+      "short_name": "Lanny Jaya",
+      "latitude": -4.0553,
+      "longitude": 138.81,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9508",
+      "province_id": "95",
+      "name": "Kabupaten Nduga",
+      "short_name": "Nduga",
+      "latitude": -4.0553,
+      "longitude": 138.95,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9601",
+      "province_id": "96",
+      "name": "Kabupaten Sorong",
+      "short_name": "Sorong",
+      "latitude": -0.9602,
+      "longitude": 130.9758,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9602",
+      "province_id": "96",
+      "name": "Kabupaten Sorong Selatan",
+      "short_name": "Sorong Selatan",
+      "latitude": -0.9602,
+      "longitude": 131.1158,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9603",
+      "province_id": "96",
+      "name": "Kabupaten Raja Ampat",
+      "short_name": "Raja Ampat",
+      "latitude": -0.5,
+      "longitude": 130.6667,
+      "timezone": "Asia/Jayapura",
+      "tier": 1
+    },
+    {
+      "id": "9604",
+      "province_id": "96",
+      "name": "Kabupaten Tambrauw",
+      "short_name": "Tambrauw",
+      "latitude": -0.9602,
+      "longitude": 131.3958,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9605",
+      "province_id": "96",
+      "name": "Kabupaten Maybrat",
+      "short_name": "Maybrat",
+      "latitude": -0.9602,
+      "longitude": 131.5358,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    },
+    {
+      "id": "9676",
+      "province_id": "96",
+      "name": "Kota Sorong",
+      "short_name": "Sorong",
+      "latitude": -0.8202,
+      "longitude": 130.9758,
+      "timezone": "Asia/Jayapura",
+      "tier": 2
+    }
+  ]
+}

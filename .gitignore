@@ -2,6 +2,7 @@
 .env
 .env.*
 !.env.example
-/data/
+/data/*
+!/data/wilayah-indonesia-514.json
 *.osm.pbf
 !tests/fixtures/*.osm.pbf

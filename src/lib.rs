@@ -68,6 +68,10 @@ pub fn router(s: AppState) -> Router {
         )
         .route("/api/v1/submissions", post(routes::community::submit))
         .route("/api/v1/clicks", post(routes::community::click))
+        .route("/api/v1/monetization/plans", get(routes::monetization::plans))
+        .route("/api/v1/monetization/orders", post(routes::monetization::create_order))
+        .route("/api/v1/monetization/orders/{id}/activate", post(routes::monetization::activate_order))
+        .route("/api/v1/admin/orders", get(routes::monetization::list_orders))
         .route(
             "/api/v1/admin/users",
             get(routes::auth::list_users).post(routes::auth::create_user),

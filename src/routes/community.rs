@@ -1,6 +1,7 @@
 use crate::{
     error::{bad, ApiResult, AppError},
     models::{https_url, sanitize_phone_digits, text},
+    routes::monetization::{programmatic_hotel_url, programmatic_ticket_url},
     state::AppState,
 };
 use axum::{extract::State, Json};
@@ -72,6 +73,10 @@ pub async fn submit(State(s): State<AppState>, Json(v): Json<Submission>) -> Api
 
 #[derive(sqlx::FromRow)]
 struct ClickTargets {
+    place_name: String,
+    city_name: String,
+    latitude: f64,
+    longitude: f64,
     affiliate_hotel_url: Option<String>,
     affiliate_ticket_url: Option<String>,
     whatsapp: Option<String>,
@@ -89,13 +94,22 @@ pub struct Click {
 
 pub async fn click(State(s): State<AppState>, Json(v): Json<Click>) -> ApiResult<Value> {
     let row: Option<ClickTargets> = sqlx::query_as(
-        "SELECT p.affiliate_hotel_url,p.affiliate_ticket_url,p.whatsapp,p.phone,cat.slug AS category FROM places p JOIN cities c ON p.city_id=c.id JOIN categories cat ON cat.id=p.category_id WHERE p.id=$1 AND p.city_id=$2 AND p.is_active AND c.is_active",
+        r#"SELECT p.name AS place_name, c.name AS city_name, p.latitude, p.longitude,
+                  p.affiliate_hotel_url, p.affiliate_ticket_url, p.whatsapp, p.phone, cat.slug AS category
+           FROM places p
+           JOIN cities c ON p.city_id = c.id
+           JOIN categories cat ON cat.id = p.category_id
+           WHERE p.id = $1 AND p.city_id = $2 AND p.is_active AND c.is_active"#,
     )
     .bind(v.place_id)
     .bind(&v.city_id)
     .fetch_optional(&s.pool)
     .await?;
     let ClickTargets {
+        place_name,
+        city_name,
+        latitude,
+        longitude,
         affiliate_hotel_url: hotel,
         affiliate_ticket_url: ticket,
         whatsapp,
@@ -110,8 +124,12 @@ pub async fn click(State(s): State<AppState>, Json(v): Json<Click>) -> ApiResult
                 "Affiliate tracking is disabled on public safety directories",
             ))
         }
-        "affiliate_hotel" => hotel.and_then(|x| https_url(&x)),
-        "affiliate_ticket" => ticket.and_then(|x| https_url(&x)),
+        "affiliate_hotel" => hotel
+            .and_then(|x| https_url(&x))
+            .or_else(|| Some(programmatic_hotel_url(&place_name, &city_name, latitude, longitude))),
+        "affiliate_ticket" => ticket
+            .and_then(|x| https_url(&x))
+            .or_else(|| Some(programmatic_ticket_url(&place_name, &city_name, latitude, longitude))),
         "whatsapp_lead" => whatsapp
             .and_then(|n| sanitize_phone_digits(&n))
             .filter(|n| n.len() >= 5)

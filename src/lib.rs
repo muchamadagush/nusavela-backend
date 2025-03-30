@@ -1,3 +1,4 @@
+pub mod auth;
 pub mod config;
 pub mod error;
 pub mod ingest;
@@ -32,6 +33,17 @@ pub fn router(s: AppState) -> Router {
         .route("/healthz", get(|| async { Json(json!({"status":"ok"})) }))
         .route("/readyz", get(ready))
         .route("/api/v1/coverage", get(routes::catalog::coverage))
+        .route(
+            "/api/v1/sitemap/places",
+            get(routes::catalog::sitemap_places),
+        )
+        .route("/api/v1/auth/status", get(routes::auth::status))
+        .route("/api/v1/auth/login", post(routes::auth::login))
+        .route(
+            "/api/v1/auth/setup",
+            post(routes::auth::setup_initial_admin),
+        )
+        .route("/api/v1/auth/me", get(routes::auth::me))
         .route("/api/v1/cities", get(routes::catalog::cities))
         .route("/api/v1/cities/nearest", get(routes::catalog::nearest))
         .route("/api/v1/cities/{slug}", get(routes::catalog::city))
@@ -56,6 +68,10 @@ pub fn router(s: AppState) -> Router {
         )
         .route("/api/v1/submissions", post(routes::community::submit))
         .route("/api/v1/clicks", post(routes::community::click))
+        .route(
+            "/api/v1/admin/users",
+            get(routes::auth::list_users).post(routes::auth::create_user),
+        )
         .route("/api/v1/admin/places", post(routes::curation::create_place))
         .route("/api/v1/admin/events", post(routes::curation::create_event))
         .route(
@@ -84,10 +100,12 @@ pub fn router(s: AppState) -> Router {
         .layer(cors)
         .with_state(s)
 }
+
 async fn ready(State(s): State<AppState>) -> ApiResult<Value> {
     sqlx::query("SELECT 1").execute(&s.pool).await?;
     Ok(Json(json!({"status":"ready"})))
 }
+
 async fn request_policy(State(s): State<AppState>, req: Request, next: Next) -> Response {
     let path = req.uri().path().to_owned();
     if ![Method::GET, Method::HEAD, Method::OPTIONS].contains(req.method()) {
@@ -114,7 +132,11 @@ async fn request_policy(State(s): State<AppState>, req: Request, next: Next) -> 
             .is_some_and(|v| v.as_bytes().starts_with(b"application/json"))
     {
         let status = response.status();
-        response=(status,Json(json!({"error":{"code":"invalid_request","message":"Invalid request or unsupported method"}}))).into_response();
+        response = (
+            status,
+            Json(json!({"error":{"code":"invalid_request","message":"Invalid request or unsupported method"}})),
+        )
+            .into_response();
     }
     response
         .headers_mut()
@@ -123,19 +145,24 @@ async fn request_policy(State(s): State<AppState>, req: Request, next: Next) -> 
         "x-content-type-options",
         HeaderValue::from_static("nosniff"),
     );
-    if path.starts_with("/api/v1/admin") {
+    if path.starts_with("/api/v1/admin") || path.starts_with("/api/v1/auth") {
         response
             .headers_mut()
             .insert("pragma", HeaderValue::from_static("no-cache"));
     }
     response
 }
+
 async fn rate_limit(s: &AppState, peer: &str) -> Result<(), AppError> {
-    let count:i32=sqlx::query_scalar(r#"INSERT INTO request_limits(bucket,window_start,count) VALUES($1,now(),1)
+    let count: i32 = sqlx::query_scalar(
+        r#"INSERT INTO request_limits(bucket,window_start,count) VALUES($1,now(),1)
        ON CONFLICT(bucket) DO UPDATE SET
        count=CASE WHEN request_limits.window_start<=now()-interval '60 seconds' THEN 1 ELSE request_limits.count+1 END,
-       window_start=CASE WHEN request_limits.window_start<=now()-interval '60 seconds' THEN now() ELSE request_limits.window_start END RETURNING count"#)
-        .bind(format!("write:{peer}")).fetch_one(&s.pool).await?;
+       window_start=CASE WHEN request_limits.window_start<=now()-interval '60 seconds' THEN now() ELSE request_limits.window_start END RETURNING count"#,
+    )
+    .bind(format!("write:{peer}"))
+    .fetch_one(&s.pool)
+    .await?;
     if count > 30 {
         return Err(AppError::RateLimited);
     }

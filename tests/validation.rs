@@ -1,10 +1,27 @@
 use nusavela_backend::{
+    auth::{hash_password, verify_password},
     ingest::classify,
-    models::{https_url, validate_coordinates, DirectoryQuery},
+    models::{
+        https_url, sanitize_phone_digits, validate_coordinates, validate_slug, DirectoryQuery,
+        SitemapQuery,
+    },
     routes::community::Submission,
     workers::rss::{public_ip, summary},
 };
 use serde_json::json;
+
+#[test]
+fn password_hashing_and_verification_are_salted_and_accurate() {
+    assert!(hash_password("short").is_err());
+    let h1 = hash_password("NusaVela#2026!").unwrap();
+    let h2 = hash_password("NusaVela#2026!").unwrap();
+    assert_ne!(h1, h2, "Each password hash must use a unique random salt");
+    assert!(verify_password("NusaVela#2026!", &h1));
+    assert!(verify_password("NusaVela#2026!", &h2));
+    assert!(!verify_password("WrongPassword123", &h1));
+    assert!(!verify_password("NusaVela#2026!", "invalid$hash$format"));
+}
+
 #[test]
 fn coordinate_boundaries_and_zero() {
     assert!(validate_coordinates(0., 0.).is_ok());
@@ -13,8 +30,9 @@ fn coordinate_boundaries_and_zero() {
         assert!(validate_coordinates(a, b).is_err());
     }
 }
+
 #[test]
-fn filters_are_bounded() {
+fn filters_and_sitemap_pagination_are_bounded() {
     assert!(DirectoryQuery::default().validate().is_ok());
     assert!(DirectoryQuery {
         lat: Some(0.),
@@ -43,7 +61,27 @@ fn filters_are_bounded() {
     ] {
         assert!(q.validate().is_err());
     }
+    assert_eq!(SitemapQuery { page: None }.validate_page().unwrap(), 1);
+    assert_eq!(SitemapQuery { page: Some(10) }.validate_page().unwrap(), 10);
+    assert!(SitemapQuery { page: Some(0) }.validate_page().is_err());
+    assert!(SitemapQuery { page: Some(1001) }.validate_page().is_err());
 }
+
+#[test]
+fn slug_and_phone_validators_enforce_clean_inputs() {
+    assert!(validate_slug("kawah-putih-bandung-1").is_ok());
+    for invalid in ["", "Kawah-Putih", "kawah_putih", "kawah/putih"] {
+        assert!(validate_slug(invalid).is_err(), "{invalid}");
+    }
+    assert_eq!(
+        sanitize_phone_digits("+62 (812) 3456-7890").as_deref(),
+        Some("6281234567890")
+    );
+    assert_eq!(sanitize_phone_digits("112").as_deref(), Some("112"));
+    assert!(sanitize_phone_digits("12").is_none());
+    assert!(sanitize_phone_digits("0812-abc-123").is_none());
+}
+
 #[test]
 fn affiliate_urls_are_https_without_credentials() {
     assert!(https_url("https://example.com/ticket?a=1").is_some());
@@ -56,11 +94,13 @@ fn affiliate_urls_are_https_without_credentials() {
         assert!(https_url(u).is_none());
     }
 }
+
 #[test]
 fn summaries_strip_html_and_limit_unicode_characters() {
     assert_eq!(summary("<p>Berita <b>kota</b></p>"), "Berita kota");
     assert_eq!(summary(&"é🇮🇩".repeat(100)).chars().count(), 160);
 }
+
 #[test]
 fn rss_rejects_private_and_mapped_private_addresses() {
     for ip in [
@@ -78,6 +118,7 @@ fn rss_rejects_private_and_mapped_private_addresses() {
     assert!(public_ip("8.8.8.8".parse().unwrap()));
     assert!(public_ip("2606:4700:4700::1111".parse().unwrap()));
 }
+
 #[test]
 fn place_classification_covers_all_directory_categories() {
     for (key, value, category) in [
@@ -93,6 +134,7 @@ fn place_classification_covers_all_directory_categories() {
         );
     }
 }
+
 #[test]
 fn submissions_require_place_and_only_message_payload() {
     let mut value = json!({"city_id":"test","place_id":null,"submission_type":"correction","submitter_name":"Tester","submitter_contact":"contact@example.com","payload":{"message":"Correct this location"}});
@@ -146,7 +188,7 @@ async fn jwt_rejects_wrong_role_issuer_expiry_signature_and_algorithm() {
             nbf: now,
         };
         match case {
-            1 => c.role = "user".into(),
+            1 => c.role = "guest".into(),
             2 => c.iss = "wrong".into(),
             3 => c.exp = now - 1000,
             4 => c.aud = "wrong".into(),

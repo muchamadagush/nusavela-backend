@@ -1,6 +1,8 @@
 use crate::{
     error::{bad, ApiResult, AppError},
-    models::{validate_coordinates, Category, City, DirectoryQuery, Place},
+    models::{
+        validate_coordinates, Category, City, DirectoryQuery, Place, SitemapPlace, SitemapQuery,
+    },
     state::AppState,
 };
 use axum::{
@@ -12,6 +14,7 @@ use serde::Deserialize;
 pub const CITY_FIELDS: &str =
     "id,province_id,name,short_name,slug,latitude,longitude,tier,timezone";
 pub const PLACE_FIELDS: &str = "p.id,p.name,p.slug,p.address,p.latitude,p.longitude,p.phone,p.whatsapp,p.opening_hours,p.is_24_hours,p.has_emergency,p.is_verified,p.is_sponsored,p.sponsored_until,p.sponsored_tier,p.rating_avg,p.description,p.image_url,p.ticket_price_min,p.ticket_price_max,p.affiliate_hotel_url,p.affiliate_ticket_url";
+
 pub async fn cities(State(s): State<AppState>) -> ApiResult<Vec<City>> {
     Ok(Json(
         sqlx::query_as(&format!(
@@ -21,9 +24,11 @@ pub async fn cities(State(s): State<AppState>) -> ApiResult<Vec<City>> {
         .await?,
     ))
 }
+
 pub async fn city(State(s): State<AppState>, Path(slug): Path<String>) -> ApiResult<City> {
     Ok(Json(find_city(&s.pool, &slug).await?))
 }
+
 pub async fn find_city(pool: &sqlx::PgPool, slug: &str) -> Result<City, AppError> {
     sqlx::query_as(&format!(
         "SELECT {CITY_FIELDS} FROM cities WHERE slug=$1 AND is_active"
@@ -33,17 +38,28 @@ pub async fn find_city(pool: &sqlx::PgPool, slug: &str) -> Result<City, AppError
     .await?
     .ok_or(AppError::NotFound)
 }
+
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct NearestQuery {
     pub lat: f64,
     pub lng: f64,
 }
+
 pub async fn nearest(State(s): State<AppState>, Query(q): Query<NearestQuery>) -> ApiResult<City> {
     validate_coordinates(q.lat, q.lng)?;
-    Ok(Json(sqlx::query_as(&format!("SELECT {CITY_FIELDS} FROM cities WHERE is_active AND ST_DWithin(geom,ST_SetSRID(ST_MakePoint($1,$2),4326)::geography,500000) ORDER BY geom <-> ST_SetSRID(ST_MakePoint($1,$2),4326)::geography,id LIMIT 1"))
-        .bind(q.lng).bind(q.lat).fetch_optional(&s.pool).await?.ok_or(AppError::NotFound)?))
+    Ok(Json(
+        sqlx::query_as(&format!(
+            "SELECT {CITY_FIELDS} FROM cities WHERE is_active AND ST_DWithin(geom,ST_SetSRID(ST_MakePoint($1,$2),4326)::geography,500000) ORDER BY geom <-> ST_SetSRID(ST_MakePoint($1,$2),4326)::geography,id LIMIT 1"
+        ))
+        .bind(q.lng)
+        .bind(q.lat)
+        .fetch_optional(&s.pool)
+        .await?
+        .ok_or(AppError::NotFound)?,
+    ))
 }
+
 pub async fn categories(State(s): State<AppState>) -> ApiResult<Vec<Category>> {
     Ok(Json(
         sqlx::query_as("SELECT id,name,slug FROM categories ORDER BY sort_order,id")
@@ -51,6 +67,7 @@ pub async fn categories(State(s): State<AppState>) -> ApiResult<Vec<Category>> {
             .await?,
     ))
 }
+
 pub async fn directory(
     State(s): State<AppState>,
     Path((city_slug, cat_slug)): Path<(String, String)>,
@@ -91,11 +108,14 @@ pub async fn directory(
             .await?,
     ))
 }
+
 pub async fn detail(
     State(s): State<AppState>,
     Path((city, cat, place)): Path<(String, String, String)>,
 ) -> ApiResult<Place> {
-    let sql = format!("SELECT {PLACE_FIELDS},NULL::float8 AS distance_meters FROM public_places p JOIN cities c ON p.city_id=c.id JOIN categories cat ON p.category_id=cat.id WHERE c.slug=$1 AND cat.slug=$2 AND p.slug=$3 AND p.is_active AND c.is_active");
+    let sql = format!(
+        "SELECT {PLACE_FIELDS},NULL::float8 AS distance_meters FROM public_places p JOIN cities c ON p.city_id=c.id JOIN categories cat ON p.category_id=cat.id WHERE c.slug=$1 AND cat.slug=$2 AND p.slug=$3 AND p.is_active AND c.is_active"
+    );
     Ok(Json(
         sqlx::query_as(&sql)
             .bind(city)
@@ -106,12 +126,37 @@ pub async fn detail(
             .ok_or(AppError::NotFound)?,
     ))
 }
+
+pub async fn sitemap_places(
+    State(s): State<AppState>,
+    Query(q): Query<SitemapQuery>,
+) -> ApiResult<Vec<SitemapPlace>> {
+    let page = q.validate_page()?;
+    let limit = 5000_i64;
+    let offset = (page - 1) * limit;
+    let items = sqlx::query_as::<_, SitemapPlace>(
+        r#"SELECT c.slug AS city_slug, cat.slug AS category_slug, p.slug AS place_slug, p.updated_at
+           FROM public_places p
+           JOIN cities c ON c.id = p.city_id
+           JOIN categories cat ON cat.id = p.category_id
+           WHERE p.is_active AND c.is_active
+           ORDER BY p.is_sponsored DESC, p.updated_at DESC, p.id
+           LIMIT $1 OFFSET $2"#,
+    )
+    .bind(limit)
+    .bind(offset)
+    .fetch_all(&s.pool)
+    .await?;
+    Ok(Json(items))
+}
+
 #[derive(Deserialize, Default)]
 #[serde(deny_unknown_fields)]
 pub struct EventQuery {
     pub from: Option<chrono::DateTime<chrono::Utc>>,
     pub until: Option<chrono::DateTime<chrono::Utc>>,
 }
+
 pub async fn events(
     State(s): State<AppState>,
     Path(slug): Path<String>,
@@ -123,24 +168,43 @@ pub async fn events(
     if until < from || until - from > chrono::Duration::days(366) {
         return Err(bad("Invalid event date range"));
     }
-    let items: Vec<serde_json::Value> = sqlx::query_scalar("SELECT to_jsonb(e) FROM events e WHERE city_id=$1 AND is_active AND end_datetime >= $2 AND start_datetime <= $3 ORDER BY is_sponsored DESC,start_datetime,id LIMIT 100")
-        .bind(c.id).bind(from).bind(until).fetch_all(&s.pool).await?;
+    let items: Vec<serde_json::Value> = sqlx::query_scalar(
+        "SELECT to_jsonb(e) FROM events e WHERE city_id=$1 AND is_active AND end_datetime >= $2 AND start_datetime <= $3 ORDER BY is_sponsored DESC,start_datetime,id LIMIT 100",
+    )
+    .bind(c.id)
+    .bind(from)
+    .bind(until)
+    .fetch_all(&s.pool)
+    .await?;
     Ok(Json(serde_json::json!(items)))
 }
+
 pub async fn emergency(
     State(s): State<AppState>,
     Path(slug): Path<String>,
 ) -> ApiResult<serde_json::Value> {
     let c = find_city(&s.pool, &slug).await?;
-    let items: Vec<serde_json::Value> = sqlx::query_scalar("SELECT to_jsonb(e) FROM emergency_contacts e WHERE (city_id=$1 OR city_id IS NULL) AND is_active AND verified_at IS NOT NULL ORDER BY sort_order,id").bind(c.id).fetch_all(&s.pool).await?;
+    let items: Vec<serde_json::Value> = sqlx::query_scalar(
+        "SELECT to_jsonb(e) FROM emergency_contacts e WHERE (city_id=$1 OR city_id IS NULL) AND is_active AND verified_at IS NOT NULL ORDER BY sort_order,id",
+    )
+    .bind(c.id)
+    .fetch_all(&s.pool)
+    .await?;
     Ok(Json(serde_json::json!(items)))
 }
+
 pub async fn news(
     State(s): State<AppState>,
     Path(slug): Path<String>,
 ) -> ApiResult<serde_json::Value> {
     let c = find_city(&s.pool, &slug).await?;
-    let items: Vec<serde_json::Value> = sqlx::query_scalar("SELECT to_jsonb(n) FROM news_feeds n WHERE city_id=$1 OR (city_id IS NULL AND province_id=$2) ORDER BY published_at DESC,id LIMIT 30").bind(c.id).bind(c.province_id).fetch_all(&s.pool).await?;
+    let items: Vec<serde_json::Value> = sqlx::query_scalar(
+        "SELECT to_jsonb(n) FROM news_feeds n WHERE city_id=$1 OR (city_id IS NULL AND province_id=$2) ORDER BY published_at DESC,id LIMIT 30",
+    )
+    .bind(c.id)
+    .bind(c.province_id)
+    .fetch_all(&s.pool)
+    .await?;
     Ok(Json(serde_json::json!(items)))
 }
 
@@ -153,9 +217,13 @@ pub async fn coverage(State(s): State<AppState>) -> ApiResult<serde_json::Value>
           'active_places', (SELECT count(*) FROM places p JOIN cities c ON c.id=p.city_id WHERE p.is_active AND c.is_active),
           'verified_places', (SELECT count(*) FROM places p JOIN cities c ON c.id=p.city_id WHERE p.is_active AND c.is_active AND p.is_verified),
           'cities_with_places', (SELECT count(DISTINCT p.city_id) FROM places p JOIN cities c ON c.id=p.city_id WHERE p.is_active AND c.is_active),
-          'verified_emergency_contacts', (SELECT count(*) FROM emergency_contacts WHERE is_active AND verified_at IS NOT NULL))"
-    ).fetch_one(&s.pool).await?;
-    Ok(Json(
-        serde_json::json!({"counts": counts, "target": {"provinces": 38, "cities": 514}, "national_data_verified": false}),
-    ))
+          'verified_emergency_contacts', (SELECT count(*) FROM emergency_contacts WHERE is_active AND verified_at IS NOT NULL))",
+    )
+    .fetch_one(&s.pool)
+    .await?;
+    Ok(Json(serde_json::json!({
+        "counts": counts,
+        "target": {"provinces": 38, "cities": 514},
+        "national_data_verified": false
+    })))
 }

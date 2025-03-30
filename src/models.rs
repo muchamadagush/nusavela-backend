@@ -16,12 +16,14 @@ pub struct City {
     pub tier: i16,
     pub timezone: String,
 }
+
 #[derive(Debug, Serialize, FromRow)]
 pub struct Category {
     pub id: i32,
     pub name: String,
     pub slug: String,
 }
+
 #[derive(Debug, Serialize, FromRow)]
 pub struct Place {
     pub id: Uuid,
@@ -48,6 +50,31 @@ pub struct Place {
     pub affiliate_hotel_url: Option<String>,
     pub affiliate_ticket_url: Option<String>,
 }
+
+#[derive(Debug, Serialize, FromRow)]
+pub struct SitemapPlace {
+    pub city_slug: String,
+    pub category_slug: String,
+    pub place_slug: String,
+    pub updated_at: DateTime<Utc>,
+}
+
+#[derive(Debug, Default, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct SitemapQuery {
+    pub page: Option<i64>,
+}
+
+impl SitemapQuery {
+    pub fn validate_page(&self) -> Result<i64, AppError> {
+        let page = self.page.unwrap_or(1);
+        if !(1..=1000).contains(&page) {
+            return Err(bad("Sitemap page must be 1–1000"));
+        }
+        Ok(page)
+    }
+}
+
 #[derive(Debug, Default, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct DirectoryQuery {
@@ -59,6 +86,7 @@ pub struct DirectoryQuery {
     pub page: Option<i64>,
     pub emergency_only: Option<bool>,
 }
+
 impl DirectoryQuery {
     pub fn validate(&self) -> Result<(), AppError> {
         match (self.lat, self.lng) {
@@ -83,6 +111,7 @@ impl DirectoryQuery {
         Ok(())
     }
 }
+
 pub fn validate_coordinates(lat: f64, lng: f64) -> Result<(), AppError> {
     if !lat.is_finite()
         || !lng.is_finite()
@@ -93,6 +122,7 @@ pub fn validate_coordinates(lat: f64, lng: f64) -> Result<(), AppError> {
     }
     Ok(())
 }
+
 pub fn text(value: &str, min: usize, max: usize) -> Result<(), AppError> {
     let len = value.trim().chars().count();
     if len < min || len > max {
@@ -100,6 +130,31 @@ pub fn text(value: &str, min: usize, max: usize) -> Result<(), AppError> {
     }
     Ok(())
 }
+
+pub fn validate_slug(s: &str) -> Result<(), AppError> {
+    text(s, 1, 300)?;
+    if !s
+        .bytes()
+        .all(|c| c.is_ascii_lowercase() || c.is_ascii_digit() || c == b'-')
+    {
+        return Err(bad(
+            "Slug must contain only lowercase ASCII letters, digits and hyphens",
+        ));
+    }
+    Ok(())
+}
+
+pub fn sanitize_phone_digits(value: &str) -> Option<String> {
+    if !value
+        .chars()
+        .all(|c| c.is_ascii_digit() || "+ -()".contains(c))
+    {
+        return None;
+    }
+    let digits: String = value.chars().filter(char::is_ascii_digit).collect();
+    (3..=15).contains(&digits.len()).then_some(digits)
+}
+
 pub fn https_url(value: &str) -> Option<String> {
     let u = url::Url::parse(value).ok()?;
     (u.scheme() == "https"

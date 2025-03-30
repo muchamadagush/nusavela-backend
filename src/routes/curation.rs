@@ -1,6 +1,6 @@
 use crate::{
     error::{bad, ApiResult, AppError},
-    models::{https_url, text, validate_coordinates},
+    models::{https_url, sanitize_phone_digits, text, validate_coordinates, validate_slug},
     routes::admin::authorize,
     state::AppState,
 };
@@ -9,18 +9,7 @@ use chrono::{DateTime, Utc};
 use serde::Deserialize;
 use serde_json::{json, Value};
 use uuid::Uuid;
-fn slug(s: &str) -> Result<(), AppError> {
-    text(s, 1, 300)?;
-    if !s
-        .bytes()
-        .all(|c| c.is_ascii_lowercase() || c.is_ascii_digit() || c == b'-')
-    {
-        return Err(bad(
-            "Slug must contain only lowercase ASCII letters, digits and hyphens",
-        ));
-    }
-    Ok(())
-}
+
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct NewPlace {
@@ -42,6 +31,7 @@ pub struct NewPlace {
     pub ticket_price_min: Option<i32>,
     pub ticket_price_max: Option<i32>,
 }
+
 pub async fn create_place(
     State(s): State<AppState>,
     h: HeaderMap,
@@ -49,7 +39,7 @@ pub async fn create_place(
 ) -> ApiResult<Value> {
     let admin = authorize(&s, &h)?;
     text(&v.name, 1, 255)?;
-    slug(&v.slug)?;
+    validate_slug(&v.slug)?;
     validate_coordinates(v.latitude, v.longitude)?;
     for (t, max) in [
         (&v.address, 2000),
@@ -62,18 +52,36 @@ pub async fn create_place(
     }
     if v.ticket_price_min.is_some_and(|p| p < 0)
         || v.ticket_price_max.is_some_and(|p| p < 0)
-        || matches!((v.ticket_price_min,v.ticket_price_max),(Some(a),Some(b)) if a>b)
+        || matches!((v.ticket_price_min, v.ticket_price_max), (Some(a), Some(b)) if a > b)
     {
         return Err(bad("Invalid ticket price range"));
     }
     let mut tx = s.pool.begin().await?;
-    let id:Option<Uuid>=sqlx::query_scalar("INSERT INTO places(city_id,category_id,name,slug,latitude,longitude,address,description,opening_hours,is_24_hours,has_emergency,is_verified,ticket_price_min,ticket_price_max,source,last_verified_at) SELECT c.id,cat.id,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,'admin',now() FROM cities c CROSS JOIN categories cat WHERE c.id=$1 AND c.is_active AND cat.slug=$2 RETURNING places.id")
-      .bind(v.city_id).bind(v.category_slug).bind(v.name).bind(v.slug).bind(v.latitude).bind(v.longitude).bind(v.address).bind(v.description).bind(v.opening_hours).bind(v.is_24_hours).bind(v.has_emergency).bind(v.is_verified).bind(v.ticket_price_min).bind(v.ticket_price_max).fetch_optional(&mut *tx).await?;
+    let id: Option<Uuid> = sqlx::query_scalar(
+        "INSERT INTO places(city_id,category_id,name,slug,latitude,longitude,address,description,opening_hours,is_24_hours,has_emergency,is_verified,ticket_price_min,ticket_price_max,source,last_verified_at) SELECT c.id,cat.id,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,'admin',now() FROM cities c CROSS JOIN categories cat WHERE c.id=$1 AND c.is_active AND cat.slug=$2 RETURNING places.id",
+    )
+    .bind(v.city_id)
+    .bind(v.category_slug)
+    .bind(v.name)
+    .bind(v.slug)
+    .bind(v.latitude)
+    .bind(v.longitude)
+    .bind(v.address)
+    .bind(v.description)
+    .bind(v.opening_hours)
+    .bind(v.is_24_hours)
+    .bind(v.has_emergency)
+    .bind(v.is_verified)
+    .bind(v.ticket_price_min)
+    .bind(v.ticket_price_max)
+    .fetch_optional(&mut *tx)
+    .await?;
     let id = id.ok_or(AppError::NotFound)?;
     audit(&mut tx, &admin.sub, "create_place", id).await?;
     tx.commit().await?;
     Ok(Json(json!({"id":id})))
 }
+
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct NewEvent {
@@ -88,6 +96,7 @@ pub struct NewEvent {
     pub ticket_price: i32,
     pub description: Option<String>,
 }
+
 pub async fn create_event(
     State(s): State<AppState>,
     h: HeaderMap,
@@ -95,7 +104,7 @@ pub async fn create_event(
 ) -> ApiResult<Value> {
     let admin = authorize(&s, &h)?;
     text(&v.title, 1, 255)?;
-    slug(&v.slug)?;
+    validate_slug(&v.slug)?;
     if v.end_datetime < v.start_datetime || v.ticket_price < 0 {
         return Err(bad("Invalid event time or price"));
     }
@@ -109,13 +118,26 @@ pub async fn create_event(
         }
     }
     let mut tx = s.pool.begin().await?;
-    let id:Option<Uuid>=sqlx::query_scalar("INSERT INTO events(city_id,title,slug,venue_name,address,start_datetime,end_datetime,ticket_price,description) SELECT id,$2,$3,$4,$5,$6,$7,$8,$9 FROM cities WHERE id=$1 AND is_active RETURNING id")
-        .bind(v.city_id).bind(v.title).bind(v.slug).bind(v.venue_name).bind(v.address).bind(v.start_datetime).bind(v.end_datetime).bind(v.ticket_price).bind(v.description).fetch_optional(&mut *tx).await?;
+    let id: Option<Uuid> = sqlx::query_scalar(
+        "INSERT INTO events(city_id,title,slug,venue_name,address,start_datetime,end_datetime,ticket_price,description) SELECT id,$2,$3,$4,$5,$6,$7,$8,$9 FROM cities WHERE id=$1 AND is_active RETURNING id",
+    )
+    .bind(v.city_id)
+    .bind(v.title)
+    .bind(v.slug)
+    .bind(v.venue_name)
+    .bind(v.address)
+    .bind(v.start_datetime)
+    .bind(v.end_datetime)
+    .bind(v.ticket_price)
+    .bind(v.description)
+    .fetch_optional(&mut *tx)
+    .await?;
     let id = id.ok_or(AppError::NotFound)?;
     audit(&mut tx, &admin.sub, "create_event", id).await?;
     tx.commit().await?;
     Ok(Json(json!({"id":id})))
 }
+
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Emergency {
@@ -129,6 +151,7 @@ pub struct Emergency {
     #[serde(default)]
     pub is_24_hours: bool,
 }
+
 pub async fn create_emergency(
     State(s): State<AppState>,
     h: HeaderMap,
@@ -137,12 +160,7 @@ pub async fn create_emergency(
     let admin = authorize(&s, &h)?;
     text(&v.service_name, 1, 150)?;
     text(&v.phone_number, 3, 50)?;
-    if !v
-        .phone_number
-        .chars()
-        .all(|c| c.is_ascii_digit() || "+ -()".contains(c))
-        || https_url(&v.source_url).is_none()
-    {
+    if sanitize_phone_digits(&v.phone_number).is_none() || https_url(&v.source_url).is_none() {
         return Err(bad("Valid phone and verified HTTPS source required"));
     }
     if !["medis", "keamanan", "pemadam", "sar", "call_center"].contains(&v.category.as_str()) {
@@ -159,12 +177,28 @@ pub async fn create_emergency(
             return Err(AppError::NotFound);
         }
     }
-    let id:i32=sqlx::query_scalar("INSERT INTO emergency_contacts(city_id,service_name,category,phone_number,source_url,verified_at,is_active,is_toll_free,is_24_hours) VALUES($1,$2,$3,$4,$5,now(),true,$6,$7) RETURNING id")
-        .bind(v.city_id).bind(v.service_name).bind(v.category).bind(v.phone_number).bind(v.source_url).bind(v.is_toll_free).bind(v.is_24_hours).fetch_one(&mut *tx).await?;
-    sqlx::query("INSERT INTO admin_audit(actor,action,target_id,detail) VALUES($1,'create_emergency_contact',$2,$3)").bind(admin.sub).bind(Uuid::new_v4()).bind(json!({"contact_id":id})).execute(&mut *tx).await?;
+    let id: i32 = sqlx::query_scalar(
+        "INSERT INTO emergency_contacts(city_id,service_name,category,phone_number,source_url,verified_at,is_active,is_toll_free,is_24_hours) VALUES($1,$2,$3,$4,$5,now(),true,$6,$7) RETURNING id",
+    )
+    .bind(v.city_id)
+    .bind(v.service_name)
+    .bind(v.category)
+    .bind(v.phone_number)
+    .bind(v.source_url)
+    .bind(v.is_toll_free)
+    .bind(v.is_24_hours)
+    .fetch_one(&mut *tx)
+    .await?;
+    sqlx::query("INSERT INTO admin_audit(actor,action,target_id,detail) VALUES($1,'create_emergency_contact',$2,$3)")
+        .bind(admin.sub)
+        .bind(Uuid::new_v4())
+        .bind(json!({"contact_id":id}))
+        .execute(&mut *tx)
+        .await?;
     tx.commit().await?;
     Ok(Json(json!({"id":id})))
 }
+
 async fn audit(
     tx: &mut sqlx::Transaction<'_, sqlx::Postgres>,
     actor: &str,

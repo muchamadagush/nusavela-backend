@@ -1,6 +1,6 @@
 use clap::Parser;
 use nusavela_backend::ingest::classify;
-use osmpbf::{Element, ElementReader};
+use osmpbf::{Element, ElementReader, RelMemberType};
 use serde_json::{json, Value};
 use std::{
     collections::HashMap,
@@ -8,6 +8,7 @@ use std::{
     sync::atomic::{AtomicBool, Ordering},
 };
 use tokio::sync::mpsc;
+
 #[derive(Parser)]
 #[command(about = "Bounded-memory parallel OSM importer; retains curated/sponsored fields")]
 struct Args {
@@ -18,11 +19,13 @@ struct Args {
     #[arg(long, default_value_t = 50000.)]
     max_city_distance: f64,
 }
+
 #[derive(Debug)]
 struct Row {
     node: Option<(i64, f64, f64)>,
     candidate: Option<Value>,
 }
+
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     dotenvy::dotenv().ok();
@@ -50,6 +53,7 @@ async fn main() -> anyhow::Result<()> {
         .await;
     result
 }
+
 async fn import(pool: &sqlx::PgPool, a: Args) -> anyhow::Result<()> {
     let active: i64 = sqlx::query_scalar("SELECT count(*) FROM cities WHERE is_active")
         .fetch_one(pool)
@@ -69,13 +73,33 @@ async fn import(pool: &sqlx::PgPool, a: Args) -> anyhow::Result<()> {
                 }
                 let row = match element {
                     Element::Node(n) => {
-                        row("node", n.id(), Some((n.lat(), n.lon())), None, n.tags())
+                        row("node", n.id(), Some((n.lat(), n.lon())), None, None, n.tags())
                     }
                     Element::DenseNode(n) => {
-                        row("node", n.id(), Some((n.lat(), n.lon())), None, n.tags())
+                        row("node", n.id(), Some((n.lat(), n.lon())), None, None, n.tags())
                     }
-                    Element::Way(w) => row("way", w.id(), None, Some(w.refs().collect()), w.tags()),
-                    _ => None,
+                    Element::Way(w) => {
+                        row("way", w.id(), None, Some(w.refs().collect()), None, w.tags())
+                    }
+                    Element::Relation(r) => {
+                        let mut n_refs = Vec::new();
+                        let mut w_refs = Vec::new();
+                        for m in r.members() {
+                            match m.member_type {
+                                RelMemberType::Node => n_refs.push(m.member_id),
+                                RelMemberType::Way => w_refs.push(m.member_id),
+                                RelMemberType::Relation => (),
+                            }
+                        }
+                        row(
+                            "relation",
+                            r.id(),
+                            None,
+                            (!n_refs.is_empty()).then_some(n_refs),
+                            (!w_refs.is_empty()).then_some(w_refs),
+                            r.tags(),
+                        )
+                    }
                 };
                 if let Some(row) = row {
                     if tx.blocking_send(row).is_err() {
@@ -104,20 +128,57 @@ async fn import(pool: &sqlx::PgPool, a: Args) -> anyhow::Result<()> {
         flush(pool, &rows).await?;
         total += rows.len() as u64;
     }
-    println!("Staged {total} OSM elements; resolving way centroids");
+    println!("Staged {total} OSM elements; resolving way and relation centroids");
     // Resolve ways only after all referenced nodes have arrived; skip incomplete geometry.
-    sqlx::query(r#"WITH centers AS (
+    sqlx::query(
+        r#"WITH centers AS (
       SELECT w.osm_id,avg(n.latitude) AS lat,avg(n.longitude) AS lng
       FROM osm_import_candidates w CROSS JOIN LATERAL unnest(w.node_refs) ref(id)
       JOIN osm_import_nodes n ON n.id=ref.id
       WHERE w.osm_type='way' GROUP BY w.osm_id,w.node_refs HAVING count(*)=cardinality(w.node_refs)
-    ) UPDATE osm_import_candidates w SET latitude=c.lat,longitude=c.lng FROM centers c WHERE w.osm_type='way' AND w.osm_id=c.osm_id"#).execute(pool).await?;
-    // Import in bounded keyset batches. The same OSM ID on node and way remains distinct.
+    ) UPDATE osm_import_candidates w SET latitude=c.lat,longitude=c.lng FROM centers c WHERE w.osm_type='way' AND w.osm_id=c.osm_id"#,
+    )
+    .execute(pool)
+    .await?;
+    // Resolve relation centroids from member nodes or resolved member ways.
+    sqlx::query(
+        r#"WITH rel_points AS (
+      SELECT r.osm_id, n.latitude AS lat, n.longitude AS lng
+      FROM osm_import_candidates r
+      CROSS JOIN LATERAL unnest(COALESCE(r.node_refs, '{}'::bigint[])) nref(id)
+      JOIN osm_import_nodes n ON n.id = nref.id
+      WHERE r.osm_type = 'relation'
+      UNION ALL
+      SELECT r.osm_id, w.latitude AS lat, w.longitude AS lng
+      FROM osm_import_candidates r
+      CROSS JOIN LATERAL unnest(COALESCE(r.way_refs, '{}'::bigint[])) wref(id)
+      JOIN osm_import_candidates w ON w.osm_type = 'way' AND w.osm_id = wref.id
+      WHERE r.osm_type = 'relation' AND w.latitude IS NOT NULL AND w.longitude IS NOT NULL
+    ), rel_centers AS (
+      SELECT osm_id, avg(lat) AS lat, avg(lng) AS lng
+      FROM rel_points
+      GROUP BY osm_id
+    )
+    UPDATE osm_import_candidates r
+    SET latitude = c.lat, longitude = c.lng
+    FROM rel_centers c
+    WHERE r.osm_type = 'relation' AND r.osm_id = c.osm_id"#,
+    )
+    .execute(pool)
+    .await?;
+    // Import in bounded keyset batches. The same OSM ID on node, way, and relation remains distinct.
     let mut after_type = String::new();
     let mut after_id = 0_i64;
     let mut inserted = 0_u64;
     loop {
-        let batch:Vec<(String,i64)>=sqlx::query_as("SELECT osm_type,osm_id FROM osm_import_candidates WHERE (osm_type,osm_id)>($1,$2) AND latitude IS NOT NULL ORDER BY osm_type,osm_id LIMIT $3").bind(&after_type).bind(after_id).bind(a.batch_size as i64).fetch_all(pool).await?;
+        let batch: Vec<(String, i64)> = sqlx::query_as(
+            "SELECT osm_type,osm_id FROM osm_import_candidates WHERE (osm_type,osm_id)>($1,$2) AND latitude IS NOT NULL ORDER BY osm_type,osm_id LIMIT $3",
+        )
+        .bind(&after_type)
+        .bind(after_id)
+        .bind(a.batch_size as i64)
+        .fetch_all(pool)
+        .await?;
         let Some((last_type, last_id)) = batch.last() else {
             break;
         };
@@ -137,25 +198,39 @@ async fn import(pool: &sqlx::PgPool, a: Args) -> anyhow::Result<()> {
         sqlx::query_scalar("SELECT count(*) FROM osm_import_candidates WHERE latitude IS NULL")
             .fetch_one(pool)
             .await?;
-    println!("Upserted {inserted} POIs. {unresolved} unresolved ways skipped. Staging retained for inspection; next import rebuilds it.");
+    println!("Upserted {inserted} POIs. {unresolved} unresolved elements skipped. Staging retained for inspection; next import rebuilds it.");
     Ok(())
 }
+
 fn row<'a>(
     kind: &str,
     id: i64,
     point: Option<(f64, f64)>,
-    refs: Option<Vec<i64>>,
+    node_refs: Option<Vec<i64>>,
+    way_refs: Option<Vec<i64>>,
     tags: impl Iterator<Item = (&'a str, &'a str)>,
 ) -> Option<Row> {
     let tags: HashMap<String, String> = tags.map(|(k, v)| (k.to_owned(), v.to_owned())).collect();
     let node = point.map(|(lat, lng)| (id, lat, lng));
-    let candidate=classify(&tags).and_then(|category|{
-        let name=tags.get("name")?;
-        if name.trim().is_empty(){return None;}
-        Some(json!({"osm_type":kind,"osm_id":id,"category_slug":category,"tags":tags,"node_refs":refs,"latitude":point.map(|p|p.0),"longitude":point.map(|p|p.1)}))
+    let candidate = classify(&tags).and_then(|category| {
+        let name = tags.get("name")?;
+        if name.trim().is_empty() {
+            return None;
+        }
+        Some(json!({
+            "osm_type": kind,
+            "osm_id": id,
+            "category_slug": category,
+            "tags": tags,
+            "node_refs": node_refs,
+            "way_refs": way_refs,
+            "latitude": point.map(|p| p.0),
+            "longitude": point.map(|p| p.1)
+        }))
     });
     (node.is_some() || candidate.is_some()).then_some(Row { node, candidate })
 }
+
 async fn flush(pool: &sqlx::PgPool, rows: &[Row]) -> anyhow::Result<()> {
     let nodes: Vec<_> = rows.iter().filter_map(|r| r.node).collect();
     let ids: Vec<_> = nodes.iter().map(|n| n.0).collect();
@@ -164,10 +239,22 @@ async fn flush(pool: &sqlx::PgPool, rows: &[Row]) -> anyhow::Result<()> {
     let candidates: Vec<_> = rows.iter().filter_map(|r| r.candidate.clone()).collect();
     let mut tx = pool.begin().await?;
     if !ids.is_empty() {
-        sqlx::query("INSERT INTO osm_import_nodes(id,latitude,longitude) SELECT * FROM unnest($1::bigint[],$2::float8[],$3::float8[]) ON CONFLICT(id) DO UPDATE SET latitude=EXCLUDED.latitude,longitude=EXCLUDED.longitude").bind(ids).bind(lats).bind(lngs).execute(&mut *tx).await?;
+        sqlx::query(
+            "INSERT INTO osm_import_nodes(id,latitude,longitude) SELECT * FROM unnest($1::bigint[],$2::float8[],$3::float8[]) ON CONFLICT(id) DO UPDATE SET latitude=EXCLUDED.latitude,longitude=EXCLUDED.longitude",
+        )
+        .bind(ids)
+        .bind(lats)
+        .bind(lngs)
+        .execute(&mut *tx)
+        .await?;
     }
     if !candidates.is_empty() {
-        sqlx::query("INSERT INTO osm_import_candidates SELECT osm_type,osm_id,tags,category_slug,node_refs,latitude,longitude FROM jsonb_to_recordset($1) AS x(osm_type text,osm_id bigint,tags jsonb,category_slug text,node_refs bigint[],latitude float8,longitude float8) ON CONFLICT(osm_type,osm_id) DO UPDATE SET tags=EXCLUDED.tags,category_slug=EXCLUDED.category_slug,node_refs=EXCLUDED.node_refs,latitude=EXCLUDED.latitude,longitude=EXCLUDED.longitude").bind(json!(candidates)).execute(&mut *tx).await?;
+        sqlx::query(
+            "INSERT INTO osm_import_candidates(osm_type,osm_id,tags,category_slug,node_refs,way_refs,latitude,longitude) SELECT osm_type,osm_id,tags,category_slug,node_refs,way_refs,latitude,longitude FROM jsonb_to_recordset($1) AS x(osm_type text,osm_id bigint,tags jsonb,category_slug text,node_refs bigint[],way_refs bigint[],latitude float8,longitude float8) ON CONFLICT(osm_type,osm_id) DO UPDATE SET tags=EXCLUDED.tags,category_slug=EXCLUDED.category_slug,node_refs=EXCLUDED.node_refs,way_refs=EXCLUDED.way_refs,latitude=EXCLUDED.latitude,longitude=EXCLUDED.longitude",
+        )
+        .bind(json!(candidates))
+        .execute(&mut *tx)
+        .await?;
     }
     tx.commit().await?;
     Ok(())

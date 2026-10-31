@@ -317,6 +317,44 @@ async fn api_database_contract_and_security() {
             .await
             .unwrap();
         assert!(!tile.is_empty());
+        // Fixtures near Greenwich must survive world and local tile filtering.
+        for (z, x, y) in [(1, 1, 0), (8, 128, 127)] {
+            let bytes: Vec<u8> = sqlx::query_scalar("SELECT place_tiles($1,$2,$3)")
+                .bind(z)
+                .bind(x)
+                .bind(y)
+                .fetch_one(&pool)
+                .await
+                .unwrap();
+            assert!(!bytes.is_empty(), "Missing tile at {z}/{x}/{y}");
+        }
+        let empty: Vec<u8> = sqlx::query_scalar("SELECT place_tiles(8,0,0)")
+            .fetch_one(&pool)
+            .await
+            .unwrap();
+        assert!(empty.is_empty(), "Unpopulated tile must remain empty");
+        for (name, longitude, latitude) in [
+            ("Eastern edge", 179.99, 1.0),
+            ("Western edge", -179.99, 1.0),
+            ("Mercator north", 0.0, 85.0),
+            ("Outside Mercator", 0.0, 90.0),
+        ] {
+            sqlx::query("INSERT INTO places(city_id,category_id,name,slug,latitude,longitude) SELECT 'test',id,$1,$1,$2,$3 FROM categories WHERE slug='wisata'")
+                .bind(name).bind(latitude).bind(longitude).execute(&pool).await.unwrap();
+        }
+        let world: Vec<u8> = sqlx::query_scalar("SELECT place_tiles(0,0,0)")
+            .fetch_one(&pool)
+            .await
+            .unwrap();
+        for name in ["Eastern edge", "Western edge", "Mercator north"] {
+            assert!(
+                world.windows(name.len()).any(|s| s == name.as_bytes()),
+                "Missing {name}"
+            );
+        }
+        assert!(!world
+            .windows("Outside Mercator".len())
+            .any(|s| s == b"Outside Mercator"));
     } else {
         eprintln!("MVT encoding skipped explicitly: verification PostGIS build has no protobuf-c support; native CI must run without TEST_SKIP_MVT");
     }

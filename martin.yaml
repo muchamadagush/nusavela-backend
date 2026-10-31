@@ -1,0 +1,8 @@
+listen_addresses: '0.0.0.0:3000'
+postgres:
+  connection_string: '${DATABASE_URL}'
+  auto_publish:
+    tables: false
+    functions:
+      from_schemas: [public]
+      source_id_format: '{function}'

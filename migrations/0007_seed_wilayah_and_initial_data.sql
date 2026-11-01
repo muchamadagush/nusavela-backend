@@ -325,7 +325,7 @@ INSERT INTO cities (id, province_id, name, short_name, slug, latitude, longitude
   ('5106', '51', 'Kabupaten Bangli', 'Bangli', 'kabupaten-bangli', -8.3955, 114.9089, 2, 'Asia/Makassar'),
   ('5107', '51', 'Kabupaten Karangasem', 'Karangasem', 'kabupaten-karangasem', -8.3955, 115.0489, 2, 'Asia/Makassar'),
   ('5108', '51', 'Kabupaten Buleleng', 'Buleleng', 'kabupaten-buleleng', -8.3955, 115.1889, 2, 'Asia/Makassar'),
-  ('5179', '51', 'Kota Denpasar', 'Denpasar', 'kota-denpasar', -8.6705, 115.2126, 1, 'Asia/Makassar'),
+  ('5171', '51', 'Kota Denpasar', 'Denpasar', 'kota-denpasar', -8.6705, 115.2126, 1, 'Asia/Makassar'),
   ('5201', '52', 'Kabupaten Lombok Barat', 'Lombok Barat', 'kabupaten-lombok-barat', -8.7929, 117.0816, 2, 'Asia/Makassar'),
   ('5202', '52', 'Kabupaten Lombok Tengah', 'Lombok Tengah', 'kabupaten-lombok-tengah', -8.7929, 117.2216, 2, 'Asia/Makassar'),
   ('5203', '52', 'Kabupaten Lombok Timur', 'Lombok Timur', 'kabupaten-lombok-timur', -8.7929, 117.3616, 2, 'Asia/Makassar'),
@@ -621,16 +621,16 @@ FROM (
         ('3204', 'rumah-sakit', 'RSUD Otto Iskandar Di Nata Soreang', 'rsud-otista-soreang-kab-bandung', 'Jl. Gading Tutuka, Cingcin, Kec. Soreang, Kabupaten Bandung', -7.022350, 107.531120, '+62225891355', NULL, 'IGD 24 Jam', true, true, NULL, NULL, 4.4, 520, 'Rumah sakit umum daerah rujukan Kabupaten Bandung dengan fasilitas IGD 24 jam di koridor Soreang.'),
 
         -- JAKARTA PUSAT (3171)
-        ('3171', 'wisata', 'Monumen Nasional (Monas)', 'monumen-nasional-monas-jakarta', 'Lapangan Merdeka, Gambir, Kota Administrasi Jakarta Pusat', -6.175392, 106.827153, '+62213822255', NULL, 'Selasa-Minggu 08:00-22:00 WIB', false, false, 5000, 15000, 4.7, 4500, 'Monumen peringatan perjuangan kemerdekaan Republik Indonesia setinggi 132 meter dengan Museum Sejarah Nasional dan pelataran puncak.'),
-        ('3171', 'rumah-sakit', 'RSUP Nasional Dr. Cipto Mangunkusumo (RSCM)', 'rsupn-dr-cipto-mangunkusumo-jakarta', 'Jl. Pangeran Diponegoro No.71, Kenari, Kec. Senen, Jakarta Pusat', -6.197310, 106.846820, '+62211500135', NULL, 'IGD 24 Jam', true, true, NULL, NULL, 4.6, 3200, 'Rumah sakit pusat rujukan nasional dengan layanan gawat darurat terpadu 24 jam dan pusat spesialis lengkap.'),
+        ('3172', 'wisata', 'Monumen Nasional (Monas)', 'monumen-nasional-monas-jakarta', 'Lapangan Merdeka, Gambir, Kota Administrasi Jakarta Pusat', -6.175392, 106.827153, '+62213822255', NULL, 'Selasa-Minggu 08:00-22:00 WIB', false, false, 5000, 15000, 4.7, 4500, 'Monumen peringatan perjuangan kemerdekaan Republik Indonesia setinggi 132 meter dengan Museum Sejarah Nasional dan pelataran puncak.'),
+        ('3172', 'rumah-sakit', 'RSUP Nasional Dr. Cipto Mangunkusumo (RSCM)', 'rsupn-dr-cipto-mangunkusumo-jakarta', 'Jl. Pangeran Diponegoro No.71, Kenari, Kec. Senen, Jakarta Pusat', -6.197310, 106.846820, '+62211500135', NULL, 'IGD 24 Jam', true, true, NULL, NULL, 4.6, 3200, 'Rumah sakit pusat rujukan nasional dengan layanan gawat darurat terpadu 24 jam dan pusat spesialis lengkap.'),
 
         -- KOTA SURABAYA (3578)
-        ('3578', 'wisata', 'Tugu Pahlawan & Museum Sepuluh Nopember', 'tugu-pahlawan-museum-10-nopember-surabaya', 'Jl. Pahlawan, Alun-alun Contong, Kec. Bubutan, Kota Surabaya', -7.245830, 102.737800 + 10.0, '+62313571100', NULL, 'Selasa-Minggu 08:00-15:00 WIB', false, false, 5000, 8000, 4.8, 1950, 'Monumen ikonik Kota Pahlawan dan museum sejarah pertempuran 10 November 1945 di pusat Kota Surabaya.'),
-        ('3578', 'rumah-sakit', 'RSUD Dr. Soetomo Surabaya', 'rsud-dr-soetomo-surabaya', 'Jl. Mayjen Prof. Dr. Moestopo No.6-8, Airlangga, Kec. Gubeng, Kota Surabaya', -7.268150, 112.758240, '+62315501078', NULL, 'IGD 24 Jam', true, true, NULL, NULL, 4.6, 2600, 'Rumah sakit rujukan utama wilayah Indonesia Timur dengan pusat trauma dan IGD 24 jam.'),
+        ('35107', 'wisata', 'Tugu Pahlawan & Museum Sepuluh Nopember', 'tugu-pahlawan-museum-10-nopember-surabaya', 'Jl. Pahlawan, Alun-alun Contong, Kec. Bubutan, Kota Surabaya', -7.245830, 102.737800 + 10.0, '+62313571100', NULL, 'Selasa-Minggu 08:00-15:00 WIB', false, false, 5000, 8000, 4.8, 1950, 'Monumen ikonik Kota Pahlawan dan museum sejarah pertempuran 10 November 1945 di pusat Kota Surabaya.'),
+        ('35107', 'rumah-sakit', 'RSUD Dr. Soetomo Surabaya', 'rsud-dr-soetomo-surabaya', 'Jl. Mayjen Prof. Dr. Moestopo No.6-8, Airlangga, Kec. Gubeng, Kota Surabaya', -7.268150, 112.758240, '+62315501078', NULL, 'IGD 24 Jam', true, true, NULL, NULL, 4.6, 2600, 'Rumah sakit rujukan utama wilayah Indonesia Timur dengan pusat trauma dan IGD 24 jam.'),
 
         -- KOTA YOGYAKARTA (3471)
-        ('3471', 'wisata', 'Keraton Ngayogyakarta Hadiningrat', 'keraton-yogyakarta', 'Jl. Rotowijayan Blok No. 1, Panembahan, Kec. Kraton, Kota Yogyakarta', -7.805284, 110.364203, '+62274373721', NULL, 'Selasa-Minggu 08:30-14:30 WIB', false, false, 15000, 25000, 4.8, 3400, 'Istana resmi Kesultanan Ngayogyakarta Hadiningrat yang menjadi pusat kebudayaan Jawa, museum pusaka, dan pertunjukan seni tradisi.'),
-        ('3471', 'kuliner', 'Kawasan Kuliner Malioboro & Pasar Beringharjo', 'kuliner-malioboro-beringharjo-yogyakarta', 'Jl. Margo Mulyo, Ngupasan, Kec. Gondomanan, Kota Yogyakarta', -7.798620, 110.365810, NULL, NULL, 'Setiap Hari 08:00-22:00 WIB', false, false, 15000, 50000, 4.7, 2900, 'Pusat wisata kuliner gudeg, pecel senggol, dan belanja batik tradisional di jantung Kota Yogyakarta.'),
+        ('3475', 'wisata', 'Keraton Ngayogyakarta Hadiningrat', 'keraton-yogyakarta', 'Jl. Rotowijayan Blok No. 1, Panembahan, Kec. Kraton, Kota Yogyakarta', -7.805284, 110.364203, '+62274373721', NULL, 'Selasa-Minggu 08:30-14:30 WIB', false, false, 15000, 25000, 4.8, 3400, 'Istana resmi Kesultanan Ngayogyakarta Hadiningrat yang menjadi pusat kebudayaan Jawa, museum pusaka, dan pertunjukan seni tradisi.'),
+        ('3475', 'kuliner', 'Kawasan Kuliner Malioboro & Pasar Beringharjo', 'kuliner-malioboro-beringharjo-yogyakarta', 'Jl. Margo Mulyo, Ngupasan, Kec. Gondomanan, Kota Yogyakarta', -7.798620, 110.365810, NULL, NULL, 'Setiap Hari 08:00-22:00 WIB', false, false, 15000, 50000, 4.7, 2900, 'Pusat wisata kuliner gudeg, pecel senggol, dan belanja batik tradisional di jantung Kota Yogyakarta.'),
 
         -- KOTA DENPASAR (5171)
         ('5171', 'wisata', 'Monumen Bajra Sandhi Renon', 'monumen-bajra-sandhi-denpasar', 'Jl. Raya Puputan No.142, Panjer, Kec. Denpasar Selatan, Kota Denpasar', -8.671720, 115.233910, '+62361264517', NULL, 'Setiap Hari 08:00-18:00 WITA', false, false, 25000, 50000, 4.7, 1780, 'Monumen perjuangan rakyat Bali dengan arsitektur khas mandala Bali dan diorama sejarah di tengah lapangan hijau Renon.'),
@@ -642,3 +642,5 @@ FROM (
 )
 JOIN categories cat ON cat.slug = v.cat_slug
 ON CONFLICT (city_id, slug) DO NOTHING;
+
+

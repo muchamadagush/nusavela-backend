@@ -158,6 +158,7 @@ fn hmac_sha256(key: &[u8], message: &[u8]) -> [u8; 32] {
     sha256(&outer)
 }
 
+#[allow(clippy::chunks_exact_to_as_chunks)]
 fn sha256(data: &[u8]) -> [u8; 32] {
     const K: [u32; 64] = [
         0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4,

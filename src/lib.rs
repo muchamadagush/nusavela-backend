@@ -31,6 +31,7 @@ pub fn router(s: AppState) -> Router {
     Router::new()
         .route("/healthz", get(|| async { Json(json!({"status":"ok"})) }))
         .route("/readyz", get(ready))
+        .route("/api/v1/coverage", get(routes::catalog::coverage))
         .route("/api/v1/cities", get(routes::catalog::cities))
         .route("/api/v1/cities/nearest", get(routes::catalog::nearest))
         .route("/api/v1/cities/{slug}", get(routes::catalog::city))

@@ -94,6 +94,13 @@ async fn api_database_contract_and_security() {
     .await;
     assert!(diagnostic.is_ok(), "Directory SQL contract: {diagnostic:?}");
     let app = router(state.clone());
+    let (coverage_status, coverage) =
+        call(&app, "GET", "/api/v1/coverage", Value::Null, None).await;
+    assert_eq!(coverage_status, StatusCode::OK);
+    assert_eq!(coverage["counts"]["provinces"], 1);
+    assert_eq!(coverage["counts"]["active_cities"], 2);
+    assert_eq!(coverage["counts"]["active_places"], 3);
+    assert_eq!(coverage["national_data_verified"], false);
     let (status, cities) = call(&app, "GET", "/api/v1/cities", Value::Null, None).await;
     assert_eq!(status, StatusCode::OK);
     assert_eq!(cities.as_array().unwrap().len(), 2);

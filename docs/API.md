@@ -6,6 +6,7 @@ Semua respons JSON. Error: `{"error":{"code":"...","message":"..."}}`. Koordinat
 
 | Metode | Path setelah `/api/v1` | Respons |
 | --- | --- | --- |
+| GET | `/coverage` | Jumlah wilayah/tempat aktif dan terverifikasi, target 38/514; jumlah bukan bukti validasi dataset nasional. |
 | GET | `/cities` | Array kota aktif, urut tier/nama/ID. |
 | GET | `/cities/nearest?lat=&lng=` | Kota aktif terdekat dalam 500 km; 404 jika tidak ada. |
 | GET | `/cities/{slug}` | Objek kota aktif, atau 404. |

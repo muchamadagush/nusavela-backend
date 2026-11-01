@@ -143,3 +143,19 @@ pub async fn news(
     let items: Vec<serde_json::Value> = sqlx::query_scalar("SELECT to_jsonb(n) FROM news_feeds n WHERE city_id=$1 OR (city_id IS NULL AND province_id=$2) ORDER BY published_at DESC,id LIMIT 30").bind(c.id).bind(c.province_id).fetch_all(&s.pool).await?;
     Ok(Json(serde_json::json!(items)))
 }
+
+/// Counts describe stored coverage, not independent verification of national data.
+pub async fn coverage(State(s): State<AppState>) -> ApiResult<serde_json::Value> {
+    let counts: serde_json::Value = sqlx::query_scalar(
+        "SELECT jsonb_build_object(
+          'provinces', (SELECT count(*) FROM provinces),
+          'active_cities', (SELECT count(*) FROM cities WHERE is_active),
+          'active_places', (SELECT count(*) FROM places p JOIN cities c ON c.id=p.city_id WHERE p.is_active AND c.is_active),
+          'verified_places', (SELECT count(*) FROM places p JOIN cities c ON c.id=p.city_id WHERE p.is_active AND c.is_active AND p.is_verified),
+          'cities_with_places', (SELECT count(DISTINCT p.city_id) FROM places p JOIN cities c ON c.id=p.city_id WHERE p.is_active AND c.is_active),
+          'verified_emergency_contacts', (SELECT count(*) FROM emergency_contacts WHERE is_active AND verified_at IS NOT NULL))"
+    ).fetch_one(&s.pool).await?;
+    Ok(Json(
+        serde_json::json!({"counts": counts, "target": {"provinces": 38, "cities": 514}, "national_data_verified": false}),
+    ))
+}

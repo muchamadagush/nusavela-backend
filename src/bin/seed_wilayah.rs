@@ -8,6 +8,9 @@ use std::{collections::HashSet, path::PathBuf};
 struct Args {
     #[arg(long)]
     file: PathBuf,
+    /// Validate coverage, IDs, coordinates and metadata without connecting to a database.
+    #[arg(long)]
+    check_only: bool,
     #[arg(long, default_value_t = 38)]
     expected_provinces: usize,
     #[arg(long, default_value_t = 514)]
@@ -155,6 +158,13 @@ async fn main() -> anyhow::Result<()> {
                 p.id
             );
         }
+    }
+    if a.check_only {
+        println!(
+            "{}",
+            serde_json::json!({"status":"valid", "source":data.source, "version":data.version, "provinces":data.provinces.len(), "cities":data.cities.len(), "imported":false})
+        );
+        return Ok(());
     }
     let pool = sqlx::PgPool::connect(&std::env::var("DATABASE_URL")?).await?;
     sqlx::migrate!().run(&pool).await?;

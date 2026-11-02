@@ -9,9 +9,11 @@ on:
       environment:
         description: "Target Environment to Deploy (from main branch or tag)"
         required: true
-        default: "dev"
+        default: "development"
         type: choice
         options:
+          - development
+          - production
           - dev
           - prod
       git_ref:
@@ -29,7 +31,7 @@ jobs:
     name: Deploy to Tencent VPS (Podman)
     runs-on: ubuntu-latest
     environment:
-      name: ${{ (github.event_name == 'workflow_dispatch' && inputs.environment) || ((startsWith(github.ref_name, 'dev') || contains(github.ref_name, 'dev')) && 'dev' || 'prod') }}
+      name: ${{ (github.event_name == 'workflow_dispatch' && (inputs.environment == 'dev' && 'development' || inputs.environment)) || ((startsWith(github.ref_name, 'dev') || contains(github.ref_name, 'dev')) && 'development' || 'production') }}
     steps:
       - name: Determine Environment & Git Ref from Tag
         id: env_target
@@ -42,13 +44,13 @@ jobs:
           else
             GIT_REF="$REF_NAME"
             if [[ "$REF_NAME" == *dev* ]]; then
-              TARGET="dev"
+              TARGET="development"
             else
-              TARGET="prod"
+              TARGET="production"
             fi
           fi
 
-          if [ "$TARGET" = "prod" ]; then
+          if [[ "$TARGET" == *prod* ]]; then
             echo "env_name=prod" >> $GITHUB_OUTPUT
             echo "git_ref=$GIT_REF" >> $GITHUB_OUTPUT
             echo "deploy_dir=/opt/nusavela/prod" >> $GITHUB_OUTPUT

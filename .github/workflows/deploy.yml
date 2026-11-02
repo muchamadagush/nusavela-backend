@@ -24,6 +24,9 @@ concurrency:
   group: deploy-nusavela-backend-${{ github.ref_name }}
   cancel-in-progress: false
 
+permissions:
+  contents: read
+
 jobs:
   deploy:
     name: Deploy to Tencent VPS (Podman)
@@ -93,13 +96,19 @@ jobs:
             mkdir -p "$DEPLOY_DIR"
             cd "$DEPLOY_DIR"
 
-            # 2. Sinkronkan source code terbaru dari GitHub
+            # 2. Sinkronkan source code terbaru dari GitHub (otomatis terautentikasi via GITHUB_TOKEN)
+            AUTH_REPO_URL="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+            CLEAN_REPO_URL="https://github.com/${{ github.repository }}.git"
+
             if [ ! -d ".git" ]; then
               echo "📂 Inisialisasi clone repository nusavela-backend..."
-              git clone "https://github.com/muchamadagush/nusavela-backend.git" .
+              git clone "$AUTH_REPO_URL" .
+            else
+              git remote set-url origin "$AUTH_REPO_URL"
             fi
             git fetch origin main --tags --force
             git checkout --force "$GIT_REF"
+            git remote set-url origin "$CLEAN_REPO_URL"
 
             # 3. Deteksi container PostgreSQL yang sedang berjalan di VPS (shared dari tradingbot)
             echo "🔍 Mendeteksi container PostgreSQL yang aktif di server..."

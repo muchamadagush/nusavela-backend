@@ -116,8 +116,20 @@ jobs:
 
             echo "🚀 Deploying [${PROJECT_NAME}] from ref/tag [${GIT_REF}] to ${DEPLOY_DIR} (API Port ${APP_PORT})..."
 
-            # 1. Pastikan direktori deploy tersedia
-            mkdir -p "$DEPLOY_DIR"
+            # 1. Pastikan direktori deploy tersedia (dengan auto-sudo jika user non-root)
+            if [ ! -d "$DEPLOY_DIR" ]; then
+              if [ "$(id -u)" = "0" ]; then
+                mkdir -p "$DEPLOY_DIR"
+              elif command -v sudo >/dev/null 2>&1; then
+                sudo mkdir -p "$DEPLOY_DIR"
+                sudo chown -R $(id -un):$(id -gn) "/opt/nusavela" 2>/dev/null || sudo chown -R $(id -un):$(id -gn) "$DEPLOY_DIR"
+              else
+                mkdir -p "$DEPLOY_DIR"
+              fi
+            fi
+            if [ "$(id -u)" != "0" ] && command -v sudo >/dev/null 2>&1; then
+              sudo chown -R $(id -un):$(id -gn) "$DEPLOY_DIR" 2>/dev/null || true
+            fi
             cd "$DEPLOY_DIR"
 
             # 2. Sinkronkan source code terbaru dari GitHub (otomatis terautentikasi via GITHUB_TOKEN)
@@ -134,28 +146,39 @@ jobs:
             git checkout --force "$GIT_REF"
             git remote set-url origin "$CLEAN_REPO_URL"
 
-            # 3. Deteksi container PostgreSQL yang sedang berjalan di VPS (shared dari tradingbot)
+            # 3. Deteksi apakah Podman berjalan di level root atau user saat ini
+            PODMAN="podman"
+            COMPOSE="podman-compose"
+            if ! podman ps --format "{{.Names}}" 2>/dev/null | grep -q "postgres"; then
+              if command -v sudo >/dev/null 2>&1 && sudo podman ps --format "{{.Names}}" 2>/dev/null | grep -q "postgres"; then
+                echo "ℹ️ Container PostgreSQL terdeteksi di level root. Menggunakan sudo podman..."
+                PODMAN="sudo podman"
+                COMPOSE="sudo podman-compose"
+              fi
+            fi
+
+            # Deteksi container PostgreSQL yang sedang berjalan di VPS (shared dari tradingbot)
             echo "🔍 Mendeteksi container PostgreSQL yang aktif di server..."
             PG_CONTAINER=""
-            if podman ps --format "{{.Names}}" | grep -q "^crypto-bot-postgres-${ENV_NAME}$"; then
+            if $PODMAN ps --format "{{.Names}}" | grep -q "^crypto-bot-postgres-${ENV_NAME}$"; then
               PG_CONTAINER="crypto-bot-postgres-${ENV_NAME}"
-            elif podman ps --format "{{.Names}}" | grep -q "^crypto-bot-postgres-dev$"; then
+            elif $PODMAN ps --format "{{.Names}}" | grep -q "^crypto-bot-postgres-dev$"; then
               PG_CONTAINER="crypto-bot-postgres-dev"
-            elif podman ps --format "{{.Names}}" | grep -q "^crypto-bot-postgres-prod$"; then
+            elif $PODMAN ps --format "{{.Names}}" | grep -q "^crypto-bot-postgres-prod$"; then
               PG_CONTAINER="crypto-bot-postgres-prod"
-            elif podman ps --format "{{.Names}}" | grep -q "postgres"; then
-              PG_CONTAINER=$(podman ps --format "{{.Names}}" | grep "postgres" | head -n 1)
+            elif $PODMAN ps --format "{{.Names}}" | grep -q "postgres"; then
+              PG_CONTAINER=$($PODMAN ps --format "{{.Names}}" | grep "postgres" | head -n 1)
             fi
 
             if [ -z "$PG_CONTAINER" ]; then
               echo "❌ Error: Tidak ada container PostgreSQL yang ditemukan di server."
-              podman ps -a
+              $PODMAN ps -a
               exit 1
             fi
             echo "✅ Terhubung ke container PostgreSQL: [${PG_CONTAINER}]"
 
             # Deteksi port host tempat postgres container di-expose
-            DETECTED_PORT=$(podman port "$PG_CONTAINER" 5432 2>/dev/null | head -n 1 | awk -F: '{print $NF}' | tr -d '[:space:]' || true)
+            DETECTED_PORT=$($PODMAN port "$PG_CONTAINER" 5432 2>/dev/null | head -n 1 | awk -F: '{print $NF}' | tr -d '[:space:]' || true)
             if [ -n "$DETECTED_PORT" ]; then
               PG_PORT="$DETECTED_PORT"
             fi
@@ -182,7 +205,7 @@ jobs:
 
             # 4. Verifikasi dan dukung ekstensi PostGIS pada PostgreSQL
             echo "🔍 Memeriksa ketersediaan ekstensi PostGIS di container [${PG_CONTAINER}]..."
-            HAS_POSTGIS=$(podman exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -tAc "SELECT 1 FROM pg_available_extensions WHERE name='postgis';" 2>/dev/null | tr -d '[:space:]' || true)
+            HAS_POSTGIS=$($PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -tAc "SELECT 1 FROM pg_available_extensions WHERE name='postgis';" 2>/dev/null | tr -d '[:space:]' || true)
 
             if [ "$HAS_POSTGIS" != "1" ]; then
               echo "⚠️ PostGIS extension belum terpasang di ${PG_CONTAINER} (vanilla postgres:15-alpine)."
@@ -203,10 +226,10 @@ jobs:
               fi
 
               if [ -d "$TB_DIR" ]; then
-                (cd "$TB_DIR" && podman-compose -p "$TB_PROJECT" up -d postgres)
+                (cd "$TB_DIR" && $COMPOSE -p "$TB_PROJECT" up -d postgres)
                 echo "⏳ Menunggu container PostgreSQL (PostGIS) siap..."
                 for i in $(seq 1 15); do
-                  if podman exec "${PG_CONTAINER}" pg_isready -U "${DB_USER}" -d postgres >/dev/null 2>&1; then
+                  if $PODMAN exec "${PG_CONTAINER}" pg_isready -U "${DB_USER}" -d postgres >/dev/null 2>&1; then
                     echo "✅ PostgreSQL dengan PostGIS siap!"
                     break
                   fi
@@ -219,18 +242,18 @@ jobs:
 
             # 5. Sinkronkan password & pastikan database NusaVela (${PG_DB}) tersedia
             echo "📦 Menyiapkan database [${PG_DB}]..."
-            podman exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -v ON_ERROR_STOP=0 -c "ALTER USER ${DB_USER} WITH PASSWORD '${DB_PASS}';" >/dev/null 2>&1 || true
+            $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -v ON_ERROR_STOP=0 -c "ALTER USER ${DB_USER} WITH PASSWORD '${DB_PASS}';" >/dev/null 2>&1 || true
 
-            DB_EXISTS=$(podman exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='${PG_DB}'" 2>/dev/null | tr -d '[:space:]' || true)
+            DB_EXISTS=$($PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='${PG_DB}'" 2>/dev/null | tr -d '[:space:]' || true)
             if [ "$DB_EXISTS" != "1" ]; then
               echo "✨ Membuat database ${PG_DB} dengan owner ${DB_USER}..."
-              podman exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -v ON_ERROR_STOP=0 -c "CREATE DATABASE ${PG_DB} OWNER ${DB_USER};" >/dev/null 2>&1 || true
+              $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -v ON_ERROR_STOP=0 -c "CREATE DATABASE ${PG_DB} OWNER ${DB_USER};" >/dev/null 2>&1 || true
             fi
 
             # Aktifkan ekstensi postgis dan uuid-ossp di database nusavela
             echo "🗺️ Memastikan ekstensi postgis dan uuid-ossp aktif pada ${PG_DB}..."
-            podman exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -v ON_ERROR_STOP=0 -c "CREATE EXTENSION IF NOT EXISTS postgis;" >/dev/null 2>&1 || true
-            podman exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -v ON_ERROR_STOP=0 -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";" >/dev/null 2>&1 || true
+            $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -v ON_ERROR_STOP=0 -c "CREATE EXTENSION IF NOT EXISTS postgis;" >/dev/null 2>&1 || true
+            $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -v ON_ERROR_STOP=0 -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";" >/dev/null 2>&1 || true
 
             # 6. Sinkronisasi file .env NusaVela
             touch .env
@@ -278,15 +301,15 @@ jobs:
 
             # 7. Hentikan container lama NusaVela
             echo "🛑 Menghentikan container lama [${CONTAINER_NAME}]..."
-            podman-compose -p "$PROJECT_NAME" -f docker-compose.yml down || true
-            podman rm -f "$CONTAINER_NAME" 2>/dev/null || true
+            $COMPOSE -p "$PROJECT_NAME" -f docker-compose.yml down || true
+            $PODMAN rm -f "$CONTAINER_NAME" 2>/dev/null || true
 
             # 8. Build dan jalankan NusaVela Backend
             echo "🏗️ Membangun dan menjalankan NusaVela Backend (${CONTAINER_NAME})..."
-            podman-compose -p "$PROJECT_NAME" -f docker-compose.yml up -d --build backend
+            $COMPOSE -p "$PROJECT_NAME" -f docker-compose.yml up -d --build backend
 
             # 9. Bersihkan image dangling agar disk tidak penuh
-            podman image prune -f
+            $PODMAN image prune -f
 
             # 10. Healthcheck & Verifikasi Endpoint
             echo "⏳ Memeriksa healthcheck NusaVela di port ${APP_PORT}..."
@@ -299,7 +322,7 @@ jobs:
               sleep 2
             done
 
-            podman ps --filter "name=${CONTAINER_NAME}"
+            $PODMAN ps --filter "name=${CONTAINER_NAME}"
             if [ "$HEALTH_OK" = "1" ]; then
               echo "✅ Healthcheck OK on port ${APP_PORT} (Tag/Ref: ${GIT_REF})!"
               if curl -fsS "http://127.0.0.1:${APP_PORT}/readyz" >/dev/null 2>&1; then
@@ -307,6 +330,6 @@ jobs:
               fi
             else
               echo "⚠️ Backend belum merespons di port ${APP_PORT}, menampilkan 40 baris log terakhir:"
-              podman logs --tail 40 "$CONTAINER_NAME" || true
+              $PODMAN logs --tail 40 "$CONTAINER_NAME" || true
               exit 1
             fi

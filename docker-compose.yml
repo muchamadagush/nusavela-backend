@@ -1,0 +1,20 @@
+services:
+  backend:
+    container_name: ${BACKEND_CONTAINER_NAME:-nusavela-backend}
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: localhost/nusavela-backend:${ENV_TAG:-dev}
+    restart: unless-stopped
+    network_mode: host
+    env_file:
+      - .env
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - BIND_ADDR=0.0.0.0:${APP_PORT:-8080}
+      - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:3000,http://127.0.0.1:3000}
+      - ADMIN_JWT_SECRET=${ADMIN_JWT_SECRET:-nusavela-local-dev-jwt-secret-key-at-least-32-bytes}
+      - OPENWEATHER_API_KEY=${OPENWEATHER_API_KEY:-}
+      - RSS_ENABLED=${RSS_ENABLED:-false}
+      - RUST_LOG=${RUST_LOG:-nusavela_backend=info,tower_http=info}
+

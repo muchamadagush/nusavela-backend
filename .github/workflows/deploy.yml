@@ -68,13 +68,36 @@ jobs:
             echo "container_name=nusavela-backend-dev" >> $GITHUB_OUTPUT
           fi
 
+      - name: Validate SSH Credentials Pre-Flight
+        run: |
+          TARGET_ENV="${{ steps.env_target.outputs.env_name }}"
+          MISSING=""
+          if [ -z "${{ secrets.VPS_HOST || vars.VPS_HOST || secrets.HOST || vars.HOST }}" ]; then
+            MISSING="$MISSING VPS_HOST"
+          fi
+          if [ -z "${{ secrets.VPS_USER || vars.VPS_USER || secrets.USERNAME || vars.USERNAME }}" ]; then
+            MISSING="$MISSING VPS_USER"
+          fi
+          if [ -z "${{ secrets.VPS_SSH_KEY || secrets.SSH_KEY || secrets.SSH_PRIVATE_KEY }}" ]; then
+            MISSING="$MISSING VPS_SSH_KEY"
+          fi
+
+          if [ -n "$MISSING" ]; then
+            echo "❌ ERROR: Secret berikut tidak ditemukan untuk environment [$TARGET_ENV]:$MISSING"
+            echo "👉 Pastikan secret telah ditambahkan di:"
+            echo "   GitHub Repo -> Settings -> Environments -> [$TARGET_ENV] -> Environment secrets"
+            echo "   ATAU di: Settings -> Secrets and variables -> Actions -> Repository secrets"
+            exit 1
+          fi
+          echo "✅ Kredensial SSH ditemukan untuk environment [$TARGET_ENV]."
+
       - name: Deploy via SSH & Podman Compose
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
-          key: ${{ secrets.VPS_SSH_KEY }}
-          port: ${{ secrets.VPS_PORT || 22 }}
+          host: ${{ secrets.VPS_HOST || vars.VPS_HOST || secrets.HOST || vars.HOST }}
+          username: ${{ secrets.VPS_USER || vars.VPS_USER || secrets.USERNAME || vars.USERNAME }}
+          key: ${{ secrets.VPS_SSH_KEY || secrets.SSH_KEY || secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.VPS_PORT || vars.VPS_PORT || 22 }}
           command_timeout: 30m
           script: |
             set -e

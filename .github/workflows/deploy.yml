@@ -213,8 +213,13 @@ jobs:
 
               for tb_comp in "/opt/tradingbot/${ENV_NAME}/docker-compose.yml" "/opt/tradingbot/dev/docker-compose.yml" "/opt/tradingbot/prod/docker-compose.yml"; do
                 if [ -f "$tb_comp" ]; then
-                  sed -i 's|image: postgres:15-alpine|image: postgis/postgis:15-3.5-alpine|g' "$tb_comp"
-                  sed -i 's|image: docker.io/library/postgres:15-alpine|image: postgis/postgis:15-3.5-alpine|g' "$tb_comp"
+                  if command -v sudo >/dev/null 2>&1; then
+                    sudo sed -i 's|image: postgres:15-alpine|image: postgis/postgis:15-3.5-alpine|g' "$tb_comp"
+                    sudo sed -i 's|image: docker.io/library/postgres:15-alpine|image: postgis/postgis:15-3.5-alpine|g' "$tb_comp"
+                  else
+                    sed -i 's|image: postgres:15-alpine|image: postgis/postgis:15-3.5-alpine|g' "$tb_comp"
+                    sed -i 's|image: docker.io/library/postgres:15-alpine|image: postgis/postgis:15-3.5-alpine|g' "$tb_comp"
+                  fi
                 fi
               done
 

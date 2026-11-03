@@ -1,12 +1,5 @@
-DO $$
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_extension WHERE extname = 'postgis') THEN
-        EXECUTE 'CREATE EXTENSION IF NOT EXISTS postgis';
-    END IF;
-    IF NOT EXISTS (SELECT 1 FROM pg_extension WHERE extname = 'uuid-ossp') THEN
-        EXECUTE 'CREATE EXTENSION IF NOT EXISTS "uuid-ossp"';
-    END IF;
-END $$;
+CREATE EXTENSION IF NOT EXISTS postgis;
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 CREATE TABLE provinces (
     id varchar(10) PRIMARY KEY,

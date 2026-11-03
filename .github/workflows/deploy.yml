@@ -214,11 +214,9 @@ jobs:
               for tb_comp in "/opt/tradingbot/${ENV_NAME}/docker-compose.yml" "/opt/tradingbot/dev/docker-compose.yml" "/opt/tradingbot/prod/docker-compose.yml"; do
                 if [ -f "$tb_comp" ]; then
                   if command -v sudo >/dev/null 2>&1; then
-                    sudo sed -i 's|image: postgres:15-alpine|image: postgis/postgis:15-3.5-alpine|g' "$tb_comp"
-                    sudo sed -i 's|image: docker.io/library/postgres:15-alpine|image: postgis/postgis:15-3.5-alpine|g' "$tb_comp"
+                    sudo sed -i -E 's|image:[[:space:]]*.*postgres.*|image: docker.io/postgis/postgis:15-3.5-alpine|g' "$tb_comp"
                   else
-                    sed -i 's|image: postgres:15-alpine|image: postgis/postgis:15-3.5-alpine|g' "$tb_comp"
-                    sed -i 's|image: docker.io/library/postgres:15-alpine|image: postgis/postgis:15-3.5-alpine|g' "$tb_comp"
+                    sed -i -E 's|image:[[:space:]]*.*postgres.*|image: docker.io/postgis/postgis:15-3.5-alpine|g' "$tb_comp"
                   fi
                 fi
               done
@@ -231,15 +229,28 @@ jobs:
               fi
 
               if [ -d "$TB_DIR" ]; then
-                (cd "$TB_DIR" && $COMPOSE -p "$TB_PROJECT" up -d postgres)
+                echo "🛑 Menghapus container lama ${PG_CONTAINER} agar dibuat ulang dengan image PostGIS..."
+                $PODMAN pull docker.io/postgis/postgis:15-3.5-alpine || true
+                $PODMAN stop "${PG_CONTAINER}" || true
+                $PODMAN rm -f "${PG_CONTAINER}" || true
+
+                (cd "$TB_DIR" && $COMPOSE -p "$TB_PROJECT" -f docker-compose.yml up -d postgres)
                 echo "⏳ Menunggu container PostgreSQL (PostGIS) siap..."
-                for i in $(seq 1 15); do
+                for i in $(seq 1 20); do
                   if $PODMAN exec "${PG_CONTAINER}" pg_isready -U "${DB_USER}" -d postgres >/dev/null 2>&1; then
                     echo "✅ PostgreSQL dengan PostGIS siap!"
                     break
                   fi
                   sleep 2
                 done
+
+                # Verifikasi PostGIS sudah aktif
+                HAS_POSTGIS=$($PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -tAc "SELECT 1 FROM pg_available_extensions WHERE name='postgis';" 2>/dev/null | tr -d '[:space:]' || true)
+                if [ "$HAS_POSTGIS" != "1" ]; then
+                  echo "❌ ERROR: Ekstensi PostGIS masih belum tersedia di [${PG_CONTAINER}] setelah upgrade."
+                  exit 1
+                fi
+                echo "🎉 Ekstensi PostGIS terverifikasi aktif di ${PG_CONTAINER}!"
               fi
             else
               echo "✅ Ekstensi PostGIS sudah tersedia di [${PG_CONTAINER}]."
@@ -252,13 +263,13 @@ jobs:
             DB_EXISTS=$($PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='${PG_DB}'" 2>/dev/null | tr -d '[:space:]' || true)
             if [ "$DB_EXISTS" != "1" ]; then
               echo "✨ Membuat database ${PG_DB} dengan owner ${DB_USER}..."
-              $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -v ON_ERROR_STOP=0 -c "CREATE DATABASE ${PG_DB} OWNER ${DB_USER};" >/dev/null 2>&1 || true
+              $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -c "CREATE DATABASE ${PG_DB} OWNER ${DB_USER};"
             fi
 
             # Aktifkan ekstensi postgis dan uuid-ossp di database nusavela
             echo "🗺️ Memastikan ekstensi postgis dan uuid-ossp aktif pada ${PG_DB}..."
-            $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -v ON_ERROR_STOP=0 -c "CREATE EXTENSION IF NOT EXISTS postgis;" >/dev/null 2>&1 || true
-            $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -v ON_ERROR_STOP=0 -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";" >/dev/null 2>&1 || true
+            $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -c "CREATE EXTENSION IF NOT EXISTS postgis;"
+            $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
 
             # 6. Sinkronisasi file .env NusaVela
             touch .env

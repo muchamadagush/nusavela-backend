@@ -272,10 +272,21 @@ jobs:
               $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -c "CREATE DATABASE ${PG_DB} OWNER ${DB_USER};"
             fi
 
-            # Aktifkan ekstensi postgis dan uuid-ossp di database nusavela
+            # Aktifkan ekstensi postgis dan uuid-ossp jika belum terpasang
             echo "🗺️ Memastikan ekstensi postgis dan uuid-ossp aktif pada ${PG_DB}..."
-            $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -c "CREATE EXTENSION IF NOT EXISTS postgis;"
-            $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";"
+            DB_HAS_POSTGIS=$($PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -tAc "SELECT 1 FROM pg_extension WHERE extname='postgis';" 2>/dev/null | tr -d '[:space:]' || true)
+            if [ "$DB_HAS_POSTGIS" != "1" ]; then
+              $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -v ON_ERROR_STOP=0 -c "CREATE EXTENSION IF NOT EXISTS postgis;" >/dev/null 2>&1 || true
+            else
+              echo "✅ Ekstensi PostGIS sudah aktif di database ${PG_DB}."
+            fi
+
+            DB_HAS_UUID=$($PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -tAc "SELECT 1 FROM pg_extension WHERE extname='uuid-ossp';" 2>/dev/null | tr -d '[:space:]' || true)
+            if [ "$DB_HAS_UUID" != "1" ]; then
+              $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -v ON_ERROR_STOP=0 -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";" >/dev/null 2>&1 || true
+            else
+              echo "✅ Ekstensi uuid-ossp sudah aktif di database ${PG_DB}."
+            fi
 
             # 6. Sinkronisasi file .env NusaVela
             touch .env

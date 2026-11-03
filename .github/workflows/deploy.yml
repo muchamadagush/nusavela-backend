@@ -229,11 +229,14 @@ jobs:
               fi
 
               if [ -d "$TB_DIR" ]; then
-                echo "🛑 Menghapus container lama ${PG_CONTAINER} agar dibuat ulang dengan image PostGIS..."
+                echo "🛑 Menghentikan container tradingbot dan PostgreSQL agar dibuat ulang dengan image PostGIS..."
                 $PODMAN pull docker.io/postgis/postgis:15-3.5-alpine || true
-                $PODMAN stop "${PG_CONTAINER}" || true
-                $PODMAN rm -f "${PG_CONTAINER}" || true
+                (cd "$TB_DIR" && $COMPOSE -p "$TB_PROJECT" -f docker-compose.yml down || true)
+                # Hapus container dependent terlebih dahulu agar podman tidak komplain dependensi
+                $PODMAN rm -f "solana-backend-${ENV_NAME}" "solana-backend-dev" "solana-backend-prod" 2>/dev/null || true
+                $PODMAN rm -f "${PG_CONTAINER}" 2>/dev/null || true
 
+                # Nyalakan kembali PostgreSQL dengan image PostGIS
                 (cd "$TB_DIR" && $COMPOSE -p "$TB_PROJECT" -f docker-compose.yml up -d postgres)
                 echo "⏳ Menunggu container PostgreSQL (PostGIS) siap..."
                 for i in $(seq 1 20); do
@@ -243,6 +246,9 @@ jobs:
                   fi
                   sleep 2
                 done
+
+                # Nyalakan kembali backend tradingbot
+                (cd "$TB_DIR" && $COMPOSE -p "$TB_PROJECT" -f docker-compose.yml up -d backend 2>/dev/null || true)
 
                 # Verifikasi PostGIS sudah aktif
                 HAS_POSTGIS=$($PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -tAc "SELECT 1 FROM pg_available_extensions WHERE name='postgis';" 2>/dev/null | tr -d '[:space:]' || true)

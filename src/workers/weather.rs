@@ -14,7 +14,7 @@ use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};
 fn wmo_code_description(code: i64) -> &'static str {
     match code {
         0 => "Cerah",
-        1 | 2 | 3 => "Cerah berawan",
+        1..=3 => "Cerah berawan",
         45 | 48 => "Berkabut",
         51..=67 => "Hujan ringan",
         80..=82 => "Hujan lokal",

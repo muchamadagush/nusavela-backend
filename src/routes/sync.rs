@@ -1,5 +1,5 @@
 use crate::{
-    error::{ApiResult, AppError},
+    error::ApiResult,
     ingest::classify,
     models::https_url,
     routes::catalog::find_city,
@@ -149,7 +149,7 @@ out center tags 120;"#,
     };
 
     // Load category slug -> id map
-    let cat_rows: Vec<(i32, String)> = sqlx::query_as("SELECT id, slug FROM categories")
+    let cat_rows: Vec<(String, i32)> = sqlx::query_as("SELECT slug, id FROM categories")
         .fetch_all(&s.pool)
         .await?;
     let cat_map: HashMap<String, i32> = cat_rows.into_iter().collect();

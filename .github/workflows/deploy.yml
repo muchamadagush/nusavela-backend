@@ -1,0 +1,368 @@
+name: Deploy Backend (Tag-Based DEV & PROD on main) to VPS via Podman
+
+on:
+  push:
+    tags:
+      - "*"            # Menangkap SEMUA format tag (dev-*, prod-*, v1.0, v1.0.1, dll.)
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: "Target Environment to Deploy (from main branch or tag)"
+        required: true
+        default: "development"
+        type: choice
+        options:
+          - development
+          - production
+          - dev
+          - prod
+      git_ref:
+        description: "Git branch or tag to deploy (default: main)"
+        required: false
+        default: "main"
+        type: string
+
+concurrency:
+  group: deploy-nusavela-backend-${{ github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Deploy to Tencent VPS (Podman)
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ (github.event_name == 'workflow_dispatch' && (inputs.environment == 'dev' && 'development' || inputs.environment)) || ((startsWith(github.ref_name, 'dev') || contains(github.ref_name, 'dev')) && 'development' || 'production') }}
+    steps:
+      - name: Determine Environment & Git Ref from Tag
+        id: env_target
+        run: |
+          REF_NAME="${{ github.ref_name }}"
+
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            TARGET="${{ github.event.inputs.environment }}"
+            GIT_REF="${{ github.event.inputs.git_ref || 'main' }}"
+          else
+            GIT_REF="$REF_NAME"
+            if [[ "$REF_NAME" == *dev* ]]; then
+              TARGET="development"
+            else
+              TARGET="production"
+            fi
+          fi
+
+          if [[ "$TARGET" == *prod* ]]; then
+            echo "env_name=prod" >> $GITHUB_OUTPUT
+            echo "github_env=production" >> $GITHUB_OUTPUT
+            echo "git_ref=$GIT_REF" >> $GITHUB_OUTPUT
+            echo "deploy_dir=/opt/nusavela/prod" >> $GITHUB_OUTPUT
+            echo "app_port=8080" >> $GITHUB_OUTPUT
+            echo "pg_port=5432" >> $GITHUB_OUTPUT
+            echo "pg_db=nusavela_prod" >> $GITHUB_OUTPUT
+            echo "project_name=nusavela-prod" >> $GITHUB_OUTPUT
+            echo "container_name=nusavela-backend-prod" >> $GITHUB_OUTPUT
+          else
+            echo "env_name=dev" >> $GITHUB_OUTPUT
+            echo "github_env=development" >> $GITHUB_OUTPUT
+            echo "git_ref=$GIT_REF" >> $GITHUB_OUTPUT
+            echo "deploy_dir=/opt/nusavela/dev" >> $GITHUB_OUTPUT
+            echo "app_port=8081" >> $GITHUB_OUTPUT
+            echo "pg_port=5433" >> $GITHUB_OUTPUT
+            echo "pg_db=nusavela_dev" >> $GITHUB_OUTPUT
+            echo "project_name=nusavela-dev" >> $GITHUB_OUTPUT
+            echo "container_name=nusavela-backend-dev" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Validate SSH Credentials Pre-Flight
+        run: |
+          TARGET_ENV="${{ steps.env_target.outputs.github_env }}"
+          MISSING=""
+          if [ -z "${{ secrets.VPS_HOST || vars.VPS_HOST || secrets.HOST || vars.HOST }}" ]; then
+            MISSING="$MISSING VPS_HOST"
+          fi
+          if [ -z "${{ secrets.VPS_USER || vars.VPS_USER || secrets.SSH_USER || vars.SSH_USER || secrets.VPS_USERNAME || vars.VPS_USERNAME || secrets.SERVER_USER || vars.SERVER_USER || secrets.USERNAME || vars.USERNAME || secrets.USER }}" ]; then
+            MISSING="$MISSING VPS_USER"
+          fi
+          if [ -z "${{ secrets.VPS_SSH_KEY || secrets.SSH_KEY || secrets.SSH_PRIVATE_KEY }}" ]; then
+            MISSING="$MISSING VPS_SSH_KEY"
+          fi
+
+          if [ -n "$MISSING" ]; then
+            echo "❌ ERROR: Secret berikut tidak ditemukan untuk environment [$TARGET_ENV]:$MISSING"
+            echo "👉 Pastikan secret telah ditambahkan di:"
+            echo "   GitHub Repo -> Settings -> Environments -> [$TARGET_ENV] -> Environment secrets"
+            echo "   ATAU di: Settings -> Secrets and variables -> Actions -> Repository secrets"
+            exit 1
+          fi
+          echo "✅ Kredensial SSH ditemukan untuk environment [$TARGET_ENV]."
+
+      - name: Deploy via SSH & Podman Compose
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST || vars.VPS_HOST || secrets.HOST || vars.HOST }}
+          username: ${{ secrets.VPS_USER || vars.VPS_USER || secrets.SSH_USER || vars.SSH_USER || secrets.VPS_USERNAME || vars.VPS_USERNAME || secrets.SERVER_USER || vars.SERVER_USER || secrets.USERNAME || vars.USERNAME || secrets.USER }}
+          key: ${{ secrets.VPS_SSH_KEY || secrets.SSH_KEY || secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.VPS_PORT || vars.VPS_PORT || 22 }}
+          command_timeout: 30m
+          script: |
+            set -e
+            ENV_NAME="${{ steps.env_target.outputs.env_name }}"
+            DEPLOY_DIR="${{ steps.env_target.outputs.deploy_dir }}"
+            GIT_REF="${{ steps.env_target.outputs.git_ref }}"
+            PROJECT_NAME="${{ steps.env_target.outputs.project_name }}"
+            APP_PORT="${{ steps.env_target.outputs.app_port }}"
+            PG_PORT="${{ steps.env_target.outputs.pg_port }}"
+            PG_DB="${{ steps.env_target.outputs.pg_db }}"
+            CONTAINER_NAME="${{ steps.env_target.outputs.container_name }}"
+
+            echo "🚀 Deploying [${PROJECT_NAME}] from ref/tag [${GIT_REF}] to ${DEPLOY_DIR} (API Port ${APP_PORT})..."
+
+            # 1. Pastikan direktori deploy tersedia (dengan auto-sudo jika user non-root)
+            if [ ! -d "$DEPLOY_DIR" ]; then
+              if [ "$(id -u)" = "0" ]; then
+                mkdir -p "$DEPLOY_DIR"
+              elif command -v sudo >/dev/null 2>&1; then
+                sudo mkdir -p "$DEPLOY_DIR"
+                sudo chown -R $(id -un):$(id -gn) "/opt/nusavela" 2>/dev/null || sudo chown -R $(id -un):$(id -gn) "$DEPLOY_DIR"
+              else
+                mkdir -p "$DEPLOY_DIR"
+              fi
+            fi
+            if [ "$(id -u)" != "0" ] && command -v sudo >/dev/null 2>&1; then
+              sudo chown -R $(id -un):$(id -gn) "$DEPLOY_DIR" 2>/dev/null || true
+            fi
+            cd "$DEPLOY_DIR"
+
+            # 2. Sinkronkan source code terbaru dari GitHub (otomatis terautentikasi via GITHUB_TOKEN)
+            AUTH_REPO_URL="https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git"
+            CLEAN_REPO_URL="https://github.com/${{ github.repository }}.git"
+
+            if [ ! -d ".git" ]; then
+              echo "📂 Inisialisasi clone repository nusavela-backend..."
+              git clone "$AUTH_REPO_URL" .
+            else
+              git remote set-url origin "$AUTH_REPO_URL"
+            fi
+            git fetch origin main --tags --force
+            git checkout --force "$GIT_REF"
+            git remote set-url origin "$CLEAN_REPO_URL"
+
+            # 3. Deteksi apakah Podman berjalan di level root atau user saat ini
+            PODMAN="podman"
+            COMPOSE="podman-compose"
+            if ! podman ps --format "{{.Names}}" 2>/dev/null | grep -q "postgres"; then
+              if command -v sudo >/dev/null 2>&1 && sudo podman ps --format "{{.Names}}" 2>/dev/null | grep -q "postgres"; then
+                echo "ℹ️ Container PostgreSQL terdeteksi di level root. Menggunakan sudo podman..."
+                PODMAN="sudo podman"
+                COMPOSE="sudo podman-compose"
+              fi
+            fi
+
+            # Deteksi container PostgreSQL yang sedang berjalan di VPS (shared dari tradingbot)
+            echo "🔍 Mendeteksi container PostgreSQL yang aktif di server..."
+            PG_CONTAINER=""
+            if $PODMAN ps --format "{{.Names}}" | grep -q "^crypto-bot-postgres-${ENV_NAME}$"; then
+              PG_CONTAINER="crypto-bot-postgres-${ENV_NAME}"
+            elif $PODMAN ps --format "{{.Names}}" | grep -q "^crypto-bot-postgres-dev$"; then
+              PG_CONTAINER="crypto-bot-postgres-dev"
+            elif $PODMAN ps --format "{{.Names}}" | grep -q "^crypto-bot-postgres-prod$"; then
+              PG_CONTAINER="crypto-bot-postgres-prod"
+            elif $PODMAN ps --format "{{.Names}}" | grep -q "postgres"; then
+              PG_CONTAINER=$($PODMAN ps --format "{{.Names}}" | grep "postgres" | head -n 1)
+            fi
+
+            if [ -z "$PG_CONTAINER" ]; then
+              echo "❌ Error: Tidak ada container PostgreSQL yang ditemukan di server."
+              $PODMAN ps -a
+              exit 1
+            fi
+            echo "✅ Terhubung ke container PostgreSQL: [${PG_CONTAINER}]"
+
+            # Deteksi port host tempat postgres container di-expose
+            DETECTED_PORT=$($PODMAN port "$PG_CONTAINER" 5432 2>/dev/null | head -n 1 | awk -F: '{print $NF}' | tr -d '[:space:]' || true)
+            if [ -n "$DETECTED_PORT" ]; then
+              PG_PORT="$DETECTED_PORT"
+            fi
+            echo "📌 Port PostgreSQL di host: ${PG_PORT}"
+
+            # Resolusi user database
+            DB_USER="${{ secrets.POSTGRES_USER }}"
+            [ -n "$DB_USER" ] || DB_USER="trader"
+
+            # Resolusi password database: dari secret, .env saat ini, atau .env tradingbot
+            DB_PASS="${{ secrets.POSTGRES_PASSWORD }}"
+            if [ -z "$DB_PASS" ] && [ -f .env ] && grep -q "^POSTGRES_PASSWORD=" .env; then
+              DB_PASS=$(grep "^POSTGRES_PASSWORD=" .env | tail -n 1 | cut -d '=' -f2- | tr -d '\r')
+            fi
+            if [ -z "$DB_PASS" ]; then
+              for tb_env in "/opt/tradingbot/${ENV_NAME}/.env" "/opt/tradingbot/dev/.env" "/opt/tradingbot/prod/.env"; do
+                if [ -f "$tb_env" ] && grep -q "^POSTGRES_PASSWORD=" "$tb_env"; then
+                  DB_PASS=$(grep "^POSTGRES_PASSWORD=" "$tb_env" | tail -n 1 | cut -d '=' -f2- | tr -d '\r')
+                  break
+                fi
+              done
+            fi
+            [ -n "$DB_PASS" ] || DB_PASS="tradingbot_${ENV_NAME}_pass_2026"
+
+            # 4. Verifikasi dan dukung ekstensi PostGIS pada PostgreSQL
+            echo "🔍 Memeriksa ketersediaan ekstensi PostGIS di container [${PG_CONTAINER}]..."
+            HAS_POSTGIS=$($PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -tAc "SELECT 1 FROM pg_available_extensions WHERE name='postgis';" 2>/dev/null | tr -d '[:space:]' || true)
+
+            if [ "$HAS_POSTGIS" != "1" ]; then
+              echo "⚠️ PostGIS extension belum terpasang di ${PG_CONTAINER} (vanilla postgres:15-alpine)."
+              echo "🔄 Mengupgrade ${PG_CONTAINER} ke image postgis/postgis:15-3.5-alpine (data tradingbot tetap 100% aman)..."
+
+              for tb_comp in "/opt/tradingbot/${ENV_NAME}/docker-compose.yml" "/opt/tradingbot/dev/docker-compose.yml" "/opt/tradingbot/prod/docker-compose.yml"; do
+                if [ -f "$tb_comp" ]; then
+                  if command -v sudo >/dev/null 2>&1; then
+                    sudo sed -i -E 's|image:[[:space:]]*.*postgres.*|image: docker.io/postgis/postgis:15-3.5-alpine|g' "$tb_comp"
+                  else
+                    sed -i -E 's|image:[[:space:]]*.*postgres.*|image: docker.io/postgis/postgis:15-3.5-alpine|g' "$tb_comp"
+                  fi
+                fi
+              done
+
+              TB_DIR="/opt/tradingbot/${ENV_NAME}"
+              TB_PROJECT="tradingbot-${ENV_NAME}"
+              if [ ! -d "$TB_DIR" ] && [ -d "/opt/tradingbot/dev" ]; then
+                TB_DIR="/opt/tradingbot/dev"
+                TB_PROJECT="tradingbot-dev"
+              fi
+
+              if [ -d "$TB_DIR" ]; then
+                echo "🛑 Menghentikan container tradingbot dan PostgreSQL agar dibuat ulang dengan image PostGIS..."
+                $PODMAN pull docker.io/postgis/postgis:15-3.5-alpine || true
+                (cd "$TB_DIR" && $COMPOSE -p "$TB_PROJECT" -f docker-compose.yml down || true)
+                # Hapus container dependent terlebih dahulu agar podman tidak komplain dependensi
+                $PODMAN rm -f "solana-backend-${ENV_NAME}" "solana-backend-dev" "solana-backend-prod" 2>/dev/null || true
+                $PODMAN rm -f "${PG_CONTAINER}" 2>/dev/null || true
+
+                # Nyalakan kembali PostgreSQL dengan image PostGIS
+                (cd "$TB_DIR" && $COMPOSE -p "$TB_PROJECT" -f docker-compose.yml up -d postgres)
+                echo "⏳ Menunggu container PostgreSQL (PostGIS) siap..."
+                for i in $(seq 1 20); do
+                  if $PODMAN exec "${PG_CONTAINER}" pg_isready -U "${DB_USER}" -d postgres >/dev/null 2>&1; then
+                    echo "✅ PostgreSQL dengan PostGIS siap!"
+                    break
+                  fi
+                  sleep 2
+                done
+
+                # Nyalakan kembali backend tradingbot
+                (cd "$TB_DIR" && $COMPOSE -p "$TB_PROJECT" -f docker-compose.yml up -d backend 2>/dev/null || true)
+
+                # Verifikasi PostGIS sudah aktif
+                HAS_POSTGIS=$($PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -tAc "SELECT 1 FROM pg_available_extensions WHERE name='postgis';" 2>/dev/null | tr -d '[:space:]' || true)
+                if [ "$HAS_POSTGIS" != "1" ]; then
+                  echo "❌ ERROR: Ekstensi PostGIS masih belum tersedia di [${PG_CONTAINER}] setelah upgrade."
+                  exit 1
+                fi
+                echo "🎉 Ekstensi PostGIS terverifikasi aktif di ${PG_CONTAINER}!"
+              fi
+            else
+              echo "✅ Ekstensi PostGIS sudah tersedia di [${PG_CONTAINER}]."
+            fi
+
+            # 5. Sinkronkan password & pastikan database NusaVela (${PG_DB}) tersedia
+            echo "📦 Menyiapkan database [${PG_DB}]..."
+            $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -v ON_ERROR_STOP=0 -c "ALTER USER ${DB_USER} WITH PASSWORD '${DB_PASS}';" >/dev/null 2>&1 || true
+
+            DB_EXISTS=$($PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -tAc "SELECT 1 FROM pg_database WHERE datname='${PG_DB}'" 2>/dev/null | tr -d '[:space:]' || true)
+            if [ "$DB_EXISTS" != "1" ]; then
+              echo "✨ Membuat database ${PG_DB} dengan owner ${DB_USER}..."
+              $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d postgres -c "CREATE DATABASE ${PG_DB} OWNER ${DB_USER};"
+            fi
+
+            # Aktifkan ekstensi postgis dan uuid-ossp jika belum terpasang
+            echo "🗺️ Memastikan ekstensi postgis dan uuid-ossp aktif pada ${PG_DB}..."
+            DB_HAS_POSTGIS=$($PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -tAc "SELECT 1 FROM pg_extension WHERE extname='postgis';" 2>/dev/null | tr -d '[:space:]' || true)
+            if [ "$DB_HAS_POSTGIS" != "1" ]; then
+              $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -v ON_ERROR_STOP=0 -c "CREATE EXTENSION IF NOT EXISTS postgis;" >/dev/null 2>&1 || true
+            else
+              echo "✅ Ekstensi PostGIS sudah aktif di database ${PG_DB}."
+            fi
+
+            DB_HAS_UUID=$($PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -tAc "SELECT 1 FROM pg_extension WHERE extname='uuid-ossp';" 2>/dev/null | tr -d '[:space:]' || true)
+            if [ "$DB_HAS_UUID" != "1" ]; then
+              $PODMAN exec "${PG_CONTAINER}" psql -U "${DB_USER}" -d "${PG_DB}" -v ON_ERROR_STOP=0 -c "CREATE EXTENSION IF NOT EXISTS \"uuid-ossp\";" >/dev/null 2>&1 || true
+            else
+              echo "✅ Ekstensi uuid-ossp sudah aktif di database ${PG_DB}."
+            fi
+
+            # 6. Sinkronisasi file .env NusaVela
+            touch .env
+            grep -q "^ENV_TAG=" .env && sed -i "s/^ENV_TAG=.*/ENV_TAG=${ENV_NAME}/" .env || echo "ENV_TAG=${ENV_NAME}" >> .env
+            grep -q "^APP_PORT=" .env && sed -i "s/^APP_PORT=.*/APP_PORT=${APP_PORT}/" .env || echo "APP_PORT=${APP_PORT}" >> .env
+            grep -q "^BACKEND_CONTAINER_NAME=" .env && sed -i "s/^BACKEND_CONTAINER_NAME=.*/BACKEND_CONTAINER_NAME=${CONTAINER_NAME}/" .env || echo "BACKEND_CONTAINER_NAME=${CONTAINER_NAME}" >> .env
+            grep -q "^POSTGRES_PORT=" .env && sed -i "s/^POSTGRES_PORT=.*/POSTGRES_PORT=${PG_PORT}/" .env || echo "POSTGRES_PORT=${PG_PORT}" >> .env
+            grep -q "^POSTGRES_DB=" .env && sed -i "s/^POSTGRES_DB=.*/POSTGRES_DB=${PG_DB}/" .env || echo "POSTGRES_DB=${PG_DB}" >> .env
+            grep -q "^POSTGRES_USER=" .env || echo "POSTGRES_USER=${DB_USER}" >> .env
+            grep -q "^POSTGRES_PASSWORD=" .env || echo "POSTGRES_PASSWORD=${DB_PASS}" >> .env
+
+            CUSTOM_DB_URL="${{ secrets.DATABASE_URL }}"
+            if [ -n "$CUSTOM_DB_URL" ]; then
+              DATABASE_URL="$CUSTOM_DB_URL"
+            else
+              DATABASE_URL="postgres://${DB_USER}:${DB_PASS}@127.0.0.1:${PG_PORT}/${PG_DB}"
+            fi
+            grep -q "^DATABASE_URL=" .env && sed -i "s|^DATABASE_URL=.*|DATABASE_URL=${DATABASE_URL}|" .env || echo "DATABASE_URL=${DATABASE_URL}" >> .env
+            grep -q "^BIND_ADDR=" .env && sed -i "s/^BIND_ADDR=.*/BIND_ADDR=0.0.0.0:${APP_PORT}/" .env || echo "BIND_ADDR=0.0.0.0:${APP_PORT}" >> .env
+            grep -q "^DATABASE_MAX_CONNECTIONS=" .env || echo "DATABASE_MAX_CONNECTIONS=10" >> .env
+
+            CUSTOM_JWT="${{ secrets.ADMIN_JWT_SECRET }}"
+            if [ -n "$CUSTOM_JWT" ]; then
+              grep -q "^ADMIN_JWT_SECRET=" .env && sed -i "s|^ADMIN_JWT_SECRET=.*|ADMIN_JWT_SECRET=${CUSTOM_JWT}|" .env || echo "ADMIN_JWT_SECRET=${CUSTOM_JWT}" >> .env
+            else
+              grep -q "^ADMIN_JWT_SECRET=" .env || echo "ADMIN_JWT_SECRET=nusavela-super-secret-development-jwt-key-minimum-32-bytes" >> .env
+            fi
+            grep -q "^ADMIN_JWT_ISSUER=" .env || echo "ADMIN_JWT_ISSUER=nusavela-admin" >> .env
+            grep -q "^ADMIN_JWT_AUDIENCE=" .env || echo "ADMIN_JWT_AUDIENCE=nusavela-api" >> .env
+
+            CUSTOM_CORS="${{ secrets.CORS_ORIGINS }}"
+            if [ -n "$CUSTOM_CORS" ]; then
+              grep -q "^CORS_ORIGINS=" .env && sed -i "s|^CORS_ORIGINS=.*|CORS_ORIGINS=${CUSTOM_CORS}|" .env || echo "CORS_ORIGINS=${CUSTOM_CORS}" >> .env
+            else
+              grep -q "^CORS_ORIGINS=" .env || echo "CORS_ORIGINS=http://localhost:3000,http://127.0.0.1:3000" >> .env
+            fi
+
+            CUSTOM_WEATHER="${{ secrets.OPENWEATHER_API_KEY }}"
+            if [ -n "$CUSTOM_WEATHER" ]; then
+              grep -q "^OPENWEATHER_API_KEY=" .env && sed -i "s|^OPENWEATHER_API_KEY=.*|OPENWEATHER_API_KEY=${CUSTOM_WEATHER}|" .env || echo "OPENWEATHER_API_KEY=${CUSTOM_WEATHER}" >> .env
+            fi
+
+            grep -q "^RSS_ENABLED=" .env || echo "RSS_ENABLED=false" >> .env
+            grep -q "^RUST_LOG=" .env || echo "RUST_LOG=nusavela_backend=info,tower_http=info" >> .env
+
+            # 7. Hentikan container lama NusaVela
+            echo "🛑 Menghentikan container lama [${CONTAINER_NAME}]..."
+            $COMPOSE -p "$PROJECT_NAME" -f docker-compose.yml down || true
+            $PODMAN rm -f "$CONTAINER_NAME" 2>/dev/null || true
+
+            # 8. Build dan jalankan NusaVela Backend
+            echo "🏗️ Membangun dan menjalankan NusaVela Backend (${CONTAINER_NAME})..."
+            $COMPOSE -p "$PROJECT_NAME" -f docker-compose.yml up -d --build backend
+
+            # 9. Bersihkan image dangling agar disk tidak penuh
+            $PODMAN image prune -f
+
+            # 10. Healthcheck & Verifikasi Endpoint
+            echo "⏳ Memeriksa healthcheck NusaVela di port ${APP_PORT}..."
+            HEALTH_OK=0
+            for i in $(seq 1 20); do
+              if curl -fsS "http://127.0.0.1:${APP_PORT}/healthz" >/dev/null 2>&1; then
+                HEALTH_OK=1
+                break
+              fi
+              sleep 2
+            done
+
+            $PODMAN ps --filter "name=${CONTAINER_NAME}"
+            if [ "$HEALTH_OK" = "1" ]; then
+              echo "✅ Healthcheck OK on port ${APP_PORT} (Tag/Ref: ${GIT_REF})!"
+              if curl -fsS "http://127.0.0.1:${APP_PORT}/readyz" >/dev/null 2>&1; then
+                echo "🎉 Koneksi database dan auto-migrasi PostGIS berhasil (/readyz OK)!"
+              fi
+            else
+              echo "⚠️ Backend belum merespons di port ${APP_PORT}, menampilkan 40 baris log terakhir:"
+              $PODMAN logs --tail 40 "$CONTAINER_NAME" || true
+              exit 1
+            fi

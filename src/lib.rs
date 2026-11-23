@@ -124,7 +124,12 @@ async fn request_policy(State(s): State<AppState>, req: Request, next: Next) -> 
             return e.into_response();
         }
     }
-    let response = tokio::time::timeout(Duration::from_secs(20), next.run(req)).await;
+    let timeout_duration = if path.starts_with("/api/v1/sync/") {
+        Duration::from_secs(45)
+    } else {
+        Duration::from_secs(20)
+    };
+    let response = tokio::time::timeout(timeout_duration, next.run(req)).await;
     let mut response = match response {
         Ok(v) => v,
         Err(_) => return AppError::Unavailable.into_response(),
